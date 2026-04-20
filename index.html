@@ -19,7 +19,7 @@
             font-family: 'Courier Prime', monospace;
             color: #fff;
             min-height: 100vh;
-            padding: 50px 20px 250px 20px;
+            padding: 20px 20px 250px 20px;
             overflow-x: hidden;
         }
 
@@ -31,14 +31,35 @@
             z-index: -1;
         }
 
-        /* Notların yayınlanacağı ana konteynır */
+        /* Estetik Replik Alanı */
+        #quote-area {
+            max-width: 800px;
+            margin: 40px auto 60px auto;
+            text-align: center;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #quote-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--accent);
+            letter-spacing: 1px;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Not Grubu Konteynırı */
         .notes-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 40px;
             max-width: 1400px;
             margin: 0 auto;
-            animation: fadeIn 1.2s ease-out;
         }
 
         .note-card {
@@ -52,15 +73,13 @@
             transition: transform 0.4s ease;
             position: relative;
             border-left: 5px solid #ddd;
+            animation: fadeIn 1s ease-out forwards;
         }
 
         .note-card:hover {
             transform: scale(1.03) rotate(0deg) !important;
             z-index: 10;
         }
-
-        .note-card:nth-child(odd) { transform: rotate(-2deg); }
-        .note-card:nth-child(even) { transform: rotate(1.5deg); }
 
         .note-card h2 {
             font-family: 'Montserrat', sans-serif;
@@ -70,7 +89,7 @@
             color: #111;
         }
 
-        /* Dev Alt Navigasyon */
+        /* Navigasyon */
         nav {
             position: fixed;
             bottom: 60px;
@@ -100,27 +119,30 @@
             border: 2px solid var(--accent);
             color: var(--accent);
             font-size: 2.5rem;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
 
         .nav-link:hover, .music-toggle:hover {
             transform: translateY(-20px) scale(1.1);
-            filter: drop-shadow(0 0 25px var(--accent));
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(50px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
+    <div id="quote-area">
+        <p id="quote-text"></p>
+    </div>
+
     <audio id="bg-music" loop>
         <source src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/delosound-mysterious-mystical-ambient-442832.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="notes-grid" id="main-grid"></div>
+    <div class="notes-grid" id="main-grid">
+        </div>
 
     <nav>
         <a href="index.html" class="nav-link">
@@ -145,6 +167,28 @@
     <script src="liste.js"></script>
 
     <script>
+        // 1. REPLİK MOTORU
+        const replikler = [
+            "“Her şey bir rüya ile başlar.”",
+            "“Gelecek, onu bugünden hazırlayanlara aittir.”",
+            "“Sinema, hayatın pürüzlerini ayıklanmış halidir.”",
+            "“Gerçeklik sadece bir illüzyondur, ancak çok inatçı bir tanesi.”",
+            "“Bütün filmler aslında birer zaman makinesidir.”"
+        ];
+
+        function replikDegistir() {
+            const qText = document.getElementById('quote-text');
+            const rastgele = replikler[Math.floor(Math.random() * replikler.length)];
+            qText.style.opacity = 0;
+            setTimeout(() => {
+                qText.innerText = rastgele;
+                qText.style.opacity = 1;
+            }, 1500);
+        }
+        setInterval(replikDegistir, 6000);
+        replikDegistir();
+
+        // 2. MÜZİK KONTROLÜ
         const audio = document.getElementById('bg-music');
         const trigger = document.getElementById('music-trigger');
         const icon = document.getElementById('music-icon');
@@ -158,29 +202,39 @@
                 icon.innerText = '▶';
             }
         });
-// index.html içindeki script bölümünü bununla güncelle:
-const grid = document.getElementById('main-grid');
 
-function notlariYukle() {
-    grid.innerHTML = ''; 
-    // sinemaNotlari değişkeni var mı kontrol et
-    if (typeof sinemaNotlari !== 'undefined' && Array.isArray(sinemaNotlari)) {
-        sinemaNotlari.forEach(not => {
-            const kart = document.createElement('div');
-            kart.className = 'note-card';
-            kart.innerHTML = `
-                <h2>${not.baslik}</h2>
-                <p>${not.icerik}</p>
-            `;
-            grid.appendChild(kart);
-        });
-    } else {
-        console.error("Hata: liste.js yüklenemedi veya sinemaNotlari dizisi bulunamadı!");
-    }
-}
+        // 3. LİSTE (BLOG) MOTORU
+        const grid = document.getElementById('main-grid');
 
-// Dosyaların yüklenmesi için kısa bir bekleme (opsiyonel)
-window.onload = notlariYukle;
+        function notlariYukle() {
+            grid.innerHTML = ''; 
+            
+            // liste.js içindeki 'sinemaNotlari' dizisini kontrol et
+            if (typeof sinemaNotlari !== 'undefined' && Array.isArray(sinemaNotlari)) {
+                sinemaNotlari.forEach((not, index) => {
+                    const kart = document.createElement('div');
+                    kart.className = 'note-card';
+                    
+                    // Rastgele eğim ver (Pixar stili dağınıklık)
+                    const rotate = (index % 2 === 0) ? -2 : 1.5;
+                    kart.style.transform = `rotate(${rotate}deg)`;
+                    
+                    kart.innerHTML = `
+                        <h2>${not.baslik}</h2>
+                        <p>${not.icerik}</p>
+                    `;
+                    grid.appendChild(kart);
+                });
+            } else {
+                grid.innerHTML = "<p style='text-align:center; color:var(--accent); grid-column: 1/-1;'>Veriler yükleniyor veya liste.js bulunamadı...</p>";
+                console.error("Hata: sinemaNotlari dizisi bulunamadı!");
+            }
+        }
+
+        // Sayfa yüklendiğinde ve liste.js hazır olduğunda çalıştır
+        window.addEventListener('DOMContentLoaded', notlariYukle);
+        // Yedek tetikleyici (Dosya geç yüklenirse)
+        setTimeout(notlariYukle, 500);
     </script>
 
 </body>
