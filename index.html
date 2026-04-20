@@ -19,7 +19,7 @@
             font-family: 'Fredoka One', cursive;
             color: #fff;
             min-height: 100vh;
-            padding: 50px 20px 250px 20px; /* Alttan dev butonlar için geniş yer */
+            padding: 50px 20px 250px 20px;
             overflow-x: hidden;
         }
 
@@ -31,7 +31,6 @@
             z-index: -1;
         }
 
-        /* Not Grubu Konteynırı */
         .notes-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -41,7 +40,6 @@
             animation: fadeIn 1.2s ease-out;
         }
 
-        /* İkonik Not Kartları */
         .note-card {
             background: var(--note-bg);
             color: #222;
@@ -60,10 +58,9 @@
             z-index: 10;
         }
 
-        /* Notların rastgele eğik durması için */
+        /* Dinamik olarak eklenen kartlar için rotasyon efektleri */
         .note-card:nth-child(odd) { transform: rotate(-2deg); }
         .note-card:nth-child(even) { transform: rotate(1.5deg); }
-        .note-card:nth-child(3n) { transform: rotate(-1deg); }
 
         .note-card h2 {
             font-size: 1.4rem;
@@ -74,7 +71,6 @@
 
         .note-card p { font-size: 0.95rem; margin-bottom: 10px; }
 
-        /* Yeni Dev Alt Navigasyon (Bar Yok, Sadece İkonlar) */
         nav {
             position: fixed;
             bottom: 60px;
@@ -82,7 +78,7 @@
             transform: translateX(-50%);
             display: flex;
             align-items: center;
-            gap: 60px; /* Butonlar arası boşluk arttı */
+            gap: 60px;
             z-index: 1000;
         }
 
@@ -92,15 +88,14 @@
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* Butonlar Yarı Yarıya Büyüdü */
         .btn-img {
-            width: 150px; /* 100px'den 150px'e çıktı */
+            width: 150px;
             height: auto;
             filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6));
         }
 
         .music-btn-container {
-            width: 90px; /* Play tuşu da orantılı büyüdü */
+            width: 90px;
             height: 90px;
             background: rgba(255,255,255,0.1);
             backdrop-filter: blur(10px);
@@ -131,40 +126,7 @@
         <source src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/delosound-mysterious-mystical-ambient-442832.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="notes-grid">
-        <div class="note-card">
-            <h2>DOGMA 95</h2>
-            <p>• Çekimler stüdyo dışında yapılmalı.</p>
-            <p>• Ses ve görüntü ayrı kaydedilmemeli.</p>
-            <p>• Kamera elde taşınmalı.</p>
-            <p>• İffet yemini: Tür filmleri yasaktır.</p>
-        </div>
-
-        <div class="note-card">
-            <h2>KULESHOV ETKİSİ</h2>
-            <p>Sinemanın temel büyücülüğü: İzleyici, birbirini izleyen iki ayrı kare arasında zihinsel bir bağ kurar. Bir yüz ifadesi, arkasından gelen bir tabak yemekle "açlık", bir tabutla "üzüntü" anlamına gelir.</p>
-        </div>
-
-        <div class="note-card">
-            <h2>NOİR ESİNTİSİ</h2>
-            <p>Karanlık sokaklar, keskin gölgeler (chiaroscuro) ve karamsar kahramanlar. Suçun estetiği, Pixar'ın yumuşak hatlarıyla buluşunca ortaya çıkan tekinsiz huzur.</p>
-        </div>
-
-        <div class="note-card">
-            <h2>MACGUFFIN Nedir?</h2>
-            <p>Hitchcock'un deyimiyle: Hikayeyi başlatan ama aslında önemsiz olan o nesne. Bir çanta dolusu para, gizli bir belge... Önemli olan nesne değil, karakterlerin ona olan tutkusudur.</p>
-        </div>
-
-        <div class="note-card">
-            <h2>180 DERECE</h2>
-            <p>İki karakter arasındaki hayali çizgiyi asla geçme. Mekansal devamlılık bozulursa izleyici yönünü şaşırır. Sinemanın temel grameri budur.</p>
-        </div>
-
-        <div class="note-card">
-            <h2>AUTEUR KURAMI</h2>
-            <p>Yönetmen, filmin asıl yazarıdır. Bir filmi izlediğinizde, imzasını görmeseniz bile sahnelerin dizilişinden onun kim olduğunu anlarsınız.</p>
-        </div>
-    </div>
+    <div class="notes-grid" id="main-grid"></div>
 
     <nav>
         <a href="index.html" class="nav-link">
@@ -182,7 +144,10 @@
         </a>
     </nav>
 
+    <script src="liste.js"></script>
+
     <script>
+        // Müzik Kontrolü
         const audio = document.getElementById('bg-music');
         const trigger = document.getElementById('music-trigger');
         const icon = document.getElementById('music-icon');
@@ -196,6 +161,29 @@
                 icon.innerText = '▶';
             }
         });
+
+        // LİSTE MOTORU: Verileri Sayfaya Basma
+        const grid = document.getElementById('main-grid');
+
+        function notlariYukle() {
+            grid.innerHTML = ''; // Temizle
+            
+            sinemaNotlari.forEach(not => {
+                const kart = document.createElement('div');
+                kart.className = 'note-card';
+                
+                kart.innerHTML = `
+                    <h2>${not.baslik}</h2>
+                    <p>${not.icerik}</p>
+                    <small style="display:block; margin-top:15px; opacity:0.5; font-size:0.7rem;">${not.tarih}</small>
+                `;
+                
+                grid.appendChild(kart);
+            });
+        }
+
+        // Sayfa açıldığında çalıştır
+        notlariYukle();
     </script>
 
 </body>
