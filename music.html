@@ -3,24 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zaman Makinesi | Radyo</title>
+    <title>Zaman Makinesi | Frekans Merkezi</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --accent: #d4af37; 
-            --text-color: #e0e0e0;
-        }
-        
+        :root { --accent: #d4af37; --text-color: #e0e0e0; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
+        
         body {
             background: url('https://raw.githubusercontent.com/yanalake/bilinmiyor/main/arkaplan.png') no-repeat center center fixed;
-            background-size: cover;
-            font-family: 'Courier Prime', monospace;
-            color: var(--text-color);
-            min-height: 100vh;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            padding: 20px 20px 200px 20px;
+            background-size: cover; font-family: 'Courier Prime', monospace;
+            color: var(--text-color); min-height: 100vh;
+            padding: 50px 20px 200px 20px;
         }
 
         body::before {
@@ -28,79 +21,91 @@
             background: rgba(10, 10, 15, 0.95); z-index: -1;
         }
 
-        h1 {
-            font-family: 'Montserrat', sans-serif; font-size: 3rem;
-            color: var(--accent); letter-spacing: 5px; margin-bottom: 40px;
-            text-align: center; text-transform: uppercase;
-            animation: slideInUp 1s ease-out;
+        .header { text-align: center; margin-bottom: 60px; animation: slideInUp 1s ease-out; }
+        .header h1 { font-family: 'Montserrat', sans-serif; font-size: 3.5rem; color: var(--accent); letter-spacing: 8px; text-transform: uppercase; text-shadow: 2px 2px 20px rgba(0,0,0,0.8); margin-bottom: 15px;}
+        .header p { font-size: 1.2rem; color: #aaa; letter-spacing: 2px; }
+
+        /* Modüler İçerik Izgarası */
+        .content-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;
+            max-width: 1200px; margin: 0 auto;
         }
 
-        .radio-container {
-            background: rgba(20, 20, 25, 0.8);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
-            width: 100%;
-            max-width: 600px;
-            text-align: center;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: slideInUp 1.2s ease-out 0.2s forwards;
+        .media-module {
+            background: rgba(20, 20, 25, 0.6); border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 30px; border-radius: 15px; box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+            transition: all 0.4s ease; display: flex; flex-direction: column; align-items: center;
+            opacity: 0; transform: translateY(30px); animation: slideInUp 1s forwards;
+            border-top: 3px solid transparent;
         }
 
+        .media-module:nth-child(1) { animation-delay: 0.1s; border-top-color: var(--accent); }
+        .media-module:nth-child(2) { animation-delay: 0.3s; }
+        .media-module:nth-child(3) { animation-delay: 0.5s; }
+
+        .media-module:hover { transform: translateY(-10px); background: rgba(30, 30, 40, 0.8); border-top-color: var(--accent); }
+
+        .module-title { font-family: 'Montserrat', sans-serif; font-size: 1.4rem; color: #fff; margin-bottom: 25px; letter-spacing: 2px; text-align: center; }
+
+        /* TİPOGRAFİK NAVİGASYON */
         nav {
             position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
-            display: flex; align-items: center; gap: 20px; z-index: 1000;
-            background: rgba(0,0,0,0.6); padding: 10px 25px; border-radius: 50px;
-            backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.05);
+            display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 30px;
+            z-index: 1000; width: 100%; max-width: 900px; padding: 0 15px;
         }
-        .btn-img-large { width: 120px; height: auto; transition: 0.4s; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7)); }
-        .btn-img-small { width: 75px; height: auto; transition: 0.4s; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7)); }
-        .btn-faded { opacity: 0.6; }
-        .btn-active { opacity: 1; border-bottom: 3px solid var(--accent); padding-bottom: 5px; }
-        
-        .music-btn-container {
-            width: 70px; height: 70px; background: rgba(255,255,255,0.1);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
-            border: 2px solid var(--accent); color: var(--accent); font-size: 1.8rem; cursor: pointer;
-            transition: all 0.4s ease;
+        .nav-item {
+            font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.3rem;
+            color: #dcdcdc; text-decoration: none; text-transform: uppercase; letter-spacing: 3px;
+            text-shadow: 4px 4px 15px #000, -2px -2px 10px #000, 0 0 25px rgba(0,0,0,0.9);
+            transition: all 0.3s; cursor: pointer; border-bottom: 3px solid transparent; padding-bottom: 5px;
         }
+        .nav-item:hover { color: var(--accent); transform: translateY(-8px); text-shadow: 4px 4px 15px #000, 0 0 20px var(--accent); }
+        .nav-item.active { color: var(--accent); border-bottom-color: var(--accent); }
 
-        .nav-link:hover .btn-img-large, .nav-link:hover .btn-img-small, .music-toggle:hover .music-btn-container { 
-            transform: translateY(-10px) scale(1.05); opacity: 1;
-        }
-
-        @keyframes slideInUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes slideInUp { to { opacity: 1; transform: translateY(0); } }
 
         @media (max-width: 768px) {
-            h1 { font-size: 2rem; }
-            .radio-container { padding: 20px; }
-            nav { gap: 10px; bottom: 20px; padding: 10px 15px;}
-            .btn-img-large { width: 70px; }
-            .btn-img-small, .music-btn-container { width: 50px; height: 50px; font-size: 1.2rem; }
+            .header h1 { font-size: 2.2rem; }
+            .content-grid { gap: 20px; }
+            nav { gap: 15px; bottom: 20px; }
+            .nav-item { font-size: 0.95rem; letter-spacing: 1px; padding: 5px 8px; border-radius: 8px; background: rgba(0,0,0,0.5); }
         }
     </style>
 </head>
 <body>
 
-    <h1>FREKANS</h1>
+    <div class="header">
+        <h1>FREKANS</h1>
+        <p>Sesin boşluktaki yankıları.</p>
+    </div>
 
-    <div class="radio-container">
-        <div data-my-radio-lang="en" class="embed-radioplayer js-radioplayerData" data-autoplay="false" data-stream="843" data-name="Gold Radio" data-logo="jpg" data-url="gold" data-rid="120">
-            <a href="https://ukradiolive.com/gold" target="_blank">Gold Radio</a>
+    <div class="content-grid">
+        <div class="media-module">
+            <h2 class="module-title">CANLI YAYIN</h2>
+            <div style="width: 100%; text-align: center;">
+                <div data-my-radio-lang="en" class="embed-radioplayer js-radioplayerData" data-autoplay="false" data-stream="843" data-name="Gold Radio" data-logo="jpg" data-url="gold" data-rid="120">
+                    <a href="https://ukradiolive.com/gold" target="_blank">Gold Radio</a>
+                </div>
+                <script data-script="jquery.embed-radioplayer.js" async src="https://ukradiolive.com/public/jsv260420170929/jquery.embed-script-loader.js"></script>
+            </div>
         </div>
-        <script data-script="jquery.embed-radioplayer.js" async src="https://ukradiolive.com/public/jsv260420170929/jquery.embed-script-loader.js"></script>
+
+        <div class="media-module">
+            <h2 class="module-title">KONSER ARŞİVİ</h2>
+            <p style="color: #777; text-align: center; font-style: italic;">Yakında yüklenecek kasetler bekleniyor...</p>
+            </div>
+
+        <div class="media-module">
+            <h2 class="module-title">KARANLIK KAYITLAR</h2>
+            <p style="color: #777; text-align: center; font-style: italic;">Arka sokaklardan gelen ses dalgaları işleniyor...</p>
+        </div>
     </div>
 
     <nav>
-        <a href="index.html" class="nav-link"><img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/anasayfabuton.png" class="btn-img-large btn-faded"></a>
-        <a href="music.html" class="nav-link"><img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/musicbutton.png" class="btn-img-small btn-active"></a>
-        <div id="music-trigger" class="music-toggle" style="opacity: 0.3; cursor: not-allowed;" title="Radyo açıkken arkaplan müziği kapalıdır"><div class="music-btn-container"><span id="music-icon">🔇</span></div></div>
-        <a href="sinema.html" class="nav-link"><img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/sinemabuton.png" class="btn-img-large btn-faded"></a>
-        <a href="video.html" class="nav-link"><img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/tvbuton.png" class="btn-img-small btn-faded"></a>
+        <a href="index.html" class="nav-item">BAŞLANGIÇ</a>
+        <a href="music.html" class="nav-item active">FREKANS</a>
+        <a href="sinema.html" class="nav-item">SİNEMA</a>
+        <a href="video.html" class="nav-item">KAYITLAR</a>
     </nav>
 
 </body>
