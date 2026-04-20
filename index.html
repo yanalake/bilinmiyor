@@ -8,7 +8,6 @@
     <style>
         :root {
             --accent: #d4af37;
-            --note-bg: #f4f1ea;
             --glass-black: rgba(0, 0, 0, 0.85);
         }
 
@@ -32,10 +31,39 @@
             z-index: -1;
         }
 
+        /* Replik Kutusu Stilleri */
+        #quote-container {
+            max-width: 900px;
+            margin: 30px auto 40px auto;
+            perspective: 1000px;
+        }
+
+        .quote-box {
+            background: var(--glass-black);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 30px 45px;
+            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            text-align: center;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+        }
+
+        #quote-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            font-style: italic;
+            color: var(--accent);
+            text-shadow: 3px 3px 15px rgba(0,0,0,0.9);
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
         /* Hikaye Alanı Stilleri */
         .story-container {
             max-width: 900px;
-            margin: 60px auto;
+            margin: 0 auto 60px auto;
             background: rgba(15, 15, 20, 0.7);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
@@ -118,6 +146,8 @@
 
         /* Mobil Optimizasyon */
         @media (max-width: 768px) {
+            #quote-text { font-size: 1rem; }
+            .quote-box { padding: 20px; }
             .story-container { padding: 30px 20px; margin: 30px 10px; }
             .story-title { font-size: 1.6rem; }
             .story-content p { font-size: 1rem; }
@@ -128,6 +158,12 @@
     </style>
 </head>
 <body>
+
+    <div id="quote-container">
+        <div class="quote-box">
+            <p id="quote-text"></p>
+        </div>
+    </div>
 
     <div class="story-container">
         <h1 class="story-title">HER ŞEY BAŞLARKEN42</h1>
@@ -161,6 +197,36 @@
     </nav>
 
     <script>
+        // 1. REPLİK MOTORU
+        const replikler = [
+            "“Her şey bir rüya ile başlar.”",
+            "“Sinema, hayatın pürüzleri ayıklanmış halidir.”",
+            "“Gelecek, onu bugünden hazırlayanlara aittir.”",
+            "“Bütün filmler aslında birer zaman makinesidir.”",
+            "“Işık varsa, umut da vardır.”",
+            "“Gerçeklik sadece bir illüzyondur.”",
+            "“Kamera bir silah, kurgu ise mermidir.”"
+        ];
+
+        let sonIndis = -1;
+
+        function replikGetir() {
+            const qText = document.getElementById('quote-text');
+            let yeniIndis;
+            do { yeniIndis = Math.floor(Math.random() * replikler.length); } while (yeniIndis === sonIndis);
+            sonIndis = yeniIndis;
+            
+            qText.style.opacity = 0;
+            setTimeout(() => {
+                qText.innerText = replikler[yeniIndis];
+                qText.style.opacity = 1;
+            }, 1000);
+        }
+
+        window.addEventListener('DOMContentLoaded', replikGetir);
+        setInterval(replikGetir, 8000);
+
+        // 2. MÜZİK KONTROLÜ
         const audio = document.getElementById('bg-music');
         const trigger = document.getElementById('music-trigger');
         trigger.addEventListener('click', () => {
