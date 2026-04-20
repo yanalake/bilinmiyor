@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zaman Makinesi | Video Arşivi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --accent: #d4af37; 
+            --bg-dark: #0a0a0f;
+            --text-color: #e0e0e0;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: url('https://raw.githubusercontent.com/yanalake/bilinmiyor/main/arkaplan.png') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Courier Prime', monospace;
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 50px 20px 250px 20px; /* Alttan butonlar için güvenli alan */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Noir Karartma Katmanı */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 10, 15, 0.95);
+            z-index: -1;
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            color: var(--accent);
+            letter-spacing: 5px;
+            margin-bottom: 40px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        /* Video Galeri Alanı */
+        .video-container {
+            width: 100%;
+            max-width: 1000px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 50px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .video-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.7);
+            transition: transform 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: scale(1.02);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .responsive-iframe {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            border-radius: 12px;
+        }
+
+        .responsive-iframe iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-info {
+            margin-top: 20px;
+            font-family: 'Courier Prime', monospace;
+        }
+
+        .video-info h3 {
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        /* DEV NAVİGASYON (Bar Yok - Yüzen İkonlar) */
+        nav {
+            position: fixed;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            z-index: 1000;
+        }
+
+        .nav-link, .music-toggle {
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Boyut Ayarları */
+        .btn-large { width: 150px; height: auto; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6)); }
+        .btn-small { width: 90px; height: auto; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.6)); }
+
+        /* TV Butonu Aktif Durumu */
+        .btn-tv { border-bottom: 4px solid var(--accent); padding-bottom: 5px; }
+        .btn-faded { opacity: 0.7; }
+
+        /* Müzik Butonu (90px) */
+        .music-circle {
+            width: 90px; height: 90px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            font-size: 2.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .nav-link:hover, .music-toggle:hover {
+            transform: translateY(-20px) scale(1.1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobil Optimizasyon */
+        @media (max-width: 768px) {
+            nav { gap: 15px; bottom: 30px; }
+            .btn-large { width: 100px; }
+            .btn-small, .music-circle { width: 70px; height: 70px; font-size: 1.5rem; }
+            h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" loop>
+        <source src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/delosound-mysterious-mystical-ambient-442832.mp3" type="audio/mpeg">
+    </audio>
+
+    <h1>VİDEO ARŞİVİ</h1>
+
+    <div class="video-container">
+        <div class="video-card">
+            <div class="responsive-iframe">
+                <iframe src="https://www.youtube.com/embed/i43WNXnlGMs" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+                <h3>SİNEMATİK ATMOSFER</h3>
+                <p>Zamanın ve mekanın ötesinde bir görsel yolculuk.</p>
+            </div>
+        </div>
+        
+        </div>
+
+    <nav>
+        <a href="index.html" class="nav-link">
+            <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/anasayfabuton.png" alt="Anasayfa" class="btn-large btn-faded">
+        </a>
+        
+        <div id="music-trigger" class="music-toggle">
+            <div class="music-circle">
+                <span id="music-icon">▶</span>
+            </div>
+        </div>
+
+        <a href="sinema.html" class="nav-link">
+            <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/sinemabuton.png" alt="Sinema" class="btn-large btn-faded">
+        </a>
+
+        <a href="video.html" class="nav-link">
+            <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/tvbuton.png" alt="Video" class="btn-small btn-tv">
+        </a>
+    </nav>
+
+    <script>
+        // Müzik Kontrolü
+        const audio = document.getElementById('bg-music');
+        const trigger = document.getElementById('music-trigger');
+        const icon = document.getElementById('music-icon');
+
+        trigger.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                icon.innerText = '⏸';
+            } else {
+                audio.pause();
+                icon.innerText = '▶';
+            }
+        });
+    </script>
+
+</body>
+</html>
