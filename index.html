@@ -7,8 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Special+Elite&display=swap" rel="stylesheet">
     <style>
         :root {
-            --dark-bg: #0a0a0f;
-            --note-paper: #f4f1ea;
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.12);
             --accent: #d4af37;
         }
 
@@ -20,109 +20,150 @@
             font-family: 'Fredoka One', cursive;
             color: #fff;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            /* Alt menü yüksekliği kadar boşluk bırakıyoruz ki içerik kapanmasın */
-            padding-bottom: 150px; 
+            padding-bottom: 180px; 
+            overflow-x: hidden;
         }
 
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, transparent 20%, rgba(10, 10, 15, 0.9) 90%);
+            background: radial-gradient(circle, transparent 20%, rgba(10, 10, 15, 0.95) 100%);
             z-index: -1;
         }
 
-        /* Sabit Alt Navigasyon */
+        /* Navigasyon Konteynırı */
         nav {
             position: fixed;
-            bottom: 30px;
+            bottom: 40px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 50px;
-            padding: 15px 40px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 100px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            gap: 20px;
             z-index: 1000;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        .nav-link {
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        /* Adacık Tasarımı */
+        .nav-island {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            padding: 10px;
+            border-radius: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            text-decoration: none;
+            cursor: pointer;
         }
 
-        /* Buton Boyutları Eşitlendi ve Büyütüldü */
         .btn-img {
-            width: 120px; /* Her iki buton için de aynı boyut */
+            width: 90px;
             height: auto;
-            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5));
+            display: block;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
         }
 
-        .nav-link:hover {
-            transform: scale(1.15) translateY(-10px);
-            filter: drop-shadow(0 0 15px var(--accent));
+        /* Müzik Butonu Özel Stil */
+        .music-btn {
+            width: 60px; /* Diğerlerinden daha küçük ve şık bir kontrolcü */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--accent);
+            font-size: 1.5rem;
         }
 
-        /* İçerik Alanı */
-        .content-wrapper {
-            animation: slideIn 0.8s ease-out;
-            margin-top: 80px;
-            width: 90%;
-            max-width: 700px;
+        .nav-island:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-10px) scale(1.05);
+            border-color: var(--accent);
         }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* İçerik */
+        .main-content {
+            animation: slideIn 1s ease-out;
+            max-width: 800px;
+            margin: 80px auto;
+            padding: 20px;
         }
 
-        .manifesto-note {
-            background-color: var(--note-paper);
+        .note-card {
+            background: #f4f1ea;
             color: #222;
-            padding: 45px;
+            padding: 40px;
+            font-family: 'Special Elite', cursive;
+            box-shadow: 30px 30px 80px rgba(0,0,0,0.8);
             border-radius: 2px;
-            box-shadow: 20px 20px 60px rgba(0,0,0,0.9);
-            font-family: 'Special Elite', typewriter;
+            line-height: 1.8;
             transform: rotate(-0.5deg);
         }
 
-        h1 { text-align: center; margin-bottom: 25px; border-bottom: 1px solid #ccc; padding-bottom: 10px; }
-        .rules { list-style: none; line-height: 1.8; font-size: 1.1rem; }
-        .rules li::before { content: "• "; color: #8b0000; font-weight: bold; }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        h1 { text-align: center; margin-bottom: 20px; border-bottom: 1px solid #ccc; }
     </style>
 </head>
 <body>
 
-    <div class="content-wrapper">
-        <div class="manifesto-note">
+    <audio id="bg-music" loop>
+        <source src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/delosound-mysterious-mystical-ambient-442832.mp3" type="audio/mpeg">
+        Tarayıcınız ses öğesini desteklemiyor.
+    </audio>
+
+    <div class="main-content">
+        <div class="note-card">
             <h1>DOGMA 95</h1>
-            <ul class="rules">
-                <li>Çekimler stüdyo dışında, gerçek mekanlarda yapılmalı.</li>
-                <li>Ses ve görüntü asla birbirinden ayrı kaydedilmemeli.</li>
-                <li>Kamera elde taşınmalı.</li>
-                <li>Özel ışıklandırma kullanılmamalı.</li>
-                <li>Optik numaralar ve filtreler yasaktır.</li>
-                <li>Tür filmleri kabul edilemez.</li>
-            </ul>
+            <p>1. Çekimler mekanın kendisinde yapılmalıdır. Aksesuar ve dekor eklenemez.</p>
+            <p>2. Ses asla görüntüden ayrı olarak üretilmemelidir.</p>
+            <p>3. Kamera elde taşınmalıdır.</p>
+            <p>4. Film renkli olmalıdır. Özel ışıklandırma kabul edilemez.</p>
+            <p>5. Optik numaralar ve filtreler yasaktır.</p>
         </div>
     </div>
 
     <nav>
-        <a href="index.html" class="nav-link">
+        <a href="index.html" class="nav-island">
             <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/anasayfabuton.png" alt="Anasayfa" class="btn-img">
         </a>
-        <a href="sinema.html" class="nav-link">
+        
+        <a href="sinema.html" class="nav-island">
             <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/sinemabuton.png" alt="Sinema" class="btn-img">
         </a>
+
+        <div id="music-trigger" class="nav-island music-btn">
+            <span id="music-icon">▶</span>
+        </div>
     </nav>
+
+    <script>
+        const audio = document.getElementById('bg-music');
+        const musicTrigger = document.getElementById('music-trigger');
+        const musicIcon = document.getElementById('music-icon');
+
+        musicTrigger.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                musicIcon.innerText = '⏸'; // Durdurma ikonu
+                musicTrigger.style.borderColor = 'var(--accent)';
+                musicTrigger.style.boxShadow = '0 0 20px rgba(212, 175, 55, 0.4)';
+            } else {
+                audio.pause();
+                musicIcon.innerText = '▶'; // Oynatma ikonu
+                musicTrigger.style.borderColor = 'var(--glass-border)';
+                musicTrigger.style.boxShadow = '0 15px 35px rgba(0,0,0,0.4)';
+            }
+        });
+
+        // Sayfa etkileşimi olmadan otomatik oynatma tarayıcılarda engellendiği için 
+        // kullanıcı ilk tıkladığında müzik hazır hale gelir.
+    </script>
 
 </body>
 </html>
