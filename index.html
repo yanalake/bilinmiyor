@@ -158,26 +158,29 @@
                 icon.innerText = '▶';
             }
         });
+// index.html içindeki script bölümünü bununla güncelle:
+const grid = document.getElementById('main-grid');
 
-        // LİSTE MOTORU: liste.js içindeki 'sinemaNotlari' dizisini okur
-        const grid = document.getElementById('main-grid');
+function notlariYukle() {
+    grid.innerHTML = ''; 
+    // sinemaNotlari değişkeni var mı kontrol et
+    if (typeof sinemaNotlari !== 'undefined' && Array.isArray(sinemaNotlari)) {
+        sinemaNotlari.forEach(not => {
+            const kart = document.createElement('div');
+            kart.className = 'note-card';
+            kart.innerHTML = `
+                <h2>${not.baslik}</h2>
+                <p>${not.icerik}</p>
+            `;
+            grid.appendChild(kart);
+        });
+    } else {
+        console.error("Hata: liste.js yüklenemedi veya sinemaNotlari dizisi bulunamadı!");
+    }
+}
 
-        function notlariYukle() {
-            // Eğer liste.js düzgün yüklendiyse verileri döner
-            if (typeof sinemaNotlari !== 'undefined') {
-                sinemaNotlari.forEach(not => {
-                    const kart = document.createElement('div');
-                    kart.className = 'note-card';
-                    kart.innerHTML = `
-                        <h2>${not.baslik}</h2>
-                        <p>${not.icerik}</p>
-                    `;
-                    grid.appendChild(kart);
-                });
-            }
-        }
-
-        notlariYukle();
+// Dosyaların yüklenmesi için kısa bir bekleme (opsiyonel)
+window.onload = notlariYukle;
     </script>
 
 </body>
