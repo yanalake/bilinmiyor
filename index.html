@@ -9,6 +9,7 @@
         :root {
             --accent: #d4af37;
             --note-bg: #f4f1ea;
+            --glass-black: rgba(0, 0, 0, 0.75);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -31,33 +32,40 @@
             z-index: -1;
         }
 
-        /* Estetik Replik Alanı */
-        #quote-area {
-            max-width: 800px;
-            margin: 40px auto 60px auto;
+        /* YENİ: Estetik ve Belirgin Replik Alanı */
+        #quote-container {
+            max-width: 900px;
+            margin: 30px auto 50px auto;
+            perspective: 1000px;
+        }
+
+        .quote-box {
+            background: var(--glass-black);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 25px 40px;
+            border-radius: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
             text-align: center;
-            min-height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transform: rotateX(5deg);
         }
 
         #quote-text {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            font-weight: 700;
             font-style: italic;
             color: var(--accent);
-            letter-spacing: 1px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
             opacity: 0;
-            transition: opacity 1.5s ease-in-out;
-            /* YENİ: Repliklere Gölge Eklendi */
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 20px rgba(212, 175, 55, 0.5);
+            transition: opacity 1s ease-in-out;
         }
 
         /* Not Grubu Konteynırı */
         .notes-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 40px;
             max-width: 1400px;
             margin: 0 auto;
@@ -66,28 +74,25 @@
         .note-card {
             background: var(--note-bg);
             color: #222;
-            padding: 30px;
+            padding: 35px;
             font-family: 'Courier Prime', monospace;
-            box-shadow: 15px 15px 40px rgba(0,0,0,0.7);
-            border-radius: 3px;
-            line-height: 1.6;
-            transition: transform 0.4s ease;
+            box-shadow: 15px 15px 45px rgba(0,0,0,0.8);
+            border-radius: 4px;
+            line-height: 1.7;
             position: relative;
-            border-left: 5px solid #ddd;
-            animation: fadeIn 1s ease-out forwards;
+            border-left: 6px solid #ccc;
+            opacity: 0; /* Başta görünmez, JS ile gelecek */
+            animation: cardFadeIn 0.8s ease-out forwards;
         }
 
-        .note-card:hover {
-            transform: scale(1.03) rotate(0deg) !important;
-            z-index: 10;
-        }
+        .note-card:hover { transform: scale(1.02) !important; z-index: 10; }
 
         .note-card h2 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            border-bottom: 1px dashed #999;
-            color: #111;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            border-bottom: 1px dashed #aaa;
+            color: #000;
         }
 
         /* Navigasyon */
@@ -98,44 +103,43 @@
             transform: translateX(-50%);
             display: flex;
             align-items: center;
-            gap: 40px;
+            gap: 45px;
             z-index: 1000;
         }
 
         .nav-link, .music-toggle {
-            text-decoration: none;
-            cursor: pointer;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .btn-img-large { width: 150px; height: auto; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6)); }
-        .btn-img-small { width: 90px; height: auto; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.6)); }
+        .btn-img-large { width: 160px; height: auto; filter: drop-shadow(0 10px 25px rgba(0,0,0,0.7)); }
+        .btn-img-small { width: 95px; height: auto; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7)); }
 
         .music-btn-container {
-            width: 90px; height: 90px;
+            width: 95px; height: 95px;
             background: rgba(255,255,255,0.1);
             backdrop-filter: blur(10px);
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             border: 2px solid var(--accent);
             color: var(--accent);
-            font-size: 2.5rem;
+            font-size: 2.6rem;
+            cursor: pointer;
         }
 
-        .nav-link:hover, .music-toggle:hover {
-            transform: translateY(-20px) scale(1.1);
-        }
+        .nav-link:hover, .music-toggle:hover { transform: translateY(-25px) scale(1.1); }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: var(--rotate-val); }
         }
     </style>
 </head>
 <body>
 
-    <div id="quote-area">
-        <p id="quote-text"></p>
+    <div id="quote-container">
+        <div class="quote-box">
+            <p id="quote-text">Zaman Makinesi Hazırlanıyor...</p>
+        </div>
     </div>
 
     <audio id="bg-music" loop>
@@ -146,97 +150,74 @@
         </div>
 
     <nav>
-        <a href="index.html" class="nav-link">
-            <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/anasayfabuton.png" alt="Anasayfa" class="btn-img-large">
-        </a>
-        
-        <div id="music-trigger" class="music-toggle">
-            <div class="music-btn-container">
-                <span id="music-icon">▶</span>
-            </div>
-        </div>
-
-        <a href="sinema.html" class="nav-link">
-            <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/sinemabuton.png" alt="Sinema" class="btn-img-large">
-        </a>
-
-        <a href="video.html" class="nav-link">
-            <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/tvbuton.png" alt="Video" class="btn-img-small">
-        </a>
+        <a href="index.html" class="nav-link"><img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/anasayfabuton.png" class="btn-img-large"></a>
+        <div id="music-trigger" class="music-toggle"><div class="music-btn-container"><span id="music-icon">▶</span></div></div>
+        <a href="sinema.html" class="nav-link"><img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/sinemabuton.png" class="btn-img-large"></a>
+        <a href="video.html" class="nav-link"><img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/tvbuton.png" class="btn-img-small"></a>
     </nav>
 
     <script src="liste.js"></script>
 
     <script>
-        // 1. REPLİK MOTORU
+        // 1. REPLİK SİSTEMİ
         const replikler = [
             "“Her şey bir rüya ile başlar.”",
+            "“Sinema, hayatın pürüzleri ayıklanmış halidir.”",
             "“Gelecek, onu bugünden hazırlayanlara aittir.”",
-            "“Sinema, hayatın pürüzlerini ayıklanmış halidir.”",
-            "“Gerçeklik sadece bir illüzyondur, ancak çok inatçı bir tanesi.”",
-            "“Bütün filmler aslında birer zaman makinesidir.”"
+            "“Bütün filmler aslında birer zaman makinesidir.”",
+            "“Işık varsa, umut da vardır.”"
         ];
 
-        function replikDegistir() {
+        function replikGuncelle() {
             const qText = document.getElementById('quote-text');
-            const rastgele = replikler[Math.floor(Math.random() * replikler.length)];
+            const secilen = replikler[Math.floor(Math.random() * replikler.length)];
             qText.style.opacity = 0;
             setTimeout(() => {
-                qText.innerText = rastgele;
+                qText.innerText = secilen;
                 qText.style.opacity = 1;
-            }, 1500);
+            }, 1000);
         }
-        setInterval(replikDegistir, 6000);
-        replikDegistir();
+        setInterval(replikGuncelle, 7000);
+        replikGuncelle();
 
         // 2. MÜZİK KONTROLÜ
         const audio = document.getElementById('bg-music');
         const trigger = document.getElementById('music-trigger');
         const icon = document.getElementById('music-icon');
-
         trigger.addEventListener('click', () => {
-            if (audio.paused) {
-                audio.play();
-                icon.innerText = '⏸';
-            } else {
-                audio.pause();
-                icon.innerText = '▶';
-            }
+            if (audio.paused) { audio.play(); icon.innerText = '⏸'; }
+            else { audio.pause(); icon.innerText = '▶'; }
         });
 
-        // 3. LİSTE (BLOG) MOTORU
+        // 3. KRİTİK VERİ YÜKLEME MOTORU (ÇÖZÜM)
         const grid = document.getElementById('main-grid');
+        let denemeSayisi = 0;
 
-        function notlariYukle() {
-            grid.innerHTML = ''; 
-            
+        function veriMotoru() {
             // liste.js içindeki 'sinemaNotlari' dizisini kontrol et
             if (typeof sinemaNotlari !== 'undefined' && Array.isArray(sinemaNotlari)) {
-                sinemaNotlari.forEach((not, index) => {
+                grid.innerHTML = ''; 
+                sinemaNotlari.forEach((not, i) => {
                     const kart = document.createElement('div');
                     kart.className = 'note-card';
-                    
-                    // Rastgele eğim ver (Pixar stili dağınıklık)
-                    const rotate = (index % 2 === 0) ? -2 : 1.5;
-                    kart.style.transform = `rotate(${rotate}deg)`;
-                    
-                    kart.innerHTML = `
-                        <h2>${not.baslik}</h2>
-                        <p>${not.icerik}</p>
-                    `;
+                    const rot = (i % 2 === 0) ? -2 : 1.5;
+                    kart.style.setProperty('--rotate-val', `rotate(${rot}deg)`);
+                    kart.innerHTML = `<h2>${not.baslik}</h2><p>${not.icerik}</p>`;
                     grid.appendChild(kart);
                 });
+                console.log("Veriler başarıyla yüklendi.");
             } else {
-                grid.innerHTML = "<p style='text-align:center; color:var(--accent); grid-column: 1/-1;'>Veriler yükleniyor veya liste.js bulunamadı...</p>";
-                console.error("Hata: sinemaNotlari dizisi bulunamadı!");
+                denemeSayisi++;
+                if (denemeSayisi < 20) { // 2 saniye boyunca her 100ms'de bir dene
+                    setTimeout(veriMotoru, 100);
+                } else {
+                    grid.innerHTML = "<p style='color:var(--accent); text-align:center; grid-column:1/-1;'>Veri dosyası (liste.js) bulunamadı veya hatalı.</p>";
+                }
             }
         }
 
-        // Sayfa yüklendiğinde ve liste.js hazır olduğunda çalıştır
-        window.addEventListener('DOMContentLoaded', notlariYukle);
-        // Yedek tetikleyici (Dosya geç yüklenirse)
-        setTimeout(notlariYukle, 500);
+        // Sayfa tamamen yüklendiğinde motoru başlat
+        window.addEventListener('load', veriMotoru);
     </script>
-
 </body>
 </html>
