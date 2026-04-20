@@ -3,55 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zaman Makinesi | Sinema Salonu</title>
+    <title>Zaman Makinesi | Sinema</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
     <style>
-        /* index.html ile aynı temel stiller (Tutarlılık için) */
-        :root { --dark-overlay: rgba(10, 10, 15, 0.95); }
+        /* CSS index.html ile tutarlı tutuldu */
+        :root { --accent: #d4af37; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         body {
             background: url('https://raw.githubusercontent.com/yanalake/bilinmiyor/main/arkaplan.png') no-repeat center center fixed;
             background-size: cover;
             font-family: 'Fredoka One', cursive;
             color: #fff;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            padding-bottom: 150px;
         }
 
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, transparent 5%, var(--dark-overlay) 95%);
+            background: rgba(10, 10, 15, 0.93);
             z-index: -1;
         }
 
+        /* Sabit Alt Navigasyon */
         nav {
-            width: 100%;
-            padding: 30px 50px;
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
-            align-items: center;
-            gap: 40px;
-            z-index: 100;
+            gap: 50px;
+            padding: 15px 40px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
         }
 
-        .btn-home { width: 90px; opacity: 0.7; transition: 0.3s; }
-        .btn-cinema { width: 140px; filter: drop-shadow(0 0 20px rgba(255,255,255,0.2)); }
+        .btn-img { width: 120px; transition: 0.3s; }
         
-        .nav-link:hover .btn-home { opacity: 1; }
+        /* Aktif sayfa efekti için sinema butonunu parlatalım */
+        .btn-cinema { filter: drop-shadow(0 0 10px var(--accent)); }
+        .btn-home { opacity: 0.6; }
+        
+        .nav-link:hover .btn-img { opacity: 1; transform: scale(1.1); }
 
-        /* Sayfa İçeriği */
-        .cinema-gallery {
+        /* İçerik */
+        .cinema-container {
             animation: slideIn 0.8s ease-out;
-            width: 80%;
             max-width: 1000px;
-            margin-top: 20px;
+            margin: 50px auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
+            padding: 20px;
         }
 
         @keyframes slideIn {
@@ -60,66 +68,58 @@
         }
 
         .film-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 25px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
             text-align: center;
-            transition: 0.4s;
-            cursor: pointer;
+            transition: 0.5s;
         }
 
         .film-card:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: scale(1.05);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
         }
 
-        .film-poster {
+        .poster-placeholder {
             width: 100%;
-            height: 300px;
+            height: 350px;
             background: #111;
             border-radius: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #444;
-            font-size: 0.8rem;
+            color: #333;
         }
 
-        h2 { color: #d4af37; margin-bottom: 10px; }
-        p { font-family: sans-serif; font-size: 0.9rem; opacity: 0.8; line-height: 1.4; }
+        h2 { color: var(--accent); margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="index.html" class="nav-link">
-            <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/anasayfabuton.png" alt="Anasayfa" class="btn-home">
-        </a>
-        <a href="sinema.html" class="nav-link">
-            <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/sinemabuton.png" alt="Sinema" class="btn-cinema">
-        </a>
-    </nav>
-
-    <div class="cinema-gallery">
+    <div class="cinema-container">
         <div class="film-card">
-            <div class="film-poster">POSTER ALANI</div>
-            <h2>Kara Film Gecesi</h2>
-            <p>Pixar tarzı animasyonun karanlık dehlizlerine bir yolculuk.</p>
+            <div class="poster-placeholder">LENS TESTİ</div>
+            <h2>A7SIII Denemeleri</h2>
+            <p>10-bit S-Log3 kayıtların renk süreci.</p>
         </div>
         <div class="film-card">
-            <div class="film-poster">POSTER ALANI</div>
-            <h2>Manifesto Serisi</h2>
-            <p>Dogma 95 kurallarına göre çekilmiş deneysel kısa filmler.</p>
-        </div>
-        <div class="film-card">
-            <div class="film-poster">POSTER ALANI</div>
-            <h2>Zaman Kayması</h2>
-            <p>Sinemanın geçmişine dijital bir dokunuş.</p>
+            <div class="poster-placeholder">FIRTINA</div>
+            <h2>Gebze Sokakları</h2>
+            <p>Düşük ışıkta noir atmosfer çalışması.</p>
         </div>
     </div>
+
+    <nav>
+        <a href="index.html" class="nav-link">
+            <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/anasayfabuton.png" alt="Anasayfa" class="btn-img btn-home">
+        </a>
+        <a href="sinema.html" class="nav-link">
+            <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/sinemabuton.png" alt="Sinema" class="btn-img btn-cinema">
+        </a>
+    </nav>
 
 </body>
 </html>
