@@ -15,13 +15,24 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background: url('https://raw.githubusercontent.com/yanalake/bilinmiyor/main/arkaplan.png') no-repeat center center fixed;
-            background-size: cover;
-            font-family: 'Courier Prime', monospace; /* Genel metin fontu */
+            font-family: 'Courier Prime', monospace;
             color: var(--text-color);
             line-height: 1.6;
+            background-color: #000; /* Video yüklenene kadar siyah ekran */
         }
 
+        /* Video Arkaplan Stili */
+        #bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        /* Karartma Katmanı (Noir Atmosfer) */
         body::before {
             content: "";
             position: fixed;
@@ -30,7 +41,6 @@
             z-index: -1;
         }
 
-        /* Başlık Alanı */
         .hero {
             height: 60vh;
             display: flex;
@@ -49,7 +59,6 @@
             margin-bottom: 10px;
         }
 
-        /* Zaman Şeridi (Timeline) Yapısı */
         .timeline {
             max-width: 900px;
             margin: 0 auto;
@@ -57,7 +66,6 @@
             position: relative;
         }
 
-        /* Ortadaki İnce Çizgi */
         .timeline::after {
             content: '';
             position: absolute;
@@ -74,7 +82,6 @@
             transition: 0.3s;
         }
 
-        /* Sağ ve Sol Yerleşim */
         .left { left: 0; padding-right: 40px; text-align: right; }
         .right { left: 50%; padding-left: 40px; text-align: left; }
 
@@ -93,7 +100,6 @@
             border: 1px solid rgba(255,255,255,0.05);
         }
 
-        /* Makaleler Bölümü */
         .drawer-container {
             text-align: center;
             padding: 100px 0 250px 0;
@@ -112,11 +118,6 @@
             transition: 0.3s;
         }
 
-        .article-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
-        }
-
         #article-drawer {
             display: none;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -133,7 +134,6 @@
             border-bottom: 3px solid var(--accent);
         }
 
-        /* DEV NAVİGASYON (Bağımsız İkonlar) */
         nav {
             position: fixed;
             bottom: 50px;
@@ -157,7 +157,6 @@
 
         .nav-link:hover .btn-img { transform: translateY(-15px); opacity: 1; }
 
-        /* Play Butonu */
         .music-circle {
             width: 90px; height: 90px;
             background: rgba(255,255,255,0.1);
@@ -171,9 +170,6 @@
             transition: 0.3s;
         }
 
-        .music-circle:hover { transform: scale(1.1); box-shadow: 0 0 20px var(--accent); }
-
-        /* Mobil Uyumluluk */
         @media (max-width: 768px) {
             .timeline::after { left: 31px; }
             .timeline-item { width: 100%; left: 0; text-align: left; padding-left: 70px; }
@@ -184,6 +180,10 @@
     </style>
 </head>
 <body>
+
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/107142-675298847_medium.mp4" type="video/mp4">
+    </video>
 
     <audio id="bg-music" loop>
         <source src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/delosound-mysterious-mystical-ambient-442832.mp3" type="audio/mpeg">
@@ -199,22 +199,18 @@
             <h2>1895</h2>
             <p><strong>Lumière Kardeşler:</strong> Paris'te bir tren gara girerken, modern anlatım doğdu. İnsanlar perdedeki trenin gerçek olduğunu sanıp kaçıştılar.</p>
         </div>
-
         <div class="timeline-item right">
             <h2>1920ler</h2>
-            <p><strong>Ekspresyonizm:</strong> Alman sineması, Noir türünün temelini atan o keskin gölgeleri ve çarpık setleri keşfetti. Dr. Caligari'nin Muayenehanesi sessiz bir çığlıktı.</p>
+            <p><strong>Ekspresyonizm:</strong> Alman sineması, Noir türünün temelini atan o keskin gölgeleri ve çarpık setleri keşfetti.</p>
         </div>
-
         <div class="timeline-item left">
             <h2>1941</h2>
-            <p><strong>Citizen Kane:</strong> Orson Welles, kameranın bakış açısını sonsuza dek değiştirdi. Derin odak ve doğrusal olmayan anlatım sinemanın alfabesi oldu.</p>
+            <p><strong>Citizen Kane:</strong> Orson Welles, kameranın bakış açısını sonsuza dek değiştirdi. Derin odak sinemanın alfabesi oldu.</p>
         </div>
-
         <div class="timeline-item right">
             <h2>1995</h2>
-            <p><strong>Dogma 95:</strong> Lars von Trier ve arkadaşları, süsten arınmış, "saf" sinemaya dönüş için bir manifesto yayınladılar. El kamerası ve doğal ışık artık birer silahtı.</p>
+            <p><strong>Dogma 95:</strong> Lars von Trier ve arkadaşları, süsten arınmış, "saf" sinemaya dönüş için bir manifesto yayınladılar.</p>
         </div>
-
         <div class="timeline-item left">
             <h2>Bugün</h2>
             <p><strong>Dijital Çağ:</strong> Pikselden duygu yaratma sanatı. Pixar'ın yumuşaklığı ile Noir'ın karanlığı dijital rüyalarda birleşiyor.</p>
@@ -224,22 +220,10 @@
     <div class="drawer-container">
         <button class="article-btn" onclick="toggleArticles()">ARŞİVİ AÇ</button>
         <div id="article-drawer">
-            <div class="article-card">
-                <h3>Korku Sineması</h3>
-                <p>Karanlıktan neden korkarız?</p>
-            </div>
-            <div class="article-card">
-                <h3>Sinemada Zaman</h3>
-                <p>Kurgu ve zaman bükümü.</p>
-            </div>
-            <div class="article-card">
-                <h3>Noir Estetiği</h3>
-                <p>Gölgelerin gücü.</p>
-            </div>
-            <div class="article-card">
-                <h3>Auteur Kuramı</h3>
-                <p>Yönetmenin imzası.</p>
-            </div>
+            <div class="article-card"><h3>Korku Sineması</h3><p>Karanlıktan neden korkarız?</p></div>
+            <div class="article-card"><h3>Sinemada Zaman</h3><p>Kurgu ve zaman bükümü.</p></div>
+            <div class="article-card"><h3>Noir Estetiği</h3><p>Gölgelerin gücü.</p></div>
+            <div class="article-card"><h3>Auteur Kuramı</h3><p>Yönetmenin imzası.</p></div>
         </div>
     </div>
 
@@ -247,20 +231,15 @@
         <a href="index.html" class="nav-link">
             <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/anasayfabuton.png" alt="Anasayfa" class="btn-img btn-home">
         </a>
-        
         <div id="music-trigger" class="music-toggle">
-            <div class="music-circle">
-                <span id="music-icon">▶</span>
-            </div>
+            <div class="music-circle"><span id="music-icon">▶</span></div>
         </div>
-
         <a href="sinema.html" class="nav-link">
             <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/sinemabuton.png" alt="Sinema" class="btn-img btn-cinema">
         </a>
     </nav>
 
     <script>
-        // Müzik Kontrolü
         const audio = document.getElementById('bg-music');
         const trigger = document.getElementById('music-trigger');
         const icon = document.getElementById('music-icon');
@@ -275,17 +254,13 @@
             }
         });
 
-        // Arşiv Çekmecesi
         function toggleArticles() {
             const drawer = document.getElementById('article-drawer');
             if (drawer.style.display === 'grid') {
                 drawer.style.display = 'none';
             } else {
                 drawer.style.display = 'grid';
-                window.scrollTo({
-                    top: document.body.scrollHeight,
-                    behavior: 'smooth'
-                });
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
             }
         }
     </script>
