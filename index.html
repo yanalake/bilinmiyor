@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zaman Makinesi | Sinema Arşivi</title>
+    <title>Zaman Makinesi | Her Şey Başlarken</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -32,234 +32,141 @@
             z-index: -1;
         }
 
-        #quote-container {
+        /* Hikaye Alanı Stilleri */
+        .story-container {
             max-width: 900px;
-            margin: 30px auto 50px auto;
-            perspective: 1000px;
-        }
-
-        .quote-box {
-            background: var(--glass-black);
+            margin: 60px auto;
+            background: rgba(15, 15, 20, 0.7);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            padding: 30px 45px;
-            border-radius: 20px;
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            text-align: center;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+            padding: 50px 60px;
+            border-radius: 15px;
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.9);
+            opacity: 0;
+            transform: translateY(50px);
+            animation: slideInUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
 
-        #quote-text {
+        .story-title {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            font-style: italic;
+            font-size: 2.2rem;
             color: var(--accent);
-            text-shadow: 3px 3px 15px rgba(0,0,0,0.9);
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
+            text-align: center;
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
         }
 
-        .notes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            max-width: 1400px;
-            margin: 0 auto;
+        .story-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #dcdcdc;
+            margin-bottom: 25px;
+            text-align: justify;
         }
 
-        .note-card {
-            background: var(--note-bg);
-            color: #222;
-            padding: 35px;
-            font-family: 'Courier Prime', monospace;
-            box-shadow: 15px 15px 45px rgba(0,0,0,0.8);
-            border-radius: 4px;
-            line-height: 1.7;
-            border-left: 6px solid #ccc;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            opacity: 0;
-            transform: translateY(40px);
-            animation: slideInUp 0.8s ease forwards;
+        .story-footer {
+            margin-top: 50px;
+            text-align: center;
+            border-top: 1px dashed rgba(212, 175, 55, 0.3);
+            padding-top: 30px;
         }
 
-        .note-card:hover { 
-            transform: scale(1.03) translateY(-10px) rotate(0deg) !important; 
-            z-index: 10;
-            box-shadow: 20px 20px 50px rgba(0,0,0,0.9);
-            border-left-color: var(--accent);
-        }
-
-        .note-card h2 {
+        .story-signature {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px dashed #aaa;
-            color: #000;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent);
+            letter-spacing: 5px;
         }
 
-        .note-content {
+        .story-dedication {
             font-size: 0.95rem;
-            color: #444;
+            color: #888;
+            margin-top: 15px;
+            font-style: italic;
+            letter-spacing: 1px;
         }
 
+        /* Navigasyon Stilleri */
         nav {
             position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
-            display: flex; align-items: center; gap: 30px; z-index: 1000;
+            display: flex; align-items: center; gap: 20px; z-index: 1000;
+            background: rgba(0,0,0,0.6); padding: 10px 25px; border-radius: 50px;
+            backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.05);
         }
-        .btn-img-large { width: 140px; height: auto; transition: 0.4s; filter: drop-shadow(0 10px 25px rgba(0,0,0,0.7)); }
-        .btn-img-small { width: 85px; height: auto; transition: 0.4s; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7)); }
+        .btn-img-large { width: 120px; height: auto; transition: 0.4s; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7)); }
+        .btn-img-small { width: 75px; height: auto; transition: 0.4s; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7)); }
+        .btn-faded { opacity: 0.6; }
+        .btn-active { opacity: 1; border-bottom: 3px solid var(--accent); padding-bottom: 5px; }
         
         .music-btn-container {
-            width: 85px; height: 85px; background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px); border-radius: 50%; display: flex;
-            align-items: center; justify-content: center; border: 2px solid var(--accent);
-            color: var(--accent); font-size: 2.2rem; cursor: pointer;
+            width: 70px; height: 70px; background: rgba(255,255,255,0.1);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            border: 2px solid var(--accent); color: var(--accent); font-size: 1.8rem; cursor: pointer;
             transition: all 0.4s ease;
         }
         
         .nav-link:hover .btn-img-large, .nav-link:hover .btn-img-small, .music-toggle:hover .music-btn-container { 
-            transform: translateY(-15px) scale(1.1); 
+            transform: translateY(-10px) scale(1.05); opacity: 1;
         }
 
         @keyframes slideInUp {
-            from { opacity: 0; transform: translateY(50px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         /* Mobil Optimizasyon */
         @media (max-width: 768px) {
-            #quote-text { font-size: 1rem; }
-            .quote-box { padding: 20px; }
-            nav { gap: 15px; bottom: 20px; }
-            .btn-img-large { width: 90px; }
-            .btn-img-small, .music-btn-container { width: 60px; height: 60px; font-size: 1.5rem; }
-            .notes-grid { gap: 20px; }
+            .story-container { padding: 30px 20px; margin: 30px 10px; }
+            .story-title { font-size: 1.6rem; }
+            .story-content p { font-size: 1rem; }
+            nav { gap: 10px; bottom: 20px; padding: 10px 15px;}
+            .btn-img-large { width: 70px; }
+            .btn-img-small, .music-btn-container { width: 50px; height: 50px; font-size: 1.2rem; }
         }
     </style>
 </head>
 <body>
 
-    <div id="quote-container">
-        <div class="quote-box">
-            <p id="quote-text"></p>
+    <div class="story-container">
+        <h1 class="story-title">HER ŞEY BAŞLARKEN42</h1>
+        
+        <div class="story-content">
+            <p>Dünyalı dostların değersiz hissettiği, son büyük cumartesiden bir sonraki günün enfes hikayesini sizlerle paylaşacağım. Sokak satıcılarının çıkmaz sokaklarda garip bir şekilde kayboluşunun ve ses kirliliğinden görünür olma özelliğini yitirmiş bir şehrin iyiden iyiye yok oluşunun hikayesi. Hani hep orada olan ama kimsenin sapmadığı garip yollar vardır, bizlerin yaşamları kimsenin gönlüyle girmek istemeyeceği birbirinden çok uzak sokaklarda başladı..</p>
+            
+            <p>Bizim büyük pazar günümüz, yıllar sonra hepimizin yine gitmek istemediği bir sokakta başladı. Birbimizi bulmamız yıllar sürmüştü en kısa yolculuğu yapan kişi bile 20 yıl önce başlamıştı maceraya ve bugüne ulaşması öyle sanıldığı gibi kolay olmamıştı. En aydınlık hikayeler en karanlık noktalarda başlayanlardır diyor şair. Bizim aydınlık hikayemiz kendi zifiriliğimizden başlayacak.</p>
+            
+            <p>Bu satırlardan sonra yazılacak olan şeyler bizleri yıllar içinde bu noktaya taşıyan binlerce dalganın tutarlı veya tutarsız sonuçlarıdır. Belki evet bütün hikayemiz toplamda incecik bir kitabın içerisine sığabilir. Yarın bütün bu hareketlilik son bulabilir, bir kaçımız ölebilir ama en azından tarihe ufak notlar düşmek adına en azından bir kağıt parçasıyla bir köşede sessizce yaşamak umuduyla ölümün kendisine karşı başlattığımız bir eylemdir bu çalışma.</p>
+            
+            <p>Kelimelerden üretilen bir protesto gösterisi. YukarıBayır'dan hızla aşşağı doğru ilerleyen bir Mennan, çukurlarıyla meşhur ovanın tam ortasında aniden yok olan bir Mehmet ve çaldığı notalarda asılı kalan bir Rutkay'ın hikayesi sürdürülüp gidilecek bu fanzinde. Bir de en az Yakup kadar çağrılmamış nacizane benim sözlerim ilerleyecek kağıtların üzerinde. Yalnız konuşmayı bildiği için konuşanlardan olmamak temennisiyle.</p>
+            
+            <p>Bu sizlere ne zaman ulaşacağını kestiremediğimiz yazı, yer kürenin yok oluş çanlarının çaldığı bir tarihte yazılıyor. Büyük bir patlamanın arefesinde. Biliyoruz ki dünyanın düzelme umutları günden güne suya düşüyor. Beraber geçemediğimiz yolların şerefine iyi okumalar ve iyi yolculuklar diliyorum hepinize. Her nereye gidiyorsanız kağıtlar üzerinde veya tabana kuvvet bütün zamanlar içerisinde zamansız kardeşliğimizi başlatıyoruz. Bütün yolcular, devasa makinelerin, betonların içinde ağlayanlar, sessizliği ses edinenlerde bu kardeşliğin bir parçası... O meşhur filmde dendiği gibi ''Günaydın ve olur da görüşemezsek iyi günler, iyi akşamlar ve iyi geceler.''...</p>
+        </div>
+
+        <div class="story-footer">
+            <div class="story-signature">E42TT</div>
+            <div class="story-dedication">- TÜM DÜNYA TÜRKÜLERİNE ADANMIŞTIR -</div>
         </div>
     </div>
 
     <audio id="bg-music" loop><source src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/delosound-mysterious-mystical-ambient-442832.mp3" type="audio/mpeg"></audio>
 
-    <div class="notes-grid" id="feed-grid">
-        <p style="text-align:center; grid-column: 1/-1; color: var(--accent);">Zaman Makinesi Verileri Çekiyor...</p>
-    </div>
-
     <nav>
-        <a href="index.html" class="nav-link"><img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/anasayfabuton.png" class="btn-img-large"></a>
+        <a href="index.html" class="nav-link"><img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/anasayfabuton.png" class="btn-img-large btn-active"></a>
+        <a href="music.html" class="nav-link"><img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/musicbutton.png" class="btn-img-small btn-faded"></a>
         <div id="music-trigger" class="music-toggle"><div class="music-btn-container"><span id="music-icon">▶</span></div></div>
-        <a href="sinema.html" class="nav-link"><img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/sinemabuton.png" class="btn-img-large"></a>
-        <a href="video.html" class="nav-link"><img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/tvbuton.png" class="btn-img-small"></a>
+        <a href="sinema.html" class="nav-link"><img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/sinemabuton.png" class="btn-img-large btn-faded"></a>
+        <a href="video.html" class="nav-link"><img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/tvbuton.png" class="btn-img-small btn-faded"></a>
     </nav>
 
-    <script src="liste.js"></script>
     <script>
-        // 1. GERÇEK RANDOM REPLİK MOTORU
-        const replikler = [
-            "“Her şey bir rüya ile başlar.”",
-            "“Sinema, hayatın pürüzleri ayıklanmış halidir.”",
-            "“Gelecek, onu bugünden hazırlayanlara aittir.”",
-            "“Bütün filmler aslında birer zaman makinesidir.”",
-            "“Işık varsa, umut da vardır.”",
-            "“Gerçeklik sadece bir illüzyondur.”",
-            "“Kamera bir silah, kurgu ise mermidir.”"
-        ];
-
-        let sonIndis = -1;
-
-        function replikGetir() {
-            const qText = document.getElementById('quote-text');
-            let yeniIndis;
-            do { yeniIndis = Math.floor(Math.random() * replikler.length); } while (yeniIndis === sonIndis);
-            sonIndis = yeniIndis;
-            
-            qText.style.opacity = 0;
-            setTimeout(() => {
-                qText.innerText = replikler[yeniIndis];
-                qText.style.opacity = 1;
-            }, 1000);
-        }
-
-        window.addEventListener('DOMContentLoaded', replikGetir);
-        setInterval(replikGetir, 8000);
-
-        // 2. MÜZİK KONTROLÜ
         const audio = document.getElementById('bg-music');
         const trigger = document.getElementById('music-trigger');
         trigger.addEventListener('click', () => {
             if (audio.paused) { audio.play(); document.getElementById('music-icon').innerText = '⏸'; }
             else { audio.pause(); document.getElementById('music-icon').innerText = '▶'; }
         });
-
-        // 3. HTML ETİKETLERİNİ TEMİZLEME FONKSİYONU (Kritik Çözüm)
-        function stripHTML(htmlString) {
-            const tempDiv = document.createElement("div");
-            tempDiv.innerHTML = htmlString;
-            return tempDiv.textContent || tempDiv.innerText || "";
-        }
-
-        // 4. FEED ÇEKME MOTORU
-        const FEED_URL = 'https://letterboxd.com/yanalake/rss/'; 
-        const grid = document.getElementById('feed-grid');
-
-        async function feedYukle() {
-            try {
-                const response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(FEED_URL)}`);
-                const data = await response.json();
-                
-                if (data.status === 'ok') {
-                    grid.innerHTML = '';
-                    data.items.forEach((item, i) => {
-                        // Letterboxd açıklamasını HTML etiketlerinden temizle
-                        const cleanText = stripHTML(item.description).trim();
-                        // Temizlenmiş metni kısalt
-                        const shortText = cleanText.length > 150 ? cleanText.substring(0, 150) + '...' : cleanText;
-                        
-                        const card = document.createElement('a');
-                        card.href = item.link;
-                        card.target = '_blank';
-                        card.className = 'note-card';
-                        
-                        // Hafif rotasyon efekti
-                        const rot = (i % 2 === 0) ? -1 : 1;
-                        card.style.transform = `rotate(${rot}deg) translateY(40px)`;
-                        card.style.animationDelay = `${i * 0.1}s`; // Sırayla yüklenme efekti
-                        
-                        card.innerHTML = `
-                            <h2>${item.title}</h2>
-                            <div class="note-content">${shortText || "İnceleme metni bulunmuyor..."}</div>
-                        `;
-                        grid.appendChild(card);
-                    });
-                }
-            } catch (e) { 
-                console.error("Feed hatası:", e);
-                // API çökerse liste.js'deki yerel verileri yedek olarak yükle
-                grid.innerHTML = '';
-                if(typeof sinemaNotlari !== 'undefined') {
-                    sinemaNotlari.forEach((not, i) => {
-                        const card = document.createElement('div');
-                        card.className = 'note-card';
-                        card.style.animationDelay = `${i * 0.1}s`;
-                        card.innerHTML = `<h2>${not.baslik}</h2><div class="note-content">${not.icerik}</div>`;
-                        grid.appendChild(card);
-                    });
-                }
-            }
-        }
-        window.onload = feedYukle;
     </script>
 </body>
 </html>
