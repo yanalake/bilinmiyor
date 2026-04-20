@@ -18,7 +18,7 @@
             font-family: 'Courier Prime', monospace;
             color: var(--text-color);
             line-height: 1.6;
-            background-color: #000; /* Video yüklenene kadar siyah ekran */
+            background-color: #000;
         }
 
         /* Video Arkaplan Stili */
@@ -134,30 +134,33 @@
             border-bottom: 3px solid var(--accent);
         }
 
+        /* GÜNCEL DEV NAVİGASYON (Bar Yok) */
         nav {
             position: fixed;
-            bottom: 50px;
+            bottom: 60px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             align-items: center;
-            gap: 50px;
+            gap: 40px;
             z-index: 1000;
         }
 
-        .btn-img {
-            width: 150px;
-            height: auto;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+        .nav-link, .music-toggle {
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .btn-cinema { border-bottom: 4px solid var(--accent); padding-bottom: 5px; }
-        .btn-home { opacity: 0.7; }
+        /* Buton Boyutları */
+        .btn-img-large { width: 150px; height: auto; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6)); }
+        .btn-img-small { width: 90px; height: auto; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.6)); }
 
-        .nav-link:hover .btn-img { transform: translateY(-15px); opacity: 1; }
+        /* Aktif Sayfa Vurgusu */
+        .btn-cinema-active { border-bottom: 4px solid var(--accent); padding-bottom: 5px; }
+        .btn-faded { opacity: 0.7; }
 
-        .music-circle {
+        .music-btn-container {
             width: 90px; height: 90px;
             background: rgba(255,255,255,0.1);
             backdrop-filter: blur(10px);
@@ -165,17 +168,21 @@
             display: flex; align-items: center; justify-content: center;
             border: 2px solid var(--accent);
             color: var(--accent);
-            font-size: 2.2rem;
-            cursor: pointer;
-            transition: 0.3s;
+            font-size: 2.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .nav-link:hover, .music-toggle:hover {
+            transform: translateY(-20px) scale(1.1);
+            opacity: 1;
         }
 
         @media (max-width: 768px) {
             .timeline::after { left: 31px; }
             .timeline-item { width: 100%; left: 0; text-align: left; padding-left: 70px; }
-            .btn-img { width: 100px; }
-            .music-circle { width: 70px; height: 70px; font-size: 1.5rem; }
-            nav { gap: 20px; }
+            .btn-img-large { width: 100px; }
+            .btn-img-small, .music-btn-container { width: 70px; height: 70px; font-size: 1.5rem; }
+            nav { gap: 15px; }
         }
     </style>
 </head>
@@ -229,13 +236,21 @@
 
     <nav>
         <a href="index.html" class="nav-link">
-            <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/anasayfabuton.png" alt="Anasayfa" class="btn-img btn-home">
+            <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/anasayfabuton.png" alt="Anasayfa" class="btn-img-large btn-faded">
         </a>
+        
         <div id="music-trigger" class="music-toggle">
-            <div class="music-circle"><span id="music-icon">▶</span></div>
+            <div class="music-btn-container">
+                <span id="music-icon">▶</span>
+            </div>
         </div>
+
         <a href="sinema.html" class="nav-link">
-            <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/sinemabuton.png" alt="Sinema" class="btn-img btn-cinema">
+            <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/sinemabuton.png" alt="Sinema" class="btn-img-large btn-cinema-active">
+        </a>
+
+        <a href="video.html" class="nav-link">
+            <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/tvbuton.png" alt="Video" class="btn-img-small btn-faded">
         </a>
     </nav>
 
