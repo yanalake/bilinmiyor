@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zaman Makinesi | Her Şey Başlarken</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --accent: #d4af37;
@@ -31,10 +31,65 @@
             z-index: -1;
         }
 
-        /* Replik Kutusu Stilleri */
-        #quote-container { max-width: 900px; margin: 30px auto 40px auto; perspective: 1000px; }
-        .quote-box { background: var(--glass-black); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); padding: 30px 45px; border-radius: 20px; border: 1px solid rgba(212, 175, 55, 0.4); text-align: center; box-shadow: 0 25px 60px rgba(0,0,0,0.8); }
-        #quote-text { font-family: 'Montserrat', sans-serif; font-size: 1.3rem; font-weight: 700; font-style: italic; color: var(--accent); text-shadow: 3px 3px 15px rgba(0,0,0,0.9); opacity: 0; transition: opacity 1s ease-in-out; }
+        /* YENİ REPLİK ALANI (Çerçevesiz ve Bilgi Odaklı) */
+        #quote-container { 
+            max-width: 800px; 
+            margin: 40px auto 60px auto; 
+            text-align: center;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #quote-content {
+            opacity: 0; 
+            transition: opacity 1.2s ease-in-out;
+        }
+
+        .q-text { 
+            font-family: 'Montserrat', sans-serif; 
+            font-size: 1.5rem; 
+            font-weight: 700; 
+            font-style: italic; 
+            color: var(--accent); 
+            text-shadow: 2px 2px 20px rgba(0,0,0,0.9); 
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .q-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            font-family: 'Courier Prime', monospace;
+        }
+
+        .q-meta {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.9);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .q-director {
+            font-size: 0.95rem;
+            color: #aaa;
+        }
+
+        .q-extra {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #888;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            padding-top: 10px;
+            line-height: 1.5;
+        }
 
         /* Hikaye Alanı Stilleri */
         .story-container { max-width: 900px; margin: 0 auto 60px auto; background: rgba(15, 15, 20, 0.7); backdrop-filter: blur(15px); padding: 50px 60px; border-radius: 15px; border-left: 4px solid var(--accent); box-shadow: 0 30px 60px rgba(0,0,0,0.9); opacity: 0; transform: translateY(50px); animation: slideInUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
@@ -54,7 +109,7 @@
         .nav-item {
             font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.3rem;
             color: #dcdcdc; text-decoration: none; text-transform: uppercase; letter-spacing: 3px;
-            text-shadow: 4px 4px 15px #000, -2px -2px 10px #000, 0 0 25px rgba(0,0,0,0.9); /* Arkaplanda kaybolmaması için güçlü siyah haleler */
+            text-shadow: 4px 4px 15px #000, -2px -2px 10px #000, 0 0 25px rgba(0,0,0,0.9);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer; border-bottom: 3px solid transparent; padding-bottom: 5px;
         }
@@ -73,21 +128,26 @@
 
         @keyframes slideInUp { to { opacity: 1; transform: translateY(0); } }
 
-        /* Mobil Optimizasyon (Öbekli Tasarım) */
+        /* Mobil Optimizasyon */
         @media (max-width: 768px) {
-            #quote-text { font-size: 1rem; } .quote-box { padding: 20px; }
+            .q-text { font-size: 1.2rem; }
+            .q-meta { font-size: 0.95rem; }
+            .q-extra { font-size: 0.8rem; padding: 10px; }
             .story-container { padding: 30px 20px; margin: 30px 10px; }
             .story-title { font-size: 1.6rem; } .story-content p { font-size: 1rem; }
             
             nav { gap: 15px; bottom: 20px; }
-            .nav-item { font-size: 0.95rem; letter-spacing: 1px; padding: 5px 8px; border-radius: 8px; background: rgba(0,0,0,0.5); /* Mobilde okunabilirlik için çok hafif zemin */ }
+            .nav-item { font-size: 0.95rem; letter-spacing: 1px; padding: 5px 8px; border-radius: 8px; background: rgba(0,0,0,0.5); }
             .sound-toggle { font-size: 0.8rem; padding: 5px 12px; width: 100%; text-align: center; max-width: 200px; margin-top: 5px;}
         }
     </style>
 </head>
 <body>
 
-    <div id="quote-container"><div class="quote-box"><p id="quote-text"></p></div></div>
+    <div id="quote-container">
+        <div id="quote-content">
+            </div>
+    </div>
 
     <div class="story-container">
         <h1 class="story-title">HER ŞEY BAŞLARKEN42</h1>
@@ -115,19 +175,77 @@
     </nav>
 
     <script>
+        // DETAYLANDIRILMIŞ SİNEMA VERİ HAVUZU
         const replikler = [
-            "“Her şey bir rüya ile başlar.”", "“Sinema, hayatın pürüzleri ayıklanmış halidir.”", 
-            "“Gelecek, onu bugünden hazırlayanlara aittir.”", "“Bütün filmler aslında birer zaman makinesidir.”",
-            "“Işık varsa, umut da vardır.”", "“Gerçeklik sadece bir illüzyondur.”", "“Kamera bir silah, kurgu ise mermidir.”"
+            {
+                metin: "“Sinema, hayatın pürüzleri ayıklanmış halidir.”",
+                film: "Röportaj Kayıtları",
+                yonetmen: "Alfred Hitchcock",
+                ekBilgi: "Gerilim sinemasının ustası, kurguyu hayatın sıkıcı kısımlarının kesilmiş hali olarak tanımlar."
+            },
+            {
+                metin: "“Gerçeklik, ondan kurtulmak isteyenler için bir illüzyondur.”",
+                film: "The Matrix",
+                yil: "1999",
+                yonetmen: "Wachowski Kardeşler",
+                ekBilgi: "Siberpunk ve distopik sinemanın zirvesi. Neo'nun uyanış hikayesi."
+            },
+            {
+                metin: "“Kamera bir silah, kurgu ise mermidir.”",
+                film: "Sinema Manifestosu",
+                yonetmen: "Dziga Vertov / Jean-Luc Godard",
+                ekBilgi: "Fransız Yeni Dalgası ve Sovyet Montaj Kuramı'nın görsel çarpıcılığa bakışı."
+            },
+            {
+                metin: "“Bütün filmler aslında birer zaman makinesidir.”",
+                film: "Zaman Makinesi Günlükleri",
+                yonetmen: "E42TT",
+                ekBilgi: "Geçmişi mühürleme ve geleceği kurgulama sanatı üzerine."
+            },
+            {
+                metin: "“Işık gölgeyi yaratır, gölge ise sinemayı.”",
+                film: "Noir Estetiği",
+                yil: "1920'ler",
+                yonetmen: "Alman Dışavurumculuğu",
+                ekBilgi: "Keskin gölgelerden ve çarpık setlerden Hollywood'un suç filmlerine uzanan karanlık miras."
+            }
         ];
+
         let sonIndis = -1;
+
         function replikGetir() {
-            const qText = document.getElementById('quote-text'); let yeniIndis;
+            const content = document.getElementById('quote-content');
+            let yeniIndis;
             do { yeniIndis = Math.floor(Math.random() * replikler.length); } while (yeniIndis === sonIndis);
-            sonIndis = yeniIndis; qText.style.opacity = 0;
-            setTimeout(() => { qText.innerText = replikler[yeniIndis]; qText.style.opacity = 1; }, 1000);
+            sonIndis = yeniIndis;
+            
+            const secilen = replikler[yeniIndis];
+            
+            content.style.opacity = 0;
+            
+            setTimeout(() => {
+                let html = `<p class="q-text">${secilen.metin}</p><div class="q-info">`;
+                
+                // Film ve Yıl bilgisi
+                let baslik = secilen.film;
+                if(secilen.yil) baslik += ` (${secilen.yil})`;
+                html += `<span class="q-meta">${baslik}</span>`;
+                
+                // Yönetmen bilgisi
+                if(secilen.yonetmen) html += `<span class="q-director">Yönetmen: ${secilen.yonetmen}</span>`;
+                
+                // Ekstra anekdot/bilgi
+                if(secilen.ekBilgi) html += `<div class="q-extra">${secilen.ekBilgi}</div>`;
+                
+                html += `</div>`;
+                
+                content.innerHTML = html;
+                content.style.opacity = 1;
+            }, 1000); // Kararma ve yeni metnin gelme süresi
         }
-        window.addEventListener('DOMContentLoaded', replikGetir); setInterval(replikGetir, 8000);
+
+        window.addEventListener('DOMContentLoaded', replikGetir); 
+        setInterval(replikGetir, 9000); // Okuma süresini düşünerek aralığı 9 saniyeye çıkardım
 
         const audio = document.getElementById('bg-music');
         const trigger = document.getElementById('music-trigger');
