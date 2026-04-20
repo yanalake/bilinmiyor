@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zaman Makinesi | Sinema Salonu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        /* index.html ile aynı temel stiller (Tutarlılık için) */
+        :root { --dark-overlay: rgba(10, 10, 15, 0.95); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: url('https://raw.githubusercontent.com/yanalake/bilinmiyor/main/arkaplan.png') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Fredoka One', cursive;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 5%, var(--dark-overlay) 95%);
+            z-index: -1;
+        }
+
+        nav {
+            width: 100%;
+            padding: 30px 50px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            z-index: 100;
+        }
+
+        .btn-home { width: 90px; opacity: 0.7; transition: 0.3s; }
+        .btn-cinema { width: 140px; filter: drop-shadow(0 0 20px rgba(255,255,255,0.2)); }
+        
+        .nav-link:hover .btn-home { opacity: 1; }
+
+        /* Sayfa İçeriği */
+        .cinema-gallery {
+            animation: slideIn 0.8s ease-out;
+            width: 80%;
+            max-width: 1000px;
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .film-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            transition: 0.4s;
+            cursor: pointer;
+        }
+
+        .film-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .film-poster {
+            width: 100%;
+            height: 300px;
+            background: #111;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #444;
+            font-size: 0.8rem;
+        }
+
+        h2 { color: #d4af37; margin-bottom: 10px; }
+        p { font-family: sans-serif; font-size: 0.9rem; opacity: 0.8; line-height: 1.4; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="nav-link">
+            <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/anasayfabuton.png" alt="Anasayfa" class="btn-home">
+        </a>
+        <a href="sinema.html" class="nav-link">
+            <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/sinemabuton.png" alt="Sinema" class="btn-cinema">
+        </a>
+    </nav>
+
+    <div class="cinema-gallery">
+        <div class="film-card">
+            <div class="film-poster">POSTER ALANI</div>
+            <h2>Kara Film Gecesi</h2>
+            <p>Pixar tarzı animasyonun karanlık dehlizlerine bir yolculuk.</p>
+        </div>
+        <div class="film-card">
+            <div class="film-poster">POSTER ALANI</div>
+            <h2>Manifesto Serisi</h2>
+            <p>Dogma 95 kurallarına göre çekilmiş deneysel kısa filmler.</p>
+        </div>
+        <div class="film-card">
+            <div class="film-poster">POSTER ALANI</div>
+            <h2>Zaman Kayması</h2>
+            <p>Sinemanın geçmişine dijital bir dokunuş.</p>
+        </div>
+    </div>
+
+</body>
+</html>
