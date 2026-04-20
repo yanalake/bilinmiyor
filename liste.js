@@ -1,10 +1,10 @@
 const sinemaNotlari = [
     {
-        baslik: "İLK BLOG YAZISI",
-        icerik: "Buraya yazdığın her şey ana sayfada en üstte görünecek."
+        baslik: "DENEME BAŞLIĞI",
+        icerik: "İçerik buraya gelecek."
     },
     {
-        baslik: "İKİNCİ BLOG YAZISI",
-        icerik: "Görsel eklemek istersen <img src='link' style='width:100%'> şeklinde ekleyebilirsin."
+        baslik: "İKİNCİ NOT",
+        icerik: "Görsel veya metin..."
     }
 ];
