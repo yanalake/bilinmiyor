@@ -32,7 +32,6 @@
             z-index: -1;
         }
 
-        /* Estetik ve Belirgin Replik Alanı */
         #quote-container {
             max-width: 900px;
             margin: 30px auto 50px auto;
@@ -61,10 +60,9 @@
             transition: opacity 1s ease-in-out;
         }
 
-        /* Feed Notları Grid */
         .notes-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 40px;
             max-width: 1400px;
             margin: 0 auto;
@@ -79,44 +77,69 @@
             border-radius: 4px;
             line-height: 1.7;
             border-left: 6px solid #ccc;
-            transition: 0.4s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
             text-decoration: none;
-            display: block;
+            display: flex;
+            flex-direction: column;
             opacity: 0;
-            animation: fadeIn 0.8s ease forwards;
+            transform: translateY(40px);
+            animation: slideInUp 0.8s ease forwards;
         }
 
-        .note-card:hover { transform: scale(1.02) rotate(0deg) !important; z-index: 10; }
+        .note-card:hover { 
+            transform: scale(1.03) translateY(-10px) rotate(0deg) !important; 
+            z-index: 10;
+            box-shadow: 20px 20px 50px rgba(0,0,0,0.9);
+            border-left-color: var(--accent);
+        }
 
         .note-card h2 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             margin-bottom: 15px;
+            padding-bottom: 10px;
             border-bottom: 1px dashed #aaa;
             color: #000;
         }
 
-        /* Dev Alt Navigasyon (Bar Yok) */
-        nav {
-            position: fixed; bottom: 60px; left: 50%; transform: translateX(-50%);
-            display: flex; align-items: center; gap: 45px; z-index: 1000;
+        .note-content {
+            font-size: 0.95rem;
+            color: #444;
         }
-        .btn-img-large { width: 160px; height: auto; transition: 0.4s; filter: drop-shadow(0 10px 25px rgba(0,0,0,0.7)); }
-        .btn-img-small { width: 95px; height: auto; transition: 0.4s; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7)); }
+
+        nav {
+            position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
+            display: flex; align-items: center; gap: 30px; z-index: 1000;
+        }
+        .btn-img-large { width: 140px; height: auto; transition: 0.4s; filter: drop-shadow(0 10px 25px rgba(0,0,0,0.7)); }
+        .btn-img-small { width: 85px; height: auto; transition: 0.4s; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7)); }
         
         .music-btn-container {
-            width: 95px; height: 95px; background: rgba(255,255,255,0.1);
+            width: 85px; height: 85px; background: rgba(255,255,255,0.1);
             backdrop-filter: blur(10px); border-radius: 50%; display: flex;
             align-items: center; justify-content: center; border: 2px solid var(--accent);
-            color: var(--accent); font-size: 2.5rem; cursor: pointer;
+            color: var(--accent); font-size: 2.2rem; cursor: pointer;
+            transition: all 0.4s ease;
         }
         
-        .nav-link:hover, .music-toggle:hover { transform: translateY(-25px) scale(1.1); }
+        .nav-link:hover .btn-img-large, .nav-link:hover .btn-img-small, .music-toggle:hover .music-btn-container { 
+            transform: translateY(-15px) scale(1.1); 
+        }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(50px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobil Optimizasyon */
+        @media (max-width: 768px) {
+            #quote-text { font-size: 1rem; }
+            .quote-box { padding: 20px; }
+            nav { gap: 15px; bottom: 20px; }
+            .btn-img-large { width: 90px; }
+            .btn-img-small, .music-btn-container { width: 60px; height: 60px; font-size: 1.5rem; }
+            .notes-grid { gap: 20px; }
         }
     </style>
 </head>
@@ -141,6 +164,7 @@
         <a href="video.html" class="nav-link"><img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/tvbuton.png" class="btn-img-small"></a>
     </nav>
 
+    <script src="liste.js"></script>
     <script>
         // 1. GERÇEK RANDOM REPLİK MOTORU
         const replikler = [
@@ -158,12 +182,7 @@
         function replikGetir() {
             const qText = document.getElementById('quote-text');
             let yeniIndis;
-            
-            // Aynı repliğin üst üste gelmemesini sağla
-            do {
-                yeniIndis = Math.floor(Math.random() * replikler.length);
-            } while (yeniIndis === sonIndis);
-            
+            do { yeniIndis = Math.floor(Math.random() * replikler.length); } while (yeniIndis === sonIndis);
             sonIndis = yeniIndis;
             
             qText.style.opacity = 0;
@@ -173,7 +192,6 @@
             }, 1000);
         }
 
-        // İlk açılışta rastgele başlat
         window.addEventListener('DOMContentLoaded', replikGetir);
         setInterval(replikGetir, 8000);
 
@@ -185,7 +203,14 @@
             else { audio.pause(); document.getElementById('music-icon').innerText = '▶'; }
         });
 
-        // 3. FEED ÇEKME MOTORU
+        // 3. HTML ETİKETLERİNİ TEMİZLEME FONKSİYONU (Kritik Çözüm)
+        function stripHTML(htmlString) {
+            const tempDiv = document.createElement("div");
+            tempDiv.innerHTML = htmlString;
+            return tempDiv.textContent || tempDiv.innerText || "";
+        }
+
+        // 4. FEED ÇEKME MOTORU
         const FEED_URL = 'https://letterboxd.com/yanalake/rss/'; 
         const grid = document.getElementById('feed-grid');
 
@@ -193,20 +218,46 @@
             try {
                 const response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(FEED_URL)}`);
                 const data = await response.json();
+                
                 if (data.status === 'ok') {
                     grid.innerHTML = '';
                     data.items.forEach((item, i) => {
+                        // Letterboxd açıklamasını HTML etiketlerinden temizle
+                        const cleanText = stripHTML(item.description).trim();
+                        // Temizlenmiş metni kısalt
+                        const shortText = cleanText.length > 150 ? cleanText.substring(0, 150) + '...' : cleanText;
+                        
                         const card = document.createElement('a');
                         card.href = item.link;
                         card.target = '_blank';
                         card.className = 'note-card';
-                        const rot = (i % 2 === 0) ? -1.5 : 1.5;
-                        card.style.transform = `rotate(${rot}deg)`;
-                        card.innerHTML = `<h2>${item.title}</h2><div class="content">${item.description.substring(0, 150)}...</div>`;
+                        
+                        // Hafif rotasyon efekti
+                        const rot = (i % 2 === 0) ? -1 : 1;
+                        card.style.transform = `rotate(${rot}deg) translateY(40px)`;
+                        card.style.animationDelay = `${i * 0.1}s`; // Sırayla yüklenme efekti
+                        
+                        card.innerHTML = `
+                            <h2>${item.title}</h2>
+                            <div class="note-content">${shortText || "İnceleme metni bulunmuyor..."}</div>
+                        `;
                         grid.appendChild(card);
                     });
                 }
-            } catch (e) { console.error("Feed hatası"); }
+            } catch (e) { 
+                console.error("Feed hatası:", e);
+                // API çökerse liste.js'deki yerel verileri yedek olarak yükle
+                grid.innerHTML = '';
+                if(typeof sinemaNotlari !== 'undefined') {
+                    sinemaNotlari.forEach((not, i) => {
+                        const card = document.createElement('div');
+                        card.className = 'note-card';
+                        card.style.animationDelay = `${i * 0.1}s`;
+                        card.innerHTML = `<h2>${not.baslik}</h2><div class="note-content">${not.icerik}</div>`;
+                        grid.appendChild(card);
+                    });
+                }
+            }
         }
         window.onload = feedYukle;
     </script>
