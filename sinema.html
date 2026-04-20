@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zaman Makinesi | Sinema</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+    <title>Zaman Makinesi | Sinema Tarihi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Special+Elite&display=swap" rel="stylesheet">
     <style>
-        /* CSS index.html ile tutarlı tutuldu */
-        :root { --accent: #d4af37; }
+        :root { 
+            --accent: #d4af37; 
+            --dark: #0a0a0f;
+        }
+        
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
@@ -15,111 +18,234 @@
             background-size: cover;
             font-family: 'Fredoka One', cursive;
             color: #fff;
-            min-height: 100vh;
-            padding-bottom: 150px;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(10, 10, 15, 0.93);
+            background: rgba(10, 10, 15, 0.96);
             z-index: -1;
         }
 
-        /* Sabit Alt Navigasyon */
+        /* Tipografik Bölümler */
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 100px 10%;
+            text-align: center;
+        }
+
+        .year {
+            font-size: 8rem;
+            opacity: 0.1;
+            line-height: 0.8;
+            margin-bottom: -40px;
+            color: var(--accent);
+        }
+
+        .title {
+            font-size: 4rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .description {
+            font-family: 'Special Elite', cursive;
+            font-size: 1.2rem;
+            max-width: 700px;
+            line-height: 1.8;
+            color: #ccc;
+        }
+
+        /* Makaleler Butonu ve Çekmecesi */
+        .article-section {
+            padding: 100px 0 300px 0;
+        }
+
+        .article-btn {
+            background: none;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            padding: 20px 50px;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: 0.4s;
+        }
+
+        .article-btn:hover {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+        }
+
+        #article-drawer {
+            display: none;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            width: 80%;
+            margin: 50px auto;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .article-card {
+            background: rgba(255,255,255,0.05);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.3s;
+        }
+
+        .article-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-5px); }
+
+        /* DEV NAVİGASYON (Bar Yok) */
         nav {
             position: fixed;
-            bottom: 30px;
+            bottom: 60px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 50px;
-            padding: 15px 40px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 100px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            align-items: center;
+            gap: 60px;
             z-index: 1000;
         }
 
-        .btn-img { width: 120px; transition: 0.3s; }
-        
-        /* Aktif sayfa efekti için sinema butonunu parlatalım */
-        .btn-cinema { filter: drop-shadow(0 0 10px var(--accent)); }
-        .btn-home { opacity: 0.6; }
-        
-        .nav-link:hover .btn-img { opacity: 1; transform: scale(1.1); }
-
-        /* İçerik */
-        .cinema-container {
-            animation: slideIn 0.8s ease-out;
-            max-width: 1000px;
-            margin: 50px auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            padding: 20px;
+        .btn-img {
+            width: 150px; /* Yüzde elli büyüdü */
+            height: auto;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6));
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .btn-cinema { filter: drop-shadow(0 0 20px var(--accent)); }
+        .btn-home { opacity: 0.7; }
 
-        .film-card {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 25px;
-            padding: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            text-align: center;
-            transition: 0.5s;
-        }
+        .nav-link:hover .btn-img { transform: translateY(-20px) scale(1.1); opacity: 1; }
 
-        .film-card:hover {
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-        }
-
-        .poster-placeholder {
-            width: 100%;
-            height: 350px;
-            background: #111;
-            border-radius: 15px;
-            margin-bottom: 20px;
+        /* Müzik Butonu */
+        .music-btn-container {
+            width: 90px;
+            height: 90px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #333;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            font-size: 2.5rem;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            transition: 0.4s;
         }
 
-        h2 { color: var(--accent); margin-bottom: 10px; }
+        .music-btn-container:hover { transform: scale(1.1); box-shadow: 0 0 20px var(--accent); }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
 
-    <div class="cinema-container">
-        <div class="film-card">
-            <div class="poster-placeholder">LENS TESTİ</div>
-            <h2>A7SIII Denemeleri</h2>
-            <p>10-bit S-Log3 kayıtların renk süreci.</p>
+    <audio id="bg-music" loop>
+        <source src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/delosound-mysterious-mystical-ambient-442832.mp3" type="audio/mpeg">
+    </audio>
+
+    <section>
+        <div class="year">1895</div>
+        <h2 class="title">BİR TRENİN GELİŞİ</h2>
+        <p class="description">Lumière Kardeşler, görüntüyü duvara yansıttığında dünya artık eskisi gibi olmayacaktı. İzleyiciler üzerlerine gelen trenden kaçarken, gerçeklik ve rüya arasındaki o ince çizgi sonsuza dek silindi.</p>
+    </section>
+
+    <section>
+        <div class="year">1941</div>
+        <h2 class="title">IŞIK VE GÖLGE</h2>
+        <p class="description">Citizen Kane ile başlayan modern anlatım, Film Noir'ın puslu sokaklarında kayboldu. Sinema artık sadece bir hikaye değil, bir ışık oyunu, bir psikolojik derinlik savaşıydı.</p>
+    </section>
+
+    <section>
+        <div class="year">2026</div>
+        <h2 class="title">DİJİTAL RÜYA</h2>
+        <p class="description">Piksellerin duygulara dönüştüğü çağ. Gerçeklik artık kameranın önünde değil, işlemcilerin içinde yeniden yaratılıyor. Zaman Makinesi hala çalışıyor.</p>
+    </section>
+
+    <section class="article-section">
+        <button class="article-btn" onclick="toggleArticles()">DİĞER MAKALELER</button>
+        <div id="article-drawer">
+            <div class="article-card">
+                <h3>Korku Sineması</h3>
+                <p>Karanlıktan neden korkarız?</p>
+            </div>
+            <div class="article-card">
+                <h3>Sinemada Zaman</h3>
+                <p>Kurgu ile zamanı bükmek.</p>
+            </div>
+            <div class="article-card">
+                <h3>Noir Estetiği</h3>
+                <p>Siyah-beyazın gücü.</p>
+            </div>
+            <div class="article-card">
+                <h3>Auteur Yönetmenler</h3>
+                <p>İmzasını atanlar.</p>
+            </div>
         </div>
-        <div class="film-card">
-            <div class="poster-placeholder">FIRTINA</div>
-            <h2>Gebze Sokakları</h2>
-            <p>Düşük ışıkta noir atmosfer çalışması.</p>
-        </div>
-    </div>
+    </section>
 
     <nav>
         <a href="index.html" class="nav-link">
             <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/anasayfabuton.png" alt="Anasayfa" class="btn-img btn-home">
         </a>
+        
+        <div id="music-trigger" class="music-toggle">
+            <div class="music-btn-container">
+                <span id="music-icon">▶</span>
+            </div>
+        </div>
+
         <a href="sinema.html" class="nav-link">
             <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/sinemabuton.png" alt="Sinema" class="btn-img btn-cinema">
         </a>
     </nav>
+
+    <script>
+        // Müzik Kontrolü
+        const audio = document.getElementById('bg-music');
+        const trigger = document.getElementById('music-trigger');
+        const icon = document.getElementById('music-icon');
+
+        trigger.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                icon.innerText = '⏸';
+            } else {
+                audio.pause();
+                icon.innerText = '▶';
+            }
+        });
+
+        // Makale Çekmecesi Kontrolü
+        function toggleArticles() {
+            const drawer = document.getElementById('article-drawer');
+            if (drawer.style.display === 'grid') {
+                drawer.style.display = 'none';
+            } else {
+                drawer.style.display = 'grid';
+                window.scrollTo(0, document.body.scrollHeight);
+            }
+        }
+    </script>
 
 </body>
 </html>
