@@ -6,8 +6,13 @@
     <title>Zaman Makinesi | Sinema Arşivi</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --accent: #d4af37; --note-bg: #f4f1ea; }
+        :root {
+            --accent: #d4af37;
+            --note-bg: #f4f1ea;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
             background: url('https://raw.githubusercontent.com/yanalake/bilinmiyor/main/arkaplan.png') no-repeat center center fixed;
             background-size: cover;
@@ -15,64 +20,165 @@
             color: #fff;
             min-height: 100vh;
             padding: 50px 20px 250px 20px;
+            overflow-x: hidden;
         }
+
         body::before {
-            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle, transparent 10%, rgba(10, 10, 15, 0.98) 100%);
             z-index: -1;
         }
+
+        /* Notların yayınlanacağı ana konteynır */
         .notes-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px; max-width: 1400px; margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            animation: fadeIn 1.2s ease-out;
         }
+
         .note-card {
-            background: var(--note-bg); color: #222; padding: 30px;
-            font-family: 'Courier Prime', monospace; box-shadow: 15px 15px 40px rgba(0,0,0,0.7);
-            border-radius: 3px; border-left: 5px solid #ddd;
+            background: var(--note-bg);
+            color: #222;
+            padding: 30px;
+            font-family: 'Courier Prime', monospace;
+            box-shadow: 15px 15px 40px rgba(0,0,0,0.7);
+            border-radius: 3px;
+            line-height: 1.6;
+            transition: transform 0.4s ease;
+            position: relative;
+            border-left: 5px solid #ddd;
         }
+
+        .note-card:hover {
+            transform: scale(1.03) rotate(0deg) !important;
+            z-index: 10;
+        }
+
         .note-card:nth-child(odd) { transform: rotate(-2deg); }
         .note-card:nth-child(even) { transform: rotate(1.5deg); }
-        .note-card h2 { font-family: 'Montserrat', sans-serif; font-size: 1.4rem; margin-bottom: 15px; border-bottom: 1px dashed #999; }
-        
-        /* GÜNCEL DEV NAVİGASYON */
+
+        .note-card h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed #999;
+            color: #111;
+        }
+
+        /* Dev Alt Navigasyon */
         nav {
-            position: fixed; bottom: 60px; left: 50%; transform: translateX(-50%);
-            display: flex; align-items: center; gap: 40px; z-index: 1000;
+            position: fixed;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            z-index: 1000;
         }
-        .btn-img-large { width: 150px; height: auto; transition: 0.4s; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6)); }
-        .btn-img-small { width: 90px; height: auto; transition: 0.4s; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.6)); }
+
+        .nav-link, .music-toggle {
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .btn-img-large { width: 150px; height: auto; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6)); }
+        .btn-img-small { width: 90px; height: auto; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.6)); }
+
         .music-btn-container {
-            width: 90px; height: 90px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            border: 2px solid var(--accent); color: var(--accent); font-size: 2.5rem; cursor: pointer;
+            width: 90px; height: 90px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            font-size: 2.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
-        .nav-link:hover, .music-toggle:hover { transform: translateY(-15px) scale(1.05); filter: drop-shadow(0 0 25px var(--accent)); }
+
+        .nav-link:hover, .music-toggle:hover {
+            transform: translateY(-20px) scale(1.1);
+            filter: drop-shadow(0 0 25px var(--accent));
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
-    <audio id="bg-music" loop><source src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/delosound-mysterious-mystical-ambient-442832.mp3" type="audio/mpeg"></audio>
+
+    <audio id="bg-music" loop>
+        <source src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/delosound-mysterious-mystical-ambient-442832.mp3" type="audio/mpeg">
+    </audio>
+
     <div class="notes-grid" id="main-grid"></div>
+
     <nav>
-        <a href="index.html" class="nav-link"><img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/anasayfabuton.png" class="btn-img-large"></a>
-        <div id="music-trigger" class="music-toggle"><div class="music-btn-container"><span id="music-icon">▶</span></div></div>
-        <a href="sinema.html" class="nav-link"><img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/sinemabuton.png" class="btn-img-large"></a>
-        <a href="video.html" class="nav-link"><img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/tvbuton.png" class="btn-img-small"></a>
+        <a href="index.html" class="nav-link">
+            <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/anasayfabuton.png" alt="Anasayfa" class="btn-img-large">
+        </a>
+        
+        <div id="music-trigger" class="music-toggle">
+            <div class="music-btn-container">
+                <span id="music-icon">▶</span>
+            </div>
+        </div>
+
+        <a href="sinema.html" class="nav-link">
+            <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/sinemabuton.png" alt="Sinema" class="btn-img-large">
+        </a>
+
+        <a href="video.html" class="nav-link">
+            <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/tvbuton.png" alt="Video" class="btn-img-small">
+        </a>
     </nav>
+
     <script src="liste.js"></script>
+
     <script>
         const audio = document.getElementById('bg-music');
         const trigger = document.getElementById('music-trigger');
         const icon = document.getElementById('music-icon');
-        trigger.addEventListener('click', () => { if (audio.paused) { audio.play(); icon.innerText = '⏸'; } else { audio.pause(); icon.innerText = '▶'; } });
+
+        trigger.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                icon.innerText = '⏸';
+            } else {
+                audio.pause();
+                icon.innerText = '▶';
+            }
+        });
+
+        // LİSTE MOTORU: liste.js içindeki 'sinemaNotlari' dizisini okur
         const grid = document.getElementById('main-grid');
+
         function notlariYukle() {
-            sinemaNotlari.forEach(not => {
-                const kart = document.createElement('div'); kart.className = 'note-card';
-                kart.innerHTML = `<h2>${not.baslik}</h2><p>${not.icerik}</p>`;
-                grid.appendChild(kart);
-            });
+            // Eğer liste.js düzgün yüklendiyse verileri döner
+            if (typeof sinemaNotlari !== 'undefined') {
+                sinemaNotlari.forEach(not => {
+                    const kart = document.createElement('div');
+                    kart.className = 'note-card';
+                    kart.innerHTML = `
+                        <h2>${not.baslik}</h2>
+                        <p>${not.icerik}</p>
+                    `;
+                    grid.appendChild(kart);
+                });
+            }
         }
+
         notlariYukle();
     </script>
+
 </body>
 </html>
