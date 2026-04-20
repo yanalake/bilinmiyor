@@ -7,9 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Special+Elite&display=swap" rel="stylesheet">
     <style>
         :root {
-            --dark-overlay: rgba(10, 10, 15, 0.9);
+            --dark-bg: #0a0a0f;
             --note-paper: #f4f1ea;
-            --transition-speed: 0.6s;
+            --accent: #d4af37;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -20,104 +20,86 @@
             font-family: 'Fredoka One', cursive;
             color: #fff;
             min-height: 100vh;
-            overflow-x: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
+            /* Alt menü yüksekliği kadar boşluk bırakıyoruz ki içerik kapanmasın */
+            padding-bottom: 150px; 
         }
 
-        /* Karanlık Pixar Atmosferi */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, transparent 10%, var(--dark-overlay) 90%);
+            background: radial-gradient(circle, transparent 20%, rgba(10, 10, 15, 0.9) 90%);
             z-index: -1;
         }
 
-        /* Navigasyon Menüsü - Görsel Hiyerarşi */
+        /* Sabit Alt Navigasyon */
         nav {
-            width: 100%;
-            padding: 30px 50px;
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
-            align-items: center;
-            gap: 40px; /* Butonlar arası boşluk */
-            z-index: 100;
+            gap: 50px;
+            padding: 15px 40px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .nav-link {
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             align-items: center;
+            justify-content: center;
         }
 
-        /* Boyut Hiyerarşisi */
-        .btn-home { width: 90px; } /* En küçük */
-        .btn-cinema { width: 140px; } /* Daha büyük ve vurgulu */
+        /* Buton Boyutları Eşitlendi ve Büyütüldü */
+        .btn-img {
+            width: 120px; /* Her iki buton için de aynı boyut */
+            height: auto;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5));
+        }
 
         .nav-link:hover {
-            transform: scale(1.1) rotate(2deg);
-            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.6));
+            transform: scale(1.15) translateY(-10px);
+            filter: drop-shadow(0 0 15px var(--accent));
         }
 
-        /* Sayfa Geçiş Animasyonu (Slide-in) */
+        /* İçerik Alanı */
         .content-wrapper {
-            animation: slideIn 0.8s ease-out forwards;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
+            animation: slideIn 0.8s ease-out;
+            margin-top: 80px;
+            width: 90%;
+            max-width: 700px;
         }
 
         @keyframes slideIn {
-            from { opacity: 0; transform: translateX(50px); }
-            to { opacity: 1; transform: translateX(0); }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Dogma 95 Notu */
         .manifesto-note {
-            margin-top: 40px;
             background-color: var(--note-paper);
             color: #222;
-            padding: 40px;
-            max-width: 600px;
-            width: 90%;
-            border-radius: 4px;
-            box-shadow: 15px 15px 50px rgba(0,0,0,0.8);
+            padding: 45px;
+            border-radius: 2px;
+            box-shadow: 20px 20px 60px rgba(0,0,0,0.9);
             font-family: 'Special Elite', typewriter;
-            position: relative;
-            transform: rotate(-1deg);
+            transform: rotate(-0.5deg);
         }
 
-        h1 {
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-            border-bottom: 2px dashed #bbb;
-            text-align: center;
-        }
-
-        .rules { list-style: none; line-height: 1.6; }
-        .rules li::before { content: "× "; color: #8b0000; font-weight: bold; }
-
-        .subtitle {
-            margin-top: 30px;
-            font-size: 0.8rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            opacity: 0.7;
-        }
+        h1 { text-align: center; margin-bottom: 25px; border-bottom: 1px solid #ccc; padding-bottom: 10px; }
+        .rules { list-style: none; line-height: 1.8; font-size: 1.1rem; }
+        .rules li::before { content: "• "; color: #8b0000; font-weight: bold; }
     </style>
 </head>
 <body>
-
-    <nav>
-        <a href="index.html" class="nav-link">
-            <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/anasayfabuton.png" alt="Anasayfa" class="btn-home">
-        </a>
-        <a href="sinema.html" class="nav-link">
-            <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/sinemabuton.png" alt="Sinema" class="btn-cinema">
-        </a>
-    </nav>
 
     <div class="content-wrapper">
         <div class="manifesto-note">
@@ -131,8 +113,16 @@
                 <li>Tür filmleri kabul edilemez.</li>
             </ul>
         </div>
-        <div class="subtitle">İffet Yemini: Lars von Trier</div>
     </div>
+
+    <nav>
+        <a href="index.html" class="nav-link">
+            <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/anasayfabuton.png" alt="Anasayfa" class="btn-img">
+        </a>
+        <a href="sinema.html" class="nav-link">
+            <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/sinemabuton.png" alt="Sinema" class="btn-img">
+        </a>
+    </nav>
 
 </body>
 </html>
