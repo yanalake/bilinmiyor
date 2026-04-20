@@ -3,167 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dogma 95 | Sinematik Notlar</title>
+    <title>Zaman Makinesi | Anasayfa</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Special+Elite&display=swap" rel="stylesheet">
     <style>
         :root {
-            --dark-overlay: rgba(10, 10, 15, 0.85);
-            --pixar-blue: #1b2735;
-            --accent-gold: #d4af37;
+            --dark-overlay: rgba(10, 10, 15, 0.9);
             --note-paper: #f4f1ea;
+            --transition-speed: 0.6s;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            /* Arka plan görseli yerleştirme */
             background: url('https://raw.githubusercontent.com/yanalake/bilinmiyor/main/arkaplan.png') no-repeat center center fixed;
             background-size: cover;
-            font-family: 'Fredoka One', cursive; /* Pixar ruhunu yansıtan font */
+            font-family: 'Fredoka One', cursive;
             color: #fff;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
+            overflow-x: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        /* Karanlık Atmosfer Katmanı */
+        /* Karanlık Pixar Atmosferi */
         body::before {
             content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, transparent 20%, var(--dark-overlay) 80%);
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 10%, var(--dark-overlay) 90%);
             z-index: -1;
         }
 
-        /* Üst Menü ve Anasayfa Butonu */
-        header {
+        /* Navigasyon Menüsü - Görsel Hiyerarşi */
+        nav {
             width: 100%;
-            padding: 20px 50px;
+            padding: 30px 50px;
             display: flex;
-            justify-content: flex-start;
-            z-index: 10;
+            align-items: center;
+            gap: 40px; /* Butonlar arası boşluk */
+            z-index: 100;
         }
 
-        .home-btn {
-            width: 80px;
-            height: 80px;
-            cursor: pointer;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s;
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
+        .nav-link {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s;
+            display: flex;
+            align-items: center;
         }
 
-        .home-btn:hover {
-            transform: scale(1.1) rotate(-5deg);
-            filter: drop-shadow(0 8px 20px var(--accent-gold));
+        /* Boyut Hiyerarşisi */
+        .btn-home { width: 90px; } /* En küçük */
+        .btn-cinema { width: 140px; } /* Daha büyük ve vurgulu */
+
+        .nav-link:hover {
+            transform: scale(1.1) rotate(2deg);
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.6));
         }
 
-        /* Dogma 95 Notu (Manifesto) */
-        .manifesto-container {
-            margin-top: 50px;
-            perspective: 1000px;
-            max-width: 600px;
-            width: 90%;
+        /* Sayfa Geçiş Animasyonu (Slide-in) */
+        .content-wrapper {
+            animation: slideIn 0.8s ease-out forwards;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
         }
 
-        .note {
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Dogma 95 Notu */
+        .manifesto-note {
+            margin-top: 40px;
             background-color: var(--note-paper);
             color: #222;
             padding: 40px;
-            border-radius: 5px;
-            box-shadow: 20px 20px 60px rgba(0,0,0,0.7);
-            transform: rotateX(5deg) rotateY(-5deg);
-            font-family: 'Special Elite', typewriter; /* Daktilo efekti */
+            max-width: 600px;
+            width: 90%;
+            border-radius: 4px;
+            box-shadow: 15px 15px 50px rgba(0,0,0,0.8);
+            font-family: 'Special Elite', typewriter;
             position: relative;
-            border-left: 10px solid #ddd;
-        }
-
-        /* Pixar tarzı yumuşak gölge ve derinlik */
-        .note::after {
-            content: "";
-            position: absolute;
-            bottom: -10px;
-            right: -10px;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.2);
-            z-index: -1;
-            filter: blur(10px);
+            transform: rotate(-1deg);
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             margin-bottom: 20px;
-            color: #111;
+            border-bottom: 2px dashed #bbb;
             text-align: center;
-            border-bottom: 2px dashed #ccc;
-            padding-bottom: 10px;
         }
 
-        .rules {
-            line-height: 1.6;
-            font-size: 1.1rem;
-        }
+        .rules { list-style: none; line-height: 1.6; }
+        .rules li::before { content: "× "; color: #8b0000; font-weight: bold; }
 
-        .rules li {
-            margin-bottom: 10px;
-            list-style-type: none;
-        }
-
-        .rules li::before {
-            content: "✘ ";
-            color: #8b0000;
-            font-weight: bold;
-        }
-
-        /* Alt yazı efekti */
         .subtitle {
-            position: fixed;
-            bottom: 30px;
-            background: rgba(0,0,0,0.6);
-            padding: 5px 15px;
-            border-radius: 5px;
-            font-family: Arial, sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            margin-top: 30px;
             font-size: 0.8rem;
-            color: #eee;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.7;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <a href="#">
-            <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/anasayfabuton.png" alt="Anasayfa" class="home-btn">
+    <nav>
+        <a href="index.html" class="nav-link">
+            <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/anasayfabuton.png" alt="Anasayfa" class="btn-home">
         </a>
-    </header>
+        <a href="sinema.html" class="nav-link">
+            <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/sinemabuton.png" alt="Sinema" class="btn-cinema">
+        </a>
+    </nav>
 
-    <div class="manifesto-container">
-        <div class="note">
+    <div class="content-wrapper">
+        <div class="manifesto-note">
             <h1>DOGMA 95</h1>
             <ul class="rules">
                 <li>Çekimler stüdyo dışında, gerçek mekanlarda yapılmalı.</li>
                 <li>Ses ve görüntü asla birbirinden ayrı kaydedilmemeli.</li>
                 <li>Kamera elde taşınmalı.</li>
-                <li>Özel ışıklandırma kullanılmamalı (sadece mevcut ışık).</li>
+                <li>Özel ışıklandırma kullanılmamalı.</li>
                 <li>Optik numaralar ve filtreler yasaktır.</li>
-                <li>Filmde yüzeysel aksiyon (cinayet, silah vb.) bulunmamalı.</li>
-                <li>Zamansal ve coğrafi yabancılaşma yasaktır.</li>
                 <li>Tür filmleri kabul edilemez.</li>
             </ul>
         </div>
+        <div class="subtitle">İffet Yemini: Lars von Trier</div>
     </div>
-
-    <div class="subtitle">"Vow of Chastity - Lars von Trier & Thomas Vinterberg"</div>
 
 </body>
 </html>
