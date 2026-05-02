@@ -1,64 +1,335 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zaman Makinesi | Video Arşivi</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root { --accent: #d4af37; --text-color: #e0e0e0; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: url('https://raw.githubusercontent.com/yanalake/bilinmiyor/main/arkaplan.png') no-repeat center center fixed; background-size: cover; font-family: 'Courier Prime', monospace; color: var(--text-color); min-height: 100vh; padding: 50px 20px 200px 20px; display: flex; flex-direction: column; align-items: center; }
-        body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 10, 15, 0.95); z-index: -1; }
-        h1 { font-family: 'Montserrat', sans-serif; font-size: 3rem; color: var(--accent); letter-spacing: 5px; margin-bottom: 40px; text-align: center; text-transform: uppercase; }
-        .video-container { width: 100%; max-width: 1000px; display: grid; grid-template-columns: 1fr; gap: 50px; animation: fadeIn 1s ease-out; }
-        .video-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 20px; box-shadow: 0 30px 60px rgba(0,0,0,0.7); transition: transform 0.3s ease; }
-        .video-card:hover { transform: scale(1.02); background: rgba(255, 255, 255, 0.05); }
-        .responsive-iframe { position: relative; overflow: hidden; width: 100%; padding-top: 56.25%; border-radius: 12px; }
-        .responsive-iframe iframe { position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height: 100%; border: none; }
-        .video-info { margin-top: 20px; font-family: 'Courier Prime', monospace; }
-        .video-info h3 { color: var(--accent); margin-bottom: 10px; font-family: 'Montserrat', sans-serif;}
-        
-        /* TİPOGRAFİK NAVİGASYON */
-        nav { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 30px; z-index: 1000; width: 100%; max-width: 900px; padding: 0 15px; }
-        .nav-item { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.3rem; color: #dcdcdc; text-decoration: none; text-transform: uppercase; letter-spacing: 3px; text-shadow: 4px 4px 15px #000, -2px -2px 10px #000, 0 0 25px rgba(0,0,0,0.9); transition: all 0.3s; cursor: pointer; border-bottom: 3px solid transparent; padding-bottom: 5px; }
-        .nav-item:hover { color: var(--accent); transform: translateY(-8px); text-shadow: 4px 4px 15px #000, 0 0 20px var(--accent); }
-        .nav-item.active { color: var(--accent); border-bottom-color: var(--accent); }
-        .sound-toggle { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; color: #888; letter-spacing: 2px; padding: 8px 20px; border: 2px dashed #555; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; text-shadow: 2px 2px 10px #000; background: rgba(0,0,0,0.4); }
-        .sound-toggle:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-5px); }
-        .sound-toggle.playing { color: var(--accent); border-color: var(--accent); border-style: solid; background: rgba(212, 175, 55, 0.1); }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0a0f">
+  <meta name="color-scheme" content="dark">
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @media (max-width: 768px) { nav { gap: 15px; bottom: 20px; } .nav-item { font-size: 0.95rem; letter-spacing: 1px; padding: 5px 8px; border-radius: 8px; background: rgba(0,0,0,0.5); } .sound-toggle { font-size: 0.8rem; padding: 5px 12px; width: 100%; text-align: center; max-width: 200px; margin-top: 5px;} h1 { font-size: 2rem; } }
-    </style>
+  <title>Zaman Makinesi · Kayıtlar</title>
+  <meta name="description" content="Görsel arşiv. Sinematik atmosfer, dikey hikâyeler ve zamanın ötesinde kareler.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Zaman Makinesi · Kayıtlar">
+  <meta property="og:description" content="Zamanın ve mekânın ötesinde bir görsel yolculuk.">
+  <meta property="og:image" content="arkaplan.png">
+  <meta property="og:locale" content="tr_TR">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="./video.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0f'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%23d4af37' stroke-width='3'/%3E%3Cline x1='32' y1='14' x2='32' y2='32' stroke='%23d4af37' stroke-width='3' stroke-linecap='round'/%3E%3Cline x1='32' y1='32' x2='44' y2='38' stroke='%23d4af37' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .video-meta-bar {
+      max-width: 1100px;
+      margin: 0 auto 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding: 0 8px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--ink-faint);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border-faint);
+      padding-bottom: 14px;
+    }
+    .video-meta-bar .pulse {
+      display: inline-block;
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      margin-right: 6px;
+      animation: zm-pulse 2s ease-in-out infinite;
+      vertical-align: middle;
+    }
+
+    /* Featured (geniş) video */
+    .featured-card {
+      max-width: 1100px;
+      margin: 0 auto 50px;
+      animation: zm-slide-up 1s var(--ease) both;
+    }
+    .featured-card .frame-yatay {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #000;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-deep);
+    }
+    .featured-card .frame-yatay iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .featured-card .info {
+      margin-top: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+    .featured-card h2 {
+      font-family: var(--font-display);
+      color: var(--accent);
+      font-size: 1.6rem;
+      letter-spacing: 3px;
+      margin-bottom: 8px;
+    }
+    .featured-card p {
+      color: var(--ink-soft);
+      max-width: 600px;
+      line-height: 1.7;
+    }
+    .featured-tag {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--accent);
+      letter-spacing: 2px;
+      border: 1px solid var(--accent-dim);
+      padding: 6px 14px;
+      border-radius: 999px;
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+
+    /* Dikey reel grid */
+    .reels-section {
+      max-width: 1100px;
+      margin: 80px auto 40px;
+    }
+    .reels-section h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      color: var(--accent);
+      letter-spacing: 4px;
+      margin-bottom: 8px;
+    }
+    .reels-section .sub {
+      color: var(--ink-dim);
+      font-style: italic;
+      margin-bottom: 40px;
+      letter-spacing: 1px;
+    }
+
+    .reels-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .reel-card {
+      animation: zm-slide-up 0.9s var(--ease) both;
+    }
+    .reel-card:nth-child(1) { animation-delay: 0.1s; }
+    .reel-card:nth-child(2) { animation-delay: 0.25s; margin-top: 40px; }
+    .reel-card:nth-child(3) { animation-delay: 0.4s; margin-top: 16px; }
+
+    .reel-card .frame-dik {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-card);
+      transition: all 0.5s var(--ease);
+    }
+    .reel-card .frame-dik::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(0, 0, 0, 0.4));
+      pointer-events: none;
+      z-index: 2;
+      transition: opacity 0.4s;
+    }
+    .reel-card:hover .frame-dik {
+      transform: translateY(-8px);
+      border-color: var(--accent-dim);
+      box-shadow: 0 30px 60px -20px var(--accent-glow);
+    }
+    .reel-card:hover .frame-dik::after { opacity: 0; }
+    .reel-card .frame-dik iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* Placeholder reels (gelecekteki kayıtlar için) */
+    .frame-dik.placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 16px;
+      color: var(--ink-faint);
+      text-align: center;
+      padding: 30px;
+      font-family: var(--font-mono);
+    }
+    .frame-dik.placeholder .glyph {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      color: var(--accent);
+      opacity: 0.4;
+    }
+    .frame-dik.placeholder .label {
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+    }
+    .frame-dik.placeholder .hint {
+      font-size: 0.75rem;
+      color: var(--ink-ghost);
+      letter-spacing: 1px;
+      max-width: 200px;
+      line-height: 1.5;
+    }
+
+    .reel-info {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-faint);
+    }
+    .reel-info .num {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+    .reel-info h3 {
+      font-family: var(--font-display);
+      color: var(--ink);
+      font-size: 1.05rem;
+      letter-spacing: 1.5px;
+      margin-bottom: 6px;
+    }
+    .reel-info p {
+      font-size: 0.85rem;
+      color: var(--ink-dim);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 860px) {
+      .reels-grid { grid-template-columns: 1fr; gap: 50px; }
+      .reel-card:nth-child(n) { margin-top: 0; }
+      .reel-card { max-width: 460px; margin-left: auto; margin-right: auto; }
+      .featured-card .info { flex-direction: column; gap: 14px; }
+    }
+  </style>
 </head>
 <body>
-    <audio id="bg-music" loop><source src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/delosound-mysterious-mystical-ambient-442832.mp3" type="audio/mpeg"></audio>
 
-    <h1>VİDEO ARŞİVİ</h1>
+  <a href="#main" class="skip-link">İçeriğe atla</a>
 
-    <div class="video-container">
-        <div class="video-card">
-            <div class="responsive-iframe"><iframe src="https://www.youtube.com/embed/i43WNXnlGMs" allowfullscreen></iframe></div>
-            <div class="video-info"><h3>SİNEMATİK ATMOSFER</h3><p>Zamanın ve mekanın ötesinde bir görsel yolculuk.</p></div>
-        </div>
+  <main id="main">
+    <header class="zm-header">
+      <h1>KAYITLAR</h1>
+      <p>Zamanın ve mekânın ötesinde bir görsel arşiv.</p>
+    </header>
+
+    <div class="video-meta-bar" aria-label="Arşiv durumu">
+      <span><span class="pulse" aria-hidden="true"></span>Arşiv · Vol. I</span>
+      <span>04 kayıt · 01 yayında</span>
     </div>
 
-    <nav>
-        <a href="index.html" class="nav-item">BAŞLANGIÇ</a>
-        <a href="music.html" class="nav-item">FREKANS</a>
-        <div id="music-trigger" class="sound-toggle">SESİ AÇ</div>
-        <a href="sinema.html" class="nav-item">SİNEMA</a>
-        <a href="video.html" class="nav-item active">KAYITLAR</a>
-    </nav>
+    <!-- Featured (yatay) video -->
+    <article class="featured-card">
+      <div class="frame-yatay">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/i43WNXnlGMs?rel=0&modestbranding=1"
+          title="Sinematik atmosfer — ana kayıt"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+      <div class="info">
+        <div>
+          <h2>SİNEMATİK ATMOSFER</h2>
+          <p>Zamanın ve mekânın ötesinde bir görsel yolculuk. Açılış kaydı; arşivin merkezinde duran ana parça.</p>
+        </div>
+        <span class="featured-tag">★ Featured</span>
+      </div>
+    </article>
 
-    <script>
-        const audio = document.getElementById('bg-music');
-        const trigger = document.getElementById('music-trigger');
-        trigger.addEventListener('click', () => {
-            if (audio.paused) { audio.play(); trigger.innerText = 'SESİ KAPAT'; trigger.classList.add('playing'); } 
-            else { audio.pause(); trigger.innerText = 'SESİ AÇ'; trigger.classList.remove('playing'); }
-        });
-    </script>
+    <!-- Dikey reels -->
+    <section class="reels-section" aria-label="Dikey kayıtlar">
+      <h2>DİKEY KAYITLAR</h2>
+      <p class="sub">Kısa form, uzun nefes. Gelecekteki kasetler için yer ayrıldı.</p>
+
+      <div class="reels-grid">
+
+        <article class="reel-card">
+          <div class="frame-dik placeholder" aria-label="Yakında">
+            <div class="glyph">I</div>
+            <div class="label">Kasım</div>
+            <div class="hint">İlk dikey kayıt. Yakında bu çerçeveye yerleşecek.</div>
+          </div>
+          <div class="reel-info">
+            <div class="num">01 · Coming soon</div>
+            <h3>Boş Çerçeve</h3>
+            <p>Bekleyen ilk kayıt. Ses, görüntü ve ritim henüz kurgulanıyor.</p>
+          </div>
+        </article>
+
+        <article class="reel-card">
+          <div class="frame-dik placeholder" aria-label="Yakında">
+            <div class="glyph">II</div>
+            <div class="label">Aralık</div>
+            <div class="hint">Sokak sesleriyle kurulmuş bir mini kompozisyon.</div>
+          </div>
+          <div class="reel-info">
+            <div class="num">02 · Coming soon</div>
+            <h3>Sokak Etüdü</h3>
+            <p>Şehrin nefesini yakalamayı amaçlayan ikinci parça.</p>
+          </div>
+        </article>
+
+        <article class="reel-card">
+          <div class="frame-dik placeholder" aria-label="Yakında">
+            <div class="glyph">III</div>
+            <div class="label">Ocak</div>
+            <div class="hint">Bir yüz, bir bakış, bir karar.</div>
+          </div>
+          <div class="reel-info">
+            <div class="num">03 · Coming soon</div>
+            <h3>Portre</h3>
+            <p>Karakteri merkeze alan kısa formatlı dikey hikâye.</p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+  <nav class="zm-nav" aria-label="Ana navigasyon">
+    <a href="index.html" class="nav-item">BAŞLANGIÇ</a>
+    <a href="music.html" class="nav-item">FREKANS</a>
+    <button class="sound-toggle" aria-pressed="false">
+      <span class="pulse" aria-hidden="true"></span>SESİ AÇ
+    </button>
+    <a href="sinema.html" class="nav-item">SİNEMA</a>
+    <a href="video.html" class="nav-item">KAYITLAR</a>
+  </nav>
+
+  <script src="script.js"></script>
 </body>
 </html>

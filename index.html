@@ -1,265 +1,250 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zaman Makinesi | Her Şey Başlarken</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --accent: #d4af37;
-            --glass-black: rgba(0, 0, 0, 0.85);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0a0f">
+  <meta name="color-scheme" content="dark">
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+  <title>Zaman Makinesi · Her Şey Başlarken</title>
+  <meta name="description" content="Zaman Makinesi: kelimelerden üretilen bir protesto, bir manifesto, bir fanzin. Her Şey Başlarken — başlangıcın hikâyesi.">
+  <meta name="author" content="E42TT">
 
-        body {
-            background: url('https://raw.githubusercontent.com/yanalake/bilinmiyor/main/arkaplan.png') no-repeat center center fixed;
-            background-size: cover;
-            font-family: 'Courier Prime', monospace;
-            color: #fff;
-            min-height: 100vh;
-            padding: 20px 20px 200px 20px;
-            overflow-x: hidden;
-        }
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Zaman Makinesi · Her Şey Başlarken">
+  <meta property="og:description" content="Kelimelerden üretilen bir protesto. Tüm dünya türkülerine adanmıştır.">
+  <meta property="og:image" content="arkaplan.png">
+  <meta property="og:locale" content="tr_TR">
 
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, transparent 10%, rgba(10, 10, 15, 0.98) 100%);
-            z-index: -1;
-        }
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Zaman Makinesi · Her Şey Başlarken">
+  <meta name="twitter:description" content="Kelimelerden üretilen bir protesto. Tüm dünya türkülerine adanmıştır.">
+  <meta name="twitter:image" content="arkaplan.png">
 
-        /* YENİ REPLİK ALANI (Çerçevesiz ve Bilgi Odaklı) */
-        #quote-container { 
-            max-width: 800px; 
-            margin: 40px auto 60px auto; 
-            text-align: center;
-            min-height: 150px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
+  <link rel="canonical" href="./index.html">
 
-        #quote-content {
-            opacity: 0; 
-            transition: opacity 1.2s ease-in-out;
-        }
+  <!-- Favicon (inline SVG, altın simge) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0f'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%23d4af37' stroke-width='3'/%3E%3Cline x1='32' y1='14' x2='32' y2='32' stroke='%23d4af37' stroke-width='3' stroke-linecap='round'/%3E%3Cline x1='32' y1='32' x2='44' y2='38' stroke='%23d4af37' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
 
-        .q-text { 
-            font-family: 'Montserrat', sans-serif; 
-            font-size: 1.5rem; 
-            font-weight: 700; 
-            font-style: italic; 
-            color: var(--accent); 
-            text-shadow: 2px 2px 20px rgba(0,0,0,0.9); 
-            margin-bottom: 15px;
-            line-height: 1.4;
-        }
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
 
-        .q-info {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            font-family: 'Courier Prime', monospace;
-        }
+  <!-- Ortak stil -->
+  <link rel="stylesheet" href="styles.css">
 
-        .q-meta {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #fff;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.9);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+  <!-- Sayfa-özel stiller -->
+  <style>
+    /* Replik bölgesi */
+    #quote-container {
+      max-width: 800px;
+      margin: 40px auto 60px;
+      text-align: center;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    #quote-content {
+      opacity: 0;
+      transition: opacity 1.2s ease-in-out;
+    }
+    #quote-content.visible { opacity: 1; }
 
-        .q-director {
-            font-size: 0.95rem;
-            color: #aaa;
-        }
+    .q-text {
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+      font-weight: 700;
+      font-style: italic;
+      color: var(--accent);
+      text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.9);
+      margin-bottom: 18px;
+      line-height: 1.4;
+    }
+    .q-info {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-family: var(--font-mono);
+    }
+    .q-meta {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.9);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .q-director {
+      font-size: 0.92rem;
+      color: var(--ink-dim);
+    }
+    .q-extra {
+      margin: 12px auto 0;
+      font-size: 0.88rem;
+      color: var(--ink-faint);
+      max-width: 600px;
+      border-top: 1px solid var(--accent-dim);
+      padding-top: 12px;
+      line-height: 1.6;
+    }
 
-        .q-extra {
-            margin-top: 10px;
-            font-size: 0.9rem;
-            color: #888;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            border-top: 1px solid rgba(212, 175, 55, 0.3);
-            padding-top: 10px;
-            line-height: 1.5;
-        }
+    /* Hikâye container */
+    .story-container {
+      max-width: 900px;
+      margin: 0 auto 60px;
+      background: rgba(15, 15, 20, 0.7);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      padding: 50px 60px;
+      border-radius: 15px;
+      border-left: 4px solid var(--accent);
+      box-shadow: var(--shadow-deep);
+      animation: zm-slide-up 1.2s var(--ease) both;
+      animation-delay: 0.2s;
+    }
+    .story-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      color: var(--accent);
+      text-align: center;
+      letter-spacing: 3px;
+      margin-bottom: 40px;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+    }
+    .story-content p {
+      font-size: clamp(1rem, 1.4vw, 1.1rem);
+      line-height: 1.85;
+      color: var(--ink-soft);
+      margin-bottom: 26px;
+      text-align: justify;
+      hyphens: auto;
+    }
+    .story-content p:first-child::first-letter {
+      font-family: var(--font-display);
+      font-size: 3.2rem;
+      font-weight: 900;
+      color: var(--accent);
+      float: left;
+      line-height: 1;
+      padding: 4px 12px 0 0;
+    }
+    .story-footer {
+      margin-top: 50px;
+      text-align: center;
+      border-top: 1px dashed var(--accent-dim);
+      padding-top: 30px;
+    }
+    .story-signature {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--accent);
+      letter-spacing: 6px;
+    }
+    .story-dedication {
+      font-size: 0.92rem;
+      color: var(--ink-faint);
+      margin-top: 14px;
+      font-style: italic;
+      letter-spacing: 1px;
+    }
 
-        /* Hikaye Alanı Stilleri */
-        .story-container { max-width: 900px; margin: 0 auto 60px auto; background: rgba(15, 15, 20, 0.7); backdrop-filter: blur(15px); padding: 50px 60px; border-radius: 15px; border-left: 4px solid var(--accent); box-shadow: 0 30px 60px rgba(0,0,0,0.9); opacity: 0; transform: translateY(50px); animation: slideInUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
-        .story-title { font-family: 'Montserrat', sans-serif; font-size: 2.2rem; color: var(--accent); text-align: center; letter-spacing: 3px; margin-bottom: 40px; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); }
-        .story-content p { font-size: 1.1rem; line-height: 1.8; color: #dcdcdc; margin-bottom: 25px; text-align: justify; }
-        .story-footer { margin-top: 50px; text-align: center; border-top: 1px dashed rgba(212, 175, 55, 0.3); padding-top: 30px; }
-        .story-signature { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: bold; color: var(--accent); letter-spacing: 5px; }
-        .story-dedication { font-size: 0.95rem; color: #888; margin-top: 15px; font-style: italic; letter-spacing: 1px; }
-
-        /* GÜÇLÜ TİPOGRAFİK NAVİGASYON (Kutucuksuz) */
-        nav {
-            position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
-            display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 30px;
-            z-index: 1000; width: 100%; max-width: 900px; padding: 0 15px;
-        }
-
-        .nav-item {
-            font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.3rem;
-            color: #dcdcdc; text-decoration: none; text-transform: uppercase; letter-spacing: 3px;
-            text-shadow: 4px 4px 15px #000, -2px -2px 10px #000, 0 0 25px rgba(0,0,0,0.9);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer; border-bottom: 3px solid transparent; padding-bottom: 5px;
-        }
-
-        .nav-item:hover { color: var(--accent); transform: translateY(-8px); text-shadow: 4px 4px 15px #000, 0 0 20px var(--accent); }
-        .nav-item.active { color: var(--accent); border-bottom-color: var(--accent); }
-
-        .sound-toggle {
-            font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem;
-            color: #888; letter-spacing: 2px; padding: 8px 20px; border: 2px dashed #555;
-            border-radius: 50px; cursor: pointer; transition: all 0.3s ease;
-            text-shadow: 2px 2px 10px #000; background: rgba(0,0,0,0.4);
-        }
-        .sound-toggle:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-5px); }
-        .sound-toggle.playing { color: var(--accent); border-color: var(--accent); border-style: solid; background: rgba(212, 175, 55, 0.1); }
-
-        @keyframes slideInUp { to { opacity: 1; transform: translateY(0); } }
-
-        /* Mobil Optimizasyon */
-        @media (max-width: 768px) {
-            .q-text { font-size: 1.2rem; }
-            .q-meta { font-size: 0.95rem; }
-            .q-extra { font-size: 0.8rem; padding: 10px; }
-            .story-container { padding: 30px 20px; margin: 30px 10px; }
-            .story-title { font-size: 1.6rem; } .story-content p { font-size: 1rem; }
-            
-            nav { gap: 15px; bottom: 20px; }
-            .nav-item { font-size: 0.95rem; letter-spacing: 1px; padding: 5px 8px; border-radius: 8px; background: rgba(0,0,0,0.5); }
-            .sound-toggle { font-size: 0.8rem; padding: 5px 12px; width: 100%; text-align: center; max-width: 200px; margin-top: 5px;}
-        }
-    </style>
+    @media (max-width: 768px) {
+      .story-container { padding: 30px 22px; margin: 20px 0 40px; }
+      .story-content p:first-child::first-letter { font-size: 2.4rem; }
+    }
+  </style>
 </head>
 <body>
 
-    <div id="quote-container">
-        <div id="quote-content">
-            </div>
-    </div>
+  <a href="#main" class="skip-link">İçeriğe atla</a>
 
-    <div class="story-container">
-        <h1 class="story-title">HER ŞEY BAŞLARKEN42</h1>
-        <div class="story-content">
-            <p>Dünyalı dostların değersiz hissettiği, son büyük cumartesiden bir sonraki günün enfes hikayesini sizlerle paylaşacağım. Sokak satıcılarının çıkmaz sokaklarda garip bir şekilde kayboluşunun ve ses kirliliğinden görünür olma özelliğini yitirmiş bir şehrin iyiden iyiye yok oluşunun hikayesi. Hani hep orada olan ama kimsenin sapmadığı garip yollar vardır, bizlerin yaşamları kimsenin gönlüyle girmek istemeyeceği birbirinden çok uzak sokaklarda başladı..</p>
-            <p>Bizim büyük pazar günümüz, yıllar sonra hepimizin yine gitmek istemediği bir sokakta başladı. Birbimizi bulmamız yıllar sürmüştü en kısa yolculuğu yapan kişi bile 20 yıl önce başlamıştı maceraya ve bugüne ulaşması öyle sanıldığı gibi kolay olmamıştı. En aydınlık hikayeler en karanlık noktalarda başlayanlardır diyor şair. Bizim aydınlık hikayemiz kendi zifiriliğimizden başlayacak.</p>
-            <p>Bu satırlardan sonra yazılacak olan şeyler bizleri yıllar içinde bu noktaya taşıyan binlerce dalganın tutarlı veya tutarsız sonuçlarıdır. Belki evet bütün hikayemiz toplamda incecik bir kitabın içerisine sığabilir. Yarın bütün bu hareketlilik son bulabilir, bir kaçımız ölebilir ama en azından tarihe ufak notlar düşmek adına en azından bir kağıt parçasıyla bir köşede sessizce yaşamak umuduyla ölümün kendisine karşı başlattığımız bir eylemdir bu çalışma.</p>
-            <p>Kelimelerden üretilen bir protesto gösterisi. YukarıBayır'dan hızla aşşağı doğru ilerleyen bir Mennan, çukurlarıyla meşhur ovanın tam ortasında aniden yok olan bir Mehmet ve çaldığı notalarda asılı kalan bir Rutkay'ın hikayesi sürdürülüp gidilecek bu fanzinde. Bir de en az Yakup kadar çağrılmamış nacizane benim sözlerim ilerleyecek kağıtların üzerinde. Yalnız konuşmayı bildiği için konuşanlardan olmamak temennisiyle.</p>
-            <p>Bu sizlere ne zaman ulaşacağını kestiremediğimiz yazı, yer kürenin yok oluş çanlarının çaldığı bir tarihte yazılıyor. Büyük bir patlamanın arefesinde. Biliyoruz ki dünyanın düzelme umutları günden güne suya düşüyor. Beraber geçemediğimiz yolların şerefine iyi okumalar ve iyi yolculuklar diliyorum hepinize. Her nereye gidiyorsanız kağıtlar üzerinde veya tabana kuvvet bütün zamanlar içerisinde zamansız kardeşliğimizi başlatıyoruz. Bütün yolcular, devasa makinelerin, betonların içinde ağlayanlar, sessizliği ses edinenlerde bu kardeşliğin bir parçası... O meşhur filmde dendiği gibi ''Günaydın ve olur da görüşemezsek iyi günler, iyi akşamlar ve iyi geceler.''...</p>
-        </div>
-        <div class="story-footer">
-            <div class="story-signature">E42TT</div>
-            <div class="story-dedication">- TÜM DÜNYA TÜRKÜLERİNE ADANMIŞTIR -</div>
-        </div>
-    </div>
+  <main id="main">
 
-    <audio id="bg-music" loop><source src="https://raw.githubusercontent.com/yanalake/bilinmiyor/main/delosound-mysterious-mystical-ambient-442832.mp3" type="audio/mpeg"></audio>
+    <section id="quote-container" aria-label="Sinema replikleri" aria-live="polite">
+      <div id="quote-content"></div>
+    </section>
 
-    <nav>
-        <a href="index.html" class="nav-item active">BAŞLANGIÇ</a>
-        <a href="music.html" class="nav-item">FREKANS</a>
-        <div id="music-trigger" class="sound-toggle">SESİ AÇ</div>
-        <a href="sinema.html" class="nav-item">SİNEMA</a>
-        <a href="video.html" class="nav-item">KAYITLAR</a>
-    </nav>
+    <article class="story-container">
+      <h1 class="story-title">HER ŞEY BAŞLARKEN42</h1>
+      <div class="story-content">
+        <p>Dünyalı dostların değersiz hissettiği, son büyük cumartesiden bir sonraki günün enfes hikayesini sizlerle paylaşacağım. Sokak satıcılarının çıkmaz sokaklarda garip bir şekilde kayboluşunun ve ses kirliliğinden görünür olma özelliğini yitirmiş bir şehrin iyiden iyiye yok oluşunun hikayesi. Hani hep orada olan ama kimsenin sapmadığı garip yollar vardır, bizlerin yaşamları kimsenin gönlüyle girmek istemeyeceği birbirinden çok uzak sokaklarda başladı..</p>
 
-    <script>
-        // DETAYLANDIRILMIŞ SİNEMA VERİ HAVUZU
-        const replikler = [
-            {
-                metin: "“Sinema, hayatın pürüzleri ayıklanmış halidir.”",
-                film: "Röportaj Kayıtları",
-                yonetmen: "Alfred Hitchcock",
-                ekBilgi: "Gerilim sinemasının ustası, kurguyu hayatın sıkıcı kısımlarının kesilmiş hali olarak tanımlar."
-            },
-            {
-                metin: "“Gerçeklik, ondan kurtulmak isteyenler için bir illüzyondur.”",
-                film: "The Matrix",
-                yil: "1999",
-                yonetmen: "Wachowski Kardeşler",
-                ekBilgi: "Siberpunk ve distopik sinemanın zirvesi. Neo'nun uyanış hikayesi."
-            },
-            {
-                metin: "“Kamera bir silah, kurgu ise mermidir.”",
-                film: "Sinema Manifestosu",
-                yonetmen: "Dziga Vertov / Jean-Luc Godard",
-                ekBilgi: "Fransız Yeni Dalgası ve Sovyet Montaj Kuramı'nın görsel çarpıcılığa bakışı."
-            },
-            {
-                metin: "“Bütün filmler aslında birer zaman makinesidir.”",
-                film: "Zaman Makinesi Günlükleri",
-                yonetmen: "E42TT",
-                ekBilgi: "Geçmişi mühürleme ve geleceği kurgulama sanatı üzerine."
-            },
-            {
-                metin: "“Işık gölgeyi yaratır, gölge ise sinemayı.”",
-                film: "Noir Estetiği",
-                yil: "1920'ler",
-                yonetmen: "Alman Dışavurumculuğu",
-                ekBilgi: "Keskin gölgelerden ve çarpık setlerden Hollywood'un suç filmlerine uzanan karanlık miras."
-            }
-        ];
+        <p>Bizim büyük pazar günümüz, yıllar sonra hepimizin yine gitmek istemediği bir sokakta başladı. Birbimizi bulmamız yıllar sürmüştü en kısa yolculuğu yapan kişi bile 20 yıl önce başlamıştı maceraya ve bugüne ulaşması öyle sanıldığı gibi kolay olmamıştı. En aydınlık hikayeler en karanlık noktalarda başlayanlardır diyor şair. Bizim aydınlık hikayemiz kendi zifiriliğimizden başlayacak.</p>
 
-        let sonIndis = -1;
+        <p>Bu satırlardan sonra yazılacak olan şeyler bizleri yıllar içinde bu noktaya taşıyan binlerce dalganın tutarlı veya tutarsız sonuçlarıdır. Belki evet bütün hikayemiz toplamda incecik bir kitabın içerisine sığabilir. Yarın bütün bu hareketlilik son bulabilir, bir kaçımız ölebilir ama en azından tarihe ufak notlar düşmek adına en azından bir kağıt parçasıyla bir köşede sessizce yaşamak umuduyla ölümün kendisine karşı başlattığımız bir eylemdir bu çalışma.</p>
 
-        function replikGetir() {
-            const content = document.getElementById('quote-content');
-            let yeniIndis;
-            do { yeniIndis = Math.floor(Math.random() * replikler.length); } while (yeniIndis === sonIndis);
-            sonIndis = yeniIndis;
-            
-            const secilen = replikler[yeniIndis];
-            
-            content.style.opacity = 0;
-            
-            setTimeout(() => {
-                let html = `<p class="q-text">${secilen.metin}</p><div class="q-info">`;
-                
-                // Film ve Yıl bilgisi
-                let baslik = secilen.film;
-                if(secilen.yil) baslik += ` (${secilen.yil})`;
-                html += `<span class="q-meta">${baslik}</span>`;
-                
-                // Yönetmen bilgisi
-                if(secilen.yonetmen) html += `<span class="q-director">Yönetmen: ${secilen.yonetmen}</span>`;
-                
-                // Ekstra anekdot/bilgi
-                if(secilen.ekBilgi) html += `<div class="q-extra">${secilen.ekBilgi}</div>`;
-                
-                html += `</div>`;
-                
-                content.innerHTML = html;
-                content.style.opacity = 1;
-            }, 1000); // Kararma ve yeni metnin gelme süresi
-        }
+        <p>Kelimelerden üretilen bir protesto gösterisi. YukarıBayır'dan hızla aşşağı doğru ilerleyen bir Mennan, çukurlarıyla meşhur ovanın tam ortasında aniden yok olan bir Mehmet ve çaldığı notalarda asılı kalan bir Rutkay'ın hikayesi sürdürülüp gidilecek bu fanzinde. Bir de en az Yakup kadar çağrılmamış nacizane benim sözlerim ilerleyecek kağıtların üzerinde. Yalnız konuşmayı bildiği için konuşanlardan olmamak temennisiyle.</p>
 
-        window.addEventListener('DOMContentLoaded', replikGetir); 
-        setInterval(replikGetir, 9000); // Okuma süresini düşünerek aralığı 9 saniyeye çıkardım
+        <p>Bu sizlere ne zaman ulaşacağını kestiremediğimiz yazı, yer kürenin yok oluş çanlarının çaldığı bir tarihte yazılıyor. Büyük bir patlamanın arefesinde. Biliyoruz ki dünyanın düzelme umutları günden güne suya düşüyor. Beraber geçemediğimiz yolların şerefine iyi okumalar ve iyi yolculuklar diliyorum hepinize. Her nereye gidiyorsanız kağıtlar üzerinde veya tabana kuvvet bütün zamanlar içerisinde zamansız kardeşliğimizi başlatıyoruz. Bütün yolcular, devasa makinelerin, betonların içinde ağlayanlar, sessizliği ses edinenlerde bu kardeşliğin bir parçası... O meşhur filmde dendiği gibi ''Günaydın ve olur da görüşemezsek iyi günler, iyi akşamlar ve iyi geceler.''...</p>
+      </div>
+      <footer class="story-footer">
+        <div class="story-signature">E42TT</div>
+        <div class="story-dedication">— TÜM DÜNYA TÜRKÜLERİNE ADANMIŞTIR —</div>
+      </footer>
+    </article>
 
-        const audio = document.getElementById('bg-music');
-        const trigger = document.getElementById('music-trigger');
-        trigger.addEventListener('click', () => {
-            if (audio.paused) { 
-                audio.play(); 
-                trigger.innerText = 'SESİ KAPAT'; 
-                trigger.classList.add('playing');
-            } else { 
-                audio.pause(); 
-                trigger.innerText = 'SESİ AÇ'; 
-                trigger.classList.remove('playing');
-            }
-        });
-    </script>
+  </main>
+
+  <nav class="zm-nav" aria-label="Ana navigasyon">
+    <a href="index.html" class="nav-item">BAŞLANGIÇ</a>
+    <a href="music.html" class="nav-item">FREKANS</a>
+    <button class="sound-toggle" aria-pressed="false">
+      <span class="pulse" aria-hidden="true"></span>SESİ AÇ
+    </button>
+    <a href="sinema.html" class="nav-item">SİNEMA</a>
+    <a href="video.html" class="nav-item">KAYITLAR</a>
+  </nav>
+
+  <!-- Replik havuzu + ortak script -->
+  <script src="replikler.js"></script>
+  <script src="script.js"></script>
+
+  <!-- Sayfa-özel: replik rotasyonu -->
+  <script>
+    (function () {
+      const content = document.getElementById('quote-content');
+      const replikler = window.ZM_REPLIKLER || [];
+      if (!replikler.length) return;
+
+      let sonIndis = -1;
+
+      function render(secilen) {
+        let html = `<p class="q-text">${secilen.metin}</p><div class="q-info">`;
+        let baslik = secilen.film || '';
+        if (secilen.yil) baslik += ` (${secilen.yil})`;
+        if (baslik) html += `<span class="q-meta">${baslik}</span>`;
+        if (secilen.yonetmen) html += `<span class="q-director">Yönetmen: ${secilen.yonetmen}</span>`;
+        if (secilen.ekBilgi) html += `<div class="q-extra">${secilen.ekBilgi}</div>`;
+        html += `</div>`;
+        content.innerHTML = html;
+      }
+
+      function next() {
+        let yeniIndis;
+        do {
+          yeniIndis = Math.floor(Math.random() * replikler.length);
+        } while (yeniIndis === sonIndis && replikler.length > 1);
+        sonIndis = yeniIndis;
+
+        content.classList.remove('visible');
+        setTimeout(() => {
+          render(replikler[yeniIndis]);
+          requestAnimationFrame(() => content.classList.add('visible'));
+        }, 700);
+      }
+
+      // İlk replik anında görünsün (boş bekleme yok)
+      render(replikler[Math.floor(Math.random() * replikler.length)]);
+      sonIndis = replikler.indexOf(replikler[0]);
+      requestAnimationFrame(() => content.classList.add('visible'));
+
+      setInterval(next, 9000);
+    })();
+  </script>
 </body>
 </html>
