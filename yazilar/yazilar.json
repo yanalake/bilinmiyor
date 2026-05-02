@@ -31,6 +31,14 @@
       "ozet": "İlk fanzinde adı geçen Mennan'ın hikayesi. Sokakların indiği yer ve oradaki bekleme üzerine kısa bir kayıt.",
       "etiketler": ["hikaye", "karakter"],
       "okuma": 4
+    },
+        {
+      "slug": "2026-05-000001",
+      "baslik": "Ertegin, deniyor",
+      "tarih": "2026-02-10",
+      "ozet": "Bakalım olacak mı.",
+      "etiketler": ["hikaye", "karakter"],
+      "okuma": 2
     }
   ]
 }
