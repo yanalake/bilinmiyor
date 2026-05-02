@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0a0f">
+  <meta name="color-scheme" content="dark">
+
+  <title>Zaman Makinesi · Yazılar</title>
+  <meta name="description" content="Zaman Makinesi'nden yazılar. Sinema, hafıza, karakterler ve fanzin notları.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Zaman Makinesi · Yazılar">
+  <meta property="og:description" content="Sinema, hafıza, karakterler ve fanzin notları.">
+  <meta property="og:image" content="arkaplan.png">
+  <meta property="og:locale" content="tr_TR">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="./yazilar.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0f'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%23d4af37' stroke-width='3'/%3E%3Cline x1='32' y1='14' x2='32' y2='32' stroke='%23d4af37' stroke-width='3' stroke-linecap='round'/%3E%3Cline x1='32' y1='32' x2='44' y2='38' stroke='%23d4af37' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .yazi-list-meta {
+      max-width: 1100px;
+      margin: 0 auto 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      padding: 0 8px 16px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--ink-faint);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border-faint);
+    }
+    .yazi-list-meta .pulse {
+      display: inline-block;
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      margin-right: 6px;
+      animation: zm-pulse 2s ease-in-out infinite;
+      vertical-align: middle;
+    }
+    @keyframes zm-pulse {
+      0%, 100% { transform: scale(0.8); opacity: 0.6; }
+      50%      { transform: scale(1.1); opacity: 1; }
+    }
+
+    /* Etiket filtresi */
+    .tag-filter {
+      max-width: 1100px;
+      margin: 0 auto 32px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 0 8px;
+    }
+    .tag-pill {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      border: 1px solid var(--border-faint);
+      padding: 6px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      background: transparent;
+      transition: all 0.25s var(--ease);
+    }
+    .tag-pill:hover {
+      border-color: var(--accent-dim);
+      color: var(--ink);
+    }
+    .tag-pill.active {
+      background: var(--accent);
+      color: #000;
+      border-color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* Kart grid */
+    .yazi-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .yazi-kart {
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      padding: 28px 28px 26px;
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: all 0.4s var(--ease);
+      animation: zm-slide-up 0.9s var(--ease) both;
+      position: relative;
+      overflow: hidden;
+    }
+    .yazi-kart:nth-child(1) { animation-delay: 0.1s; }
+    .yazi-kart:nth-child(2) { animation-delay: 0.2s; }
+    .yazi-kart:nth-child(3) { animation-delay: 0.3s; }
+    .yazi-kart:nth-child(4) { animation-delay: 0.4s; }
+    .yazi-kart:nth-child(5) { animation-delay: 0.5s; }
+
+    .yazi-kart::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 0;
+      height: 3px;
+      background: var(--accent);
+      transition: width 0.5s var(--ease);
+    }
+    .yazi-kart:hover {
+      transform: translateY(-6px);
+      background: var(--bg-card-hover);
+      border-color: var(--accent-dim);
+      box-shadow: 0 30px 60px -20px rgba(212, 175, 55, 0.18);
+    }
+    .yazi-kart:hover::before {
+      width: 100%;
+    }
+
+    .yazi-kart-meta {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+    .yazi-kart-meta .tarih {
+      color: var(--accent);
+    }
+
+    .yazi-kart h2 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      line-height: 1.25;
+      letter-spacing: 1px;
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .yazi-kart p {
+      font-size: 0.95rem;
+      color: var(--ink-soft);
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .yazi-kart-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border-faint);
+    }
+    .yazi-kart-tag {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+    }
+    .yazi-kart-tag::before { content: '#'; color: var(--accent); }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--ink-faint);
+      font-family: var(--font-mono);
+      font-style: italic;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 768px) {
+      .yazi-grid { grid-template-columns: 1fr; gap: 18px; }
+      .yazi-kart { padding: 22px 22px 20px; }
+      .yazi-kart h2 { font-size: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main" class="skip-link">İçeriğe atla</a>
+
+  <main id="main">
+    <header class="zm-header">
+      <h1>YAZILAR</h1>
+      <p>Sinema, hafıza, karakterler ve fanzin notları.</p>
+    </header>
+
+    <div class="yazi-list-meta" id="listMeta">
+      <span><span class="pulse"></span><span id="countText">— yazı yükleniyor</span></span>
+      <span>Vol. I · 2026</span>
+    </div>
+
+    <div class="tag-filter" id="tagFilter" aria-label="Etiket filtresi"></div>
+
+    <section class="yazi-grid" id="yaziGrid" aria-label="Yazılar"></section>
+  </main>
+
+  <nav class="zm-nav" aria-label="Ana navigasyon">
+    <a href="index.html" class="nav-item">BAŞLANGIÇ</a>
+    <a href="yazilar.html" class="nav-item">YAZILAR</a>
+    <a href="music.html" class="nav-item">FREKANS</a>
+    <button class="sound-toggle" aria-pressed="false">
+      <span class="pulse" aria-hidden="true"></span>SESİ AÇ
+    </button>
+    <a href="makine.html" class="nav-item">MAKİNE</a>
+    <a href="sinema.html" class="nav-item">SİNEMA</a>
+    <a href="video.html" class="nav-item">KAYITLAR</a>
+  </nav>
+
+  <script src="script.js"></script>
+  <script>
+    /* Yazıları manifest'ten yükle, kartları render et, etiket filtrelemesi */
+    (async function () {
+      const grid = document.getElementById('yaziGrid');
+      const filterEl = document.getElementById('tagFilter');
+      const countEl = document.getElementById('countText');
+
+      let yazilar = [];
+      try {
+        const res = await fetch('yazilar.json');
+        const data = await res.json();
+        yazilar = data.yazilar || [];
+      } catch (e) {
+        countEl.textContent = 'Yazılar yüklenemedi';
+        grid.innerHTML = '<div class="empty-state">Yazılar şu an erişilemiyor. Birazdan tekrar dene.</div>';
+        return;
+      }
+
+      // Tarihe göre yeniden eskiye sırala
+      yazilar.sort((a, b) => b.tarih.localeCompare(a.tarih));
+
+      // Tüm etiketleri çıkar
+      const allTags = [...new Set(yazilar.flatMap(y => y.etiketler || []))].sort();
+
+      // Filtre butonlarını oluştur
+      filterEl.innerHTML = `
+        <button class="tag-pill active" data-tag="*">Hepsi</button>
+        ${allTags.map(t => `<button class="tag-pill" data-tag="${t}">${t}</button>`).join('')}
+      `;
+
+      let activeTag = '*';
+
+      function render() {
+        const liste = activeTag === '*'
+          ? yazilar
+          : yazilar.filter(y => (y.etiketler || []).includes(activeTag));
+
+        countEl.textContent = `${liste.length} yazı · ${activeTag === '*' ? 'tümü' : '#' + activeTag}`;
+
+        if (liste.length === 0) {
+          grid.innerHTML = '<div class="empty-state">Bu etikete ait yazı henüz yok.</div>';
+          return;
+        }
+
+        grid.innerHTML = liste.map(y => `
+          <a href="yazi.html?slug=${y.slug}" class="yazi-kart" aria-label="${y.baslik}">
+            <div class="yazi-kart-meta">
+              <span class="tarih">${formatTarih(y.tarih)}</span>
+              <span>${y.okuma || 3} dk okuma</span>
+            </div>
+            <h2>${y.baslik}</h2>
+            <p>${y.ozet}</p>
+            <div class="yazi-kart-tags">
+              ${(y.etiketler || []).map(t => `<span class="yazi-kart-tag">${t}</span>`).join('')}
+            </div>
+          </a>
+        `).join('');
+      }
+
+      function formatTarih(iso) {
+        const aylar = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+        const [y, m, d] = iso.split('-');
+        return `${parseInt(d, 10)} ${aylar[parseInt(m, 10) - 1]} ${y}`;
+      }
+
+      // Filtre tıklamaları
+      filterEl.addEventListener('click', e => {
+        const btn = e.target.closest('.tag-pill');
+        if (!btn) return;
+        activeTag = btn.dataset.tag;
+        document.querySelectorAll('.tag-pill').forEach(b => b.classList.toggle('active', b === btn));
+        render();
+      });
+
+      render();
+    })();
+  </script>
+</body>
+</html>
