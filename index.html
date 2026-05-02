@@ -157,6 +157,91 @@
       .story-container { padding: 30px 22px; margin: 20px 0 40px; }
       .story-content p:first-child::first-letter { font-size: 2.4rem; }
     }
+
+    /* Son yazılar bölümü */
+    .son-yazilar {
+      max-width: 900px;
+      margin: 0 auto 40px;
+      padding: 0 8px;
+      animation: zm-slide-up 1s var(--ease) both;
+      animation-delay: 0.5s;
+    }
+    .son-yazilar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-faint);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .son-yazilar-title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 900;
+    }
+    .son-yazilar-link {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: all 0.3s;
+    }
+    .son-yazilar-link:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+    .son-yazilar-link::after { content: ' →'; }
+
+    .son-yazilar-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+    .son-yazi-kart {
+      background: rgba(15, 15, 20, 0.5);
+      border: 1px solid var(--border-faint);
+      border-radius: var(--radius-sm);
+      padding: 20px 22px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: all 0.3s var(--ease);
+    }
+    .son-yazi-kart:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-dim);
+      background: rgba(20, 20, 28, 0.7);
+    }
+    .son-yazi-kart .tarih {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .son-yazi-kart h3 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      line-height: 1.3;
+      letter-spacing: 0.5px;
+      color: var(--ink);
+      font-weight: 700;
+    }
+    .son-yazi-kart p {
+      font-size: 0.88rem;
+      line-height: 1.55;
+      color: var(--ink-dim);
+    }
   </style>
 </head>
 <body>
@@ -188,10 +273,22 @@
       </footer>
     </article>
 
+    <!-- Son yazılar (yazilar.json'dan otomatik çekilir) -->
+    <section class="son-yazilar" aria-label="Son yazılar">
+      <div class="son-yazilar-header">
+        <h2 class="son-yazilar-title">Son Yazılar</h2>
+        <a href="yazilar.html" class="son-yazilar-link">Tümünü gör</a>
+      </div>
+      <div class="son-yazilar-grid" id="sonYazilarGrid">
+        <!-- JS doldurur -->
+      </div>
+    </section>
+
   </main>
 
   <nav class="zm-nav" aria-label="Ana navigasyon">
     <a href="index.html" class="nav-item">BAŞLANGIÇ</a>
+    <a href="yazilar.html" class="nav-item">YAZILAR</a>
     <a href="music.html" class="nav-item">FREKANS</a>
     <button class="sound-toggle" aria-pressed="false">
       <span class="pulse" aria-hidden="true"></span>SESİ AÇ
@@ -204,6 +301,41 @@
   <!-- Replik havuzu + ortak script -->
   <script src="replikler.js"></script>
   <script src="script.js"></script>
+
+  <!-- Son yazıları yükle (en yeni 3) -->
+  <script>
+    (async function () {
+      const grid = document.getElementById('sonYazilarGrid');
+      if (!grid) return;
+      try {
+        const res = await fetch('yazilar.json');
+        const data = await res.json();
+        const yazilar = (data.yazilar || [])
+          .sort((a, b) => b.tarih.localeCompare(a.tarih))
+          .slice(0, 3);
+
+        if (yazilar.length === 0) {
+          grid.innerHTML = '<p style="color: var(--ink-faint); font-style: italic; padding: 20px 0;">Henüz yazı yok. Yakında.</p>';
+          return;
+        }
+
+        const aylar = ['Oca','Şub','Mar','Nis','May','Haz','Tem','Ağu','Eyl','Eki','Kas','Ara'];
+        grid.innerHTML = yazilar.map(y => {
+          const [yil, ay, gun] = y.tarih.split('-');
+          const tarih = `${parseInt(gun, 10)} ${aylar[parseInt(ay, 10) - 1]} ${yil}`;
+          return `
+            <a href="yazi.html?slug=${y.slug}" class="son-yazi-kart">
+              <span class="tarih">${tarih}</span>
+              <h3>${y.baslik}</h3>
+              <p>${y.ozet}</p>
+            </a>
+          `;
+        }).join('');
+      } catch (e) {
+        grid.innerHTML = '<p style="color: var(--ink-faint); font-style: italic; padding: 20px 0;">Yazılar şu an yüklenemiyor.</p>';
+      }
+    })();
+  </script>
 
   <!-- Sayfa-özel: replik rotasyonu -->
   <script>

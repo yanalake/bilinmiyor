@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0a0f">
+  <meta name="color-scheme" content="dark">
+
+  <title>Zaman Makinesi · Yazı</title>
+  <meta name="description" content="Zaman Makinesi'nden bir yazı.">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="tr_TR">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0f'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%23d4af37' stroke-width='3'/%3E%3Cline x1='32' y1='14' x2='32' y2='32' stroke='%23d4af37' stroke-width='3' stroke-linecap='round'/%3E%3Cline x1='32' y1='32' x2='44' y2='38' stroke='%23d4af37' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Markdown render: marked.js (~40KB) -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
+
+  <style>
+    .yazi-back {
+      max-width: 760px;
+      margin: 0 auto 24px;
+      padding: 0 8px;
+    }
+    .yazi-back a {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      text-decoration: none;
+      transition: color 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .yazi-back a:hover { color: var(--accent); }
+    .yazi-back a::before { content: '←'; transition: transform 0.3s; }
+    .yazi-back a:hover::before { transform: translateX(-4px); }
+
+    .yazi-meta {
+      max-width: 760px;
+      margin: 0 auto 28px;
+      padding: 0 8px 18px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      border-bottom: 1px solid var(--border-faint);
+    }
+    .yazi-meta .tarih { color: var(--accent); }
+
+    .yazi-baslik {
+      max-width: 760px;
+      margin: 0 auto 20px;
+      padding: 0 8px;
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+      line-height: 1.15;
+      letter-spacing: 1.5px;
+      color: var(--accent);
+      font-weight: 900;
+      animation: zm-slide-up 0.9s var(--ease) both;
+    }
+
+    .yazi-etiketler {
+      max-width: 760px;
+      margin: 0 auto 40px;
+      padding: 0 8px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      animation: zm-slide-up 0.9s var(--ease) both;
+      animation-delay: 0.1s;
+    }
+    .yazi-etiket {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      border: 1px solid var(--border-faint);
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+    .yazi-etiket::before { content: '#'; color: var(--accent); }
+
+    /* Asıl içerik tipografisi */
+    .yazi-icerik {
+      max-width: 720px;
+      margin: 0 auto 60px;
+      padding: 30px 36px 50px;
+      background: rgba(15, 15, 20, 0.6);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-radius: var(--radius);
+      border-left: 3px solid var(--accent);
+      animation: zm-slide-up 1s var(--ease) both;
+      animation-delay: 0.18s;
+      box-shadow: var(--shadow-deep);
+    }
+
+    .yazi-icerik p,
+    .yazi-icerik li {
+      font-size: 1.08rem;
+      line-height: 1.85;
+      color: var(--ink-soft);
+      margin-bottom: 22px;
+      text-align: justify;
+      hyphens: auto;
+    }
+
+    .yazi-icerik p:first-of-type::first-letter {
+      font-family: var(--font-display);
+      font-size: 3.4rem;
+      font-weight: 900;
+      color: var(--accent);
+      float: left;
+      line-height: 1;
+      padding: 6px 12px 0 0;
+    }
+
+    .yazi-icerik h1,
+    .yazi-icerik h2,
+    .yazi-icerik h3 {
+      font-family: var(--font-display);
+      color: var(--accent);
+      letter-spacing: 1.5px;
+      margin-top: 38px;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+    .yazi-icerik h2 { font-size: 1.6rem; }
+    .yazi-icerik h3 { font-size: 1.25rem; }
+
+    .yazi-icerik strong {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .yazi-icerik em {
+      color: var(--ink);
+      font-style: italic;
+    }
+
+    .yazi-icerik a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent-dim);
+      padding-bottom: 1px;
+      transition: border-color 0.2s;
+    }
+    .yazi-icerik a:hover { border-bottom-color: var(--accent); }
+
+    .yazi-icerik blockquote {
+      margin: 30px 0;
+      padding: 18px 24px;
+      border-left: 3px solid var(--accent);
+      background: rgba(212, 175, 55, 0.05);
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--ink);
+      letter-spacing: 0.5px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    }
+    .yazi-icerik blockquote p { margin-bottom: 0; text-align: left; }
+    .yazi-icerik blockquote p::first-letter {
+      font-size: inherit; font-weight: inherit;
+      color: inherit; float: none; padding: 0;
+    }
+
+    .yazi-icerik ul, .yazi-icerik ol {
+      margin: 0 0 22px 24px;
+      padding-left: 8px;
+    }
+    .yazi-icerik li { margin-bottom: 8px; text-align: left; }
+    .yazi-icerik li::marker { color: var(--accent); }
+
+    .yazi-icerik hr {
+      border: none;
+      border-top: 1px dashed var(--accent-dim);
+      margin: 40px auto;
+      width: 60%;
+    }
+
+    .yazi-icerik code {
+      font-family: var(--font-mono);
+      font-size: 0.92em;
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--accent);
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+
+    .yazi-icerik pre {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--border-faint);
+      border-radius: var(--radius-sm);
+      padding: 18px 22px;
+      overflow-x: auto;
+      margin: 24px 0;
+    }
+    .yazi-icerik pre code {
+      background: none;
+      color: var(--ink-soft);
+      padding: 0;
+    }
+
+    .yazi-icerik img {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--radius-sm);
+      margin: 24px 0;
+    }
+
+    /* İlgili yazılar */
+    .ilgili-bolum {
+      max-width: 760px;
+      margin: 0 auto 60px;
+      padding: 0 8px;
+    }
+    .ilgili-baslik {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-faint);
+    }
+    .ilgili-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+    }
+    .ilgili-kart {
+      background: var(--bg-card);
+      border: 1px solid var(--border-faint);
+      border-radius: var(--radius-sm);
+      padding: 16px 18px;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: all 0.3s;
+    }
+    .ilgili-kart:hover {
+      border-color: var(--accent-dim);
+      transform: translateY(-3px);
+    }
+    .ilgili-kart .ilgili-tarih {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .ilgili-kart h4 {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      color: var(--ink);
+      letter-spacing: 0.5px;
+      line-height: 1.4;
+      font-weight: 700;
+    }
+
+    .yazi-loading {
+      max-width: 720px;
+      margin: 60px auto;
+      text-align: center;
+      color: var(--ink-faint);
+      font-family: var(--font-mono);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+    }
+    .yazi-loading .pulse {
+      display: inline-block;
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      margin-right: 8px;
+      vertical-align: middle;
+      animation: zm-pulse-load 1.6s ease-in-out infinite;
+    }
+    @keyframes zm-pulse-load {
+      0%, 100% { transform: scale(0.7); opacity: 0.4; }
+      50%      { transform: scale(1.2); opacity: 1; }
+    }
+
+    .yazi-error {
+      max-width: 600px;
+      margin: 80px auto;
+      text-align: center;
+      padding: 30px;
+      border: 1px dashed var(--border-faint);
+      border-radius: var(--radius);
+    }
+    .yazi-error h2 {
+      color: var(--accent);
+      font-family: var(--font-display);
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+    .yazi-error p {
+      color: var(--ink-dim);
+      line-height: 1.7;
+    }
+
+    @media (max-width: 768px) {
+      .yazi-icerik {
+        padding: 24px 22px 36px;
+        margin-left: 8px;
+        margin-right: 8px;
+      }
+      .yazi-icerik p:first-of-type::first-letter { font-size: 2.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main" class="skip-link">İçeriğe atla</a>
+
+  <main id="main">
+    <div class="yazi-back">
+      <a href="yazilar.html">Tüm yazılar</a>
+    </div>
+
+    <div id="yaziSayfasi">
+      <div class="yazi-loading">
+        <span class="pulse"></span>Yazı yükleniyor
+      </div>
+    </div>
+  </main>
+
+  <nav class="zm-nav" aria-label="Ana navigasyon">
+    <a href="index.html" class="nav-item">BAŞLANGIÇ</a>
+    <a href="yazilar.html" class="nav-item">YAZILAR</a>
+    <a href="music.html" class="nav-item">FREKANS</a>
+    <button class="sound-toggle" aria-pressed="false">
+      <span class="pulse" aria-hidden="true"></span>SESİ AÇ
+    </button>
+    <a href="makine.html" class="nav-item">MAKİNE</a>
+    <a href="sinema.html" class="nav-item">SİNEMA</a>
+    <a href="video.html" class="nav-item">KAYITLAR</a>
+  </nav>
+
+  <script src="script.js"></script>
+  <script>
+    /* Yazı yükleyici: ?slug=... parametresine göre .md dosyasını çekip render eder */
+    (async function () {
+      const params = new URLSearchParams(location.search);
+      const slug = params.get('slug');
+      const root = document.getElementById('yaziSayfasi');
+
+      function showError(msg) {
+        root.innerHTML = `
+          <div class="yazi-error">
+            <h2>Yazı bulunamadı</h2>
+            <p>${msg}</p>
+            <p style="margin-top: 16px;"><a href="yazilar.html" style="color: var(--accent);">Tüm yazılara dön →</a></p>
+          </div>
+        `;
+      }
+
+      if (!slug) {
+        showError('Hangi yazıyı aradığın belli değil. Listeye git ve birini seç.');
+        return;
+      }
+
+      // Manifest'i çek
+      let yazilar = [];
+      try {
+        const res = await fetch('yazilar.json');
+        const data = await res.json();
+        yazilar = data.yazilar || [];
+      } catch (e) {
+        showError('Yazı listesi şu an erişilemiyor.');
+        return;
+      }
+
+      const yazi = yazilar.find(y => y.slug === slug);
+      if (!yazi) {
+        showError('Bu yazı arşivde yok. Belki silindi, belki hiç yazılmadı.');
+        return;
+      }
+
+      // .md dosyasını çek
+      let markdown = '';
+      try {
+        const res = await fetch(`yazilar/${slug}.md`);
+        if (!res.ok) throw new Error('not found');
+        markdown = await res.text();
+      } catch (e) {
+        showError('Yazının metni şu an okunamıyor.');
+        return;
+      }
+
+      // Markdown'u HTML'e çevir
+      const htmlContent = marked.parse(markdown, { breaks: true });
+
+      // Etiketler
+      const etiketHtml = (yazi.etiketler || [])
+        .map(t => `<span class="yazi-etiket">${t}</span>`).join('');
+
+      // İlgili yazılar (aynı etiket, kendi hariç, en fazla 3)
+      const ilgili = yazilar
+        .filter(y => y.slug !== slug && (y.etiketler || []).some(t => (yazi.etiketler || []).includes(t)))
+        .slice(0, 3);
+
+      const ilgiliHtml = ilgili.length === 0 ? '' : `
+        <section class="ilgili-bolum">
+          <div class="ilgili-baslik">İlgili yazılar</div>
+          <div class="ilgili-grid">
+            ${ilgili.map(y => `
+              <a href="yazi.html?slug=${y.slug}" class="ilgili-kart">
+                <div class="ilgili-tarih">${formatTarih(y.tarih)}</div>
+                <h4>${y.baslik}</h4>
+              </a>
+            `).join('')}
+          </div>
+        </section>
+      `;
+
+      // Sayfa render
+      root.innerHTML = `
+        <div class="yazi-meta">
+          <span class="tarih">${formatTarih(yazi.tarih)}</span>
+          <span>${yazi.okuma || 3} dk okuma</span>
+        </div>
+        <h1 class="yazi-baslik">${yazi.baslik}</h1>
+        <div class="yazi-etiketler">${etiketHtml}</div>
+        <article class="yazi-icerik">${htmlContent}</article>
+        ${ilgiliHtml}
+      `;
+
+      // Sayfa başlığını ve meta'yı güncelle
+      document.title = `${yazi.baslik} · Zaman Makinesi`;
+      const descMeta = document.querySelector('meta[name="description"]');
+      if (descMeta) descMeta.setAttribute('content', yazi.ozet);
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      if (ogTitle) ogTitle.setAttribute('content', yazi.baslik + ' · Zaman Makinesi');
+      const ogDesc = document.querySelector('meta[property="og:description"]');
+      if (ogDesc) ogDesc.setAttribute('content', yazi.ozet);
+
+      function formatTarih(iso) {
+        const aylar = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+        const [y, m, d] = iso.split('-');
+        return `${parseInt(d, 10)} ${aylar[parseInt(m, 10) - 1]} ${y}`;
+      }
+    })();
+  </script>
+</body>
+</html>

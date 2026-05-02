@@ -11,8 +11,11 @@ Edebi bir fanzin–web projesi. Dört sayfalı, statik, build adımı yok. GitHu
 
 ```
 .
-├── index.html         BAŞLANGIÇ — manifesto + dönen sinema replikleri
+├── index.html         BAŞLANGIÇ — manifesto + son yazılar + replikler
+├── yazilar.html       YAZILAR   — tüm yazılar listesi, etiket filtresi
+├── yazi.html          (tek yazı görüntüleyici, ?slug=... ile çalışır)
 ├── music.html         FREKANS   — canlı yayın + ses modülleri
+├── makine.html        MAKİNE    — sintezatör atölyesi
 ├── sinema.html        SİNEMA    — zaman çizelgesi + makale arşivi
 ├── video.html         KAYITLAR  — featured + dikey reel grid
 │
@@ -20,10 +23,14 @@ Edebi bir fanzin–web projesi. Dört sayfalı, statik, build adımı yok. GitHu
 ├── script.js          Kalıcı müzik, modal, nav durumu
 ├── replikler.js       index.html'e özel veri havuzu
 │
+├── yazilar.json       Blog manifesti (yazı meta listesi)
+├── yazilar/           Markdown yazılar klasörü
+│   └── *.md
+├── YAZARKEN.md        Yazı eklemek için rehber
+│
 ├── arkaplan.png       Arkaplan görseli
 ├── 107142-...mp4      sinema.html arkaplan videosu
-├── delosound-...mp3   Arka plan müziği
-└── *.png              Sayfa-ikonları (legacy, opsiyonel)
+└── delosound-...mp3   Arka plan müziği
 ```
 
 ## Mimari kararlar

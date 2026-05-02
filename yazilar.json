@@ -1,0 +1,28 @@
+{
+  "yazilar": [
+    {
+      "slug": "2026-04-zaman-uzerine",
+      "baslik": "Zaman Üzerine Bir Not",
+      "tarih": "2026-04-12",
+      "ozet": "Akmıyor, akıyor gibi yapıyor. Tarkovsky'nin mühürlenmiş zamanı ve sinemanın bu sessiz hilesi üzerine.",
+      "etiketler": ["sinema", "zaman", "deneme"],
+      "okuma": 5
+    },
+    {
+      "slug": "2026-03-cumartesi-notu",
+      "baslik": "Son Cumartesinin Ardından",
+      "tarih": "2026-03-04",
+      "ozet": "Bir cumartesi, bir kayboluş, bir gelmiş geçmiş hiçbir yer. Hatırlanan değil, hatırlamaya çalışılan üzerine.",
+      "etiketler": ["günlük", "fanzin"],
+      "okuma": 3
+    },
+    {
+      "slug": "2026-02-mennan",
+      "baslik": "Mennan, YukarıBayır'dan",
+      "tarih": "2026-02-19",
+      "ozet": "İlk fanzinde adı geçen Mennan'ın hikayesi. Sokakların indiği yer ve oradaki bekleme üzerine kısa bir kayıt.",
+      "etiketler": ["hikaye", "karakter"],
+      "okuma": 4
+    }
+  ]
+}
