@@ -1,0 +1,132 @@
+<!--
+  BLOG YAZISI ŞABLONU — KULLANIM
+  1) Bu dosyayı kopyalayıp yeni bir isimle kaydedin, örn: blog-dis-beyazlatma.html
+  2) Aşağıdaki [köşeli parantez] içindeki tüm alanları kendi metninizle değiştirin.
+  3) blog.html sayfasındaki ilgili kartın "Devamını Oku" linkini bu yeni dosya adına
+     yönlendirin (href="blog-dis-beyazlatma.html" gibi).
+  4) Kapak görseli ve içerik görseli linklerini kendi görsellerinizle değiştirin.
+  Bu yorum bloğunu yayına almadan önce silebilirsiniz, sayfada görünmez.
+-->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b4a47">
+    <meta name="robots" content="index, follow">
+
+    <title>[Yazı Başlığı] | Fora Diş Kliniği Blog</title>
+    <meta name="description" content="[Yazının 1-2 cümlelik özeti — arama motorlarında görünecek açıklama.]">
+    <link rel="canonical" href="https://www.foradis.com.tr/[dosya-adi].html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="[Yazı Başlığı] | Fora Diş Kliniği Blog">
+    <meta property="og:description" content="[Yazının 1-2 cümlelik özeti.]">
+    <meta property="og:image" content="[Kapak görseli linki]">
+    <meta property="og:locale" content="tr_TR">
+    <meta property="og:url" content="https://www.foradis.com.tr/[dosya-adi].html">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="icon" href="https://github.com/yanalake/bilinmiyor/blob/main/fora%20logo.png?raw=true">
+
+    <link rel="stylesheet" href="style.css">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Dentist",
+      "name": "Fora Diş Polikliniği",
+      "image": "https://github.com/yanalake/bilinmiyor/blob/main/fora%20logo.png?raw=true",
+      "telephone": "+905469713561",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "HacıHalil Mah. Cumhuriyet Cad. No:14A",
+        "addressLocality": "Gebze",
+        "addressRegion": "Kocaeli",
+        "postalCode": "41400",
+        "addressCountry": "TR"
+      },
+      "url": "https://www.foradis.com.tr/"
+    }
+    </script>
+</head>
+<body>
+
+    <nav class="stair-nav">
+        <button type="button" class="stair-toggle" id="stairToggle" aria-expanded="false" aria-controls="stairMenu" aria-label="Menüyü aç">
+            <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
+        <ul class="stair-menu" id="stairMenu" role="menu">
+            <li role="none"><a role="menuitem" href="hakkimizda.html">Hakkımızda</a></li>
+            <li role="none"><a role="menuitem" href="hekimlerimiz.html">Hekimlerimiz</a></li>
+            <li role="none"><a role="menuitem" href="hizmetlerimiz.html">Hizmetlerimiz</a></li>
+            <li role="none"><a role="menuitem" href="blog.html" aria-current="page">Blog</a></li>
+            <li role="none"><a role="menuitem" href="iletisim.html">İletişim</a></li>
+        </ul>
+    </nav>
+
+    <main>
+    <section class="page-hero">
+        <a href="index.html" class="page-hero-logo-link" aria-label="Anasayfaya dön">
+            <img class="page-hero-logo" src="https://github.com/yanalake/bilinmiyor/blob/main/fora%20logo.png?raw=true" alt="Fora Diş Polikliniği Logosu">
+        </a>
+        <span class="eyebrow">Blog</span>
+        <h1>[Yazı Başlığı Buraya Gelecek]</h1>
+        <div class="article-meta">
+            <span>[Tarih, örn: 15 Ağustos 2026]</span>
+            <span>·</span>
+            <span>[Kategori, örn: Ağız ve Diş Sağlığı]</span>
+        </div>
+    </section>
+
+    <section class="section">
+        <a href="blog.html" class="back-to-blog">← Tüm Yazılar</a>
+
+        <div class="article-cover framed">
+            <img src="[Kapak görseli linki]" alt="[Kapak görseli açıklaması]">
+        </div>
+
+        <div class="article-body">
+            <p>[Giriş paragrafı — yazının konusunu ve okuyucuya ne anlatacağınızı kısaca özetleyin.]</p>
+
+            <p>[İkinci paragraf — konuyu biraz daha detaylandırın.]</p>
+
+            <h2>[Ara Başlık 1]</h2>
+            <p>[Bu başlık altındaki içerik metni.]</p>
+
+            <div class="framed">
+                <img src="[İçerik görseli linki]" alt="[İçerik görseli açıklaması]" loading="lazy">
+            </div>
+
+            <h2>[Ara Başlık 2]</h2>
+            <p>[Bu başlık altındaki içerik metni.]</p>
+
+            <blockquote>[İsterseniz burada dikkat çekici bir alıntı veya vurgu cümlesi kullanabilirsiniz.]</blockquote>
+
+            <p>[Kapanış paragrafı — okuyucuyu randevu almaya veya sizinle iletişime geçmeye yönlendirebilirsiniz.]</p>
+        </div>
+    </section>
+    </main>
+
+    <div class="floating-stack">
+        <a href="https://www.instagram.com/fora.dis.klinigi?igsh=MWgyNzFyc2M3cHBuNg==" class="floating-btn floating-ig" target="_blank" rel="noopener" aria-label="Instagram sayfamız">
+            <i class="fab fa-instagram" aria-hidden="true"></i>
+        </a>
+        <a href="https://wa.me/905469713561" class="floating-btn floating-wa" target="_blank" rel="noopener" aria-label="WhatsApp İletişim">
+            <i class="fab fa-whatsapp" aria-hidden="true"></i>
+        </a>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Fora Diş Kliniği. Tüm Hakları Saklıdır.</p>
+    </footer>
+
+    <script src="nav.js"></script>
+</body>
+</html>
