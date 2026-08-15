@@ -1,381 +1,212 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0a0a0f">
-  <meta name="color-scheme" content="dark">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b4a47">
+    <meta name="robots" content="index, follow">
 
-  <title>Zaman Makinesi · Her Şey Başlarken</title>
-  <meta name="description" content="Zaman Makinesi: kelimelerden üretilen bir protesto, bir manifesto, bir fanzin. Her Şey Başlarken — başlangıcın hikâyesi.">
-  <meta name="author" content="E42TT">
+    <title>Fora Diş Kliniği | Gebze'de Son Teknoloji Diş Tedavisi</title>
+    <meta name="description" content="Gebze Fora Diş Polikliniği. Dijital ölçü, acısız dijital anestezi, gülüş tasarımı ve tüm poliklinik hizmetleri. HacıHalil Mah. Cumhuriyet Cad. No:14A, Gebze/Kocaeli.">
+    <link rel="canonical" href="https://www.foradis.com.tr/">
 
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Zaman Makinesi · Her Şey Başlarken">
-  <meta property="og:description" content="Kelimelerden üretilen bir protesto. Tüm dünya türkülerine adanmıştır.">
-  <meta property="og:image" content="arkaplan.png">
-  <meta property="og:locale" content="tr_TR">
+    <!-- Open Graph / paylaşım kartı -->
+    <meta property="og:type" content="business.business">
+    <meta property="og:title" content="Fora Diş Kliniği | Gebze Premium Diş Tedavisi">
+    <meta property="og:description" content="Dijital ölçü, acısız dijital anestezi ve gülüş tasarımı ile Gebze'de premium bir poliklinik deneyimi.">
+    <meta property="og:image" content="https://github.com/yanalake/bilinmiyor/blob/main/klinik/lobi2.png?raw=true">
+    <meta property="og:locale" content="tr_TR">
+    <meta property="og:url" content="https://www.foradis.com.tr/">
+    <meta name="twitter:card" content="summary_large_image">
 
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Zaman Makinesi · Her Şey Başlarken">
-  <meta name="twitter:description" content="Kelimelerden üretilen bir protesto. Tüm dünya türkülerine adanmıştır.">
-  <meta name="twitter:image" content="arkaplan.png">
+    <!-- Fontlar ve İkonlar -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <link rel="canonical" href="./index.html">
+    <link rel="icon" href="https://github.com/yanalake/bilinmiyor/blob/main/fora%20logo.png?raw=true">
 
-  <!-- Favicon (inline SVG, altın simge) -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0f'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%23d4af37' stroke-width='3'/%3E%3Cline x1='32' y1='14' x2='32' y2='32' stroke='%23d4af37' stroke-width='3' stroke-linecap='round'/%3E%3Cline x1='32' y1='32' x2='44' y2='38' stroke='%23d4af37' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+    <!-- Harici CSS -->
+    <link rel="stylesheet" href="style.css">
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
-
-  <!-- Ortak stil -->
-  <link rel="stylesheet" href="styles.css">
-
-  <!-- Sayfa-özel stiller -->
-  <style>
-    /* Replik bölgesi */
-    #quote-container {
-      max-width: 800px;
-      margin: 40px auto 60px;
-      text-align: center;
-      min-height: 180px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+    <!-- Yerel işletme yapılandırılmış verisi (SEO) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Dentist",
+      "name": "Fora Diş Polikliniği",
+      "image": "https://github.com/yanalake/bilinmiyor/blob/main/fora%20logo.png?raw=true",
+      "telephone": "+905469713561",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "HacıHalil Mah. Cumhuriyet Cad. No:14A",
+        "addressLocality": "Gebze",
+        "addressRegion": "Kocaeli",
+        "postalCode": "41400",
+        "addressCountry": "TR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 40.8000574,
+        "longitude": 29.4319409
+      },
+      "openingHoursSpecification": [
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "09:00", "closes": "19:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "15:00" }
+      ],
+      "url": "https://www.foradis.com.tr/"
     }
-    #quote-content {
-      opacity: 0;
-      transition: opacity 1.2s ease-in-out;
-    }
-    #quote-content.visible { opacity: 1; }
-
-    .q-text {
-      font-family: var(--font-display);
-      font-size: clamp(1.1rem, 2.2vw, 1.5rem);
-      font-weight: 700;
-      font-style: italic;
-      color: var(--accent);
-      text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.9);
-      margin-bottom: 18px;
-      line-height: 1.4;
-    }
-    .q-info {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      font-family: var(--font-mono);
-    }
-    .q-meta {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #fff;
-      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.9);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
-    .q-director {
-      font-size: 0.92rem;
-      color: var(--ink-dim);
-    }
-    .q-extra {
-      margin: 12px auto 0;
-      font-size: 0.88rem;
-      color: var(--ink-faint);
-      max-width: 600px;
-      border-top: 1px solid var(--accent-dim);
-      padding-top: 12px;
-      line-height: 1.6;
-    }
-
-    /* Hikâye container */
-    .story-container {
-      max-width: 900px;
-      margin: 0 auto 60px;
-      background: rgba(15, 15, 20, 0.7);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      padding: 50px 60px;
-      border-radius: 15px;
-      border-left: 4px solid var(--accent);
-      box-shadow: var(--shadow-deep);
-      animation: zm-slide-up 1.2s var(--ease) both;
-      animation-delay: 0.2s;
-    }
-    .story-title {
-      font-family: var(--font-display);
-      font-size: clamp(1.6rem, 4vw, 2.2rem);
-      color: var(--accent);
-      text-align: center;
-      letter-spacing: 3px;
-      margin-bottom: 40px;
-      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
-    }
-    .story-content p {
-      font-size: clamp(1rem, 1.4vw, 1.1rem);
-      line-height: 1.85;
-      color: var(--ink-soft);
-      margin-bottom: 26px;
-      text-align: justify;
-      hyphens: auto;
-    }
-    .story-content p:first-child::first-letter {
-      font-family: var(--font-display);
-      font-size: 3.2rem;
-      font-weight: 900;
-      color: var(--accent);
-      float: left;
-      line-height: 1;
-      padding: 4px 12px 0 0;
-    }
-    .story-footer {
-      margin-top: 50px;
-      text-align: center;
-      border-top: 1px dashed var(--accent-dim);
-      padding-top: 30px;
-    }
-    .story-signature {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      font-weight: 900;
-      color: var(--accent);
-      letter-spacing: 6px;
-    }
-    .story-dedication {
-      font-size: 0.92rem;
-      color: var(--ink-faint);
-      margin-top: 14px;
-      font-style: italic;
-      letter-spacing: 1px;
-    }
-
-    @media (max-width: 768px) {
-      .story-container { padding: 30px 22px; margin: 20px 0 40px; }
-      .story-content p:first-child::first-letter { font-size: 2.4rem; }
-    }
-
-    /* Son yazılar bölümü */
-    .son-yazilar {
-      max-width: 900px;
-      margin: 0 auto 40px;
-      padding: 0 8px;
-      animation: zm-slide-up 1s var(--ease) both;
-      animation-delay: 0.5s;
-    }
-    .son-yazilar-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 24px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid var(--border-faint);
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    .son-yazilar-title {
-      font-family: var(--font-display);
-      font-size: 1.4rem;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--accent);
-      font-weight: 900;
-    }
-    .son-yazilar-link {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--ink-dim);
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: all 0.3s;
-    }
-    .son-yazilar-link:hover {
-      color: var(--accent);
-      border-bottom-color: var(--accent);
-    }
-    .son-yazilar-link::after { content: ' →'; }
-
-    .son-yazilar-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 18px;
-    }
-    .son-yazi-kart {
-      background: rgba(15, 15, 20, 0.5);
-      border: 1px solid var(--border-faint);
-      border-radius: var(--radius-sm);
-      padding: 20px 22px;
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      transition: all 0.3s var(--ease);
-    }
-    .son-yazi-kart:hover {
-      transform: translateY(-4px);
-      border-color: var(--accent-dim);
-      background: rgba(20, 20, 28, 0.7);
-    }
-    .son-yazi-kart .tarih {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
-    .son-yazi-kart h3 {
-      font-family: var(--font-display);
-      font-size: 1.05rem;
-      line-height: 1.3;
-      letter-spacing: 0.5px;
-      color: var(--ink);
-      font-weight: 700;
-    }
-    .son-yazi-kart p {
-      font-size: 0.88rem;
-      line-height: 1.55;
-      color: var(--ink-dim);
-    }
-  </style>
+    </script>
 </head>
 <body>
 
-  <a href="#main" class="skip-link">İçeriğe atla</a>
-
-  <main id="main">
-
-    <section id="quote-container" aria-label="Sinema replikleri" aria-live="polite">
-      <div id="quote-content"></div>
+    <main>
+    <!-- Hero: header kaldırıldı, logo sayfaya kesintisiz gömülü -->
+    <section class="hero">
+        <div class="hero-content">
+            <img class="hero-logo" src="https://github.com/yanalake/bilinmiyor/blob/main/fora%20logo.png?raw=true" alt="Fora Diş Polikliniği Logosu" fetchpriority="high">
+            <span class="eyebrow">Gebze · Fora Diş Kliniği</span>
+            <h1>Gebze'de Güvenilir <br><span>Diş Sağlığı.</span></h1>
+            <p>Fora Diş Kliniği olarak; Hacıhalil Mahallesi'ndeki kliniğimizde, en son dijital diş hekimliği teknolojilerini konforlu ve samimi bir ortamla buluşturuyoruz. Acısız anestezi yöntemlerimiz ve dijital ölçü altyapımızla, hem sizin hem de sevdiklerinizin ağız ve diş sağlığını güvenle emanet edebileceğiniz modern bir deneyim sunuyoruz.</p>
+            <a href="https://wa.me/905469713561" class="btn-primary" target="_blank" rel="noopener">Randevu Oluşturun</a>
+        </div>
     </section>
 
-    <article class="story-container">
-      <h1 class="story-title">HER ŞEY BAŞLARKEN42</h1>
-      <div class="story-content">
-        <p>Dünyalı dostların değersiz hissettiği, son büyük cumartesiden bir sonraki günün enfes hikayesini sizlerle paylaşacağım. Sokak satıcılarının çıkmaz sokaklarda garip bir şekilde kayboluşunun ve ses kirliliğinden görünür olma özelliğini yitirmiş bir şehrin iyiden iyiye yok oluşunun hikayesi. Hani hep orada olan ama kimsenin sapmadığı garip yollar vardır, bizlerin yaşamları kimsenin gönlüyle girmek istemeyeceği birbirinden çok uzak sokaklarda başladı..</p>
+    <!-- Hasta Yolculuğu -->
+    <section class="section" aria-labelledby="deneyim-baslik">
+        <div class="section-header">
+            <span class="eyebrow">Deneyim</span>
+            <h2 id="deneyim-baslik">Kliniğe Adım Attığınız Andan İtibaren</h2>
+            <p>Randevunuzun her aşaması, teknoloji ve konforun iç içe geçtiği bir sırayla kurgulandı — karşılamadan tedaviye kadar.</p>
+        </div>
 
-        <p>Bizim büyük pazar günümüz, yıllar sonra hepimizin yine gitmek istemediği bir sokakta başladı. Birbimizi bulmamız yıllar sürmüştü en kısa yolculuğu yapan kişi bile 20 yıl önce başlamıştı maceraya ve bugüne ulaşması öyle sanıldığı gibi kolay olmamıştı. En aydınlık hikayeler en karanlık noktalarda başlayanlardır diyor şair. Bizim aydınlık hikayemiz kendi zifiriliğimizden başlayacak.</p>
+        <!-- 01 — Karşılama -->
+        <div class="feature-block">
+            <div class="feature-image framed">
+                <img src="https://github.com/yanalake/bilinmiyor/blob/main/klinik/genel.png?raw=true" alt="Fora Diş Polikliniği konforlu bekleme alanı" loading="lazy">
+            </div>
+            <div class="feature-text">
+                <span class="eyebrow">Aşama 01 — Karşılama</span>
+                <h3><i class="fas fa-couch" aria-hidden="true"></i> Lüks ve Konfor</h3>
+                <p>Klasik kliniklerin gergin atmosferini tamamen sildik. Ferah iç mimarimiz ve lobimizdeki şık detaylarla sizi bir otel konforunda ağırlıyoruz.</p>
+                <p>Sakinleştirici ambiyans eşliğinde randevunuzu beklerken dinlenebilir, tedavi öncesi zihinsel olarak rahatlayabilirsiniz.</p>
+            </div>
+        </div>
 
-        <p>Bu satırlardan sonra yazılacak olan şeyler bizleri yıllar içinde bu noktaya taşıyan binlerce dalganın tutarlı veya tutarsız sonuçlarıdır. Belki evet bütün hikayemiz toplamda incecik bir kitabın içerisine sığabilir. Yarın bütün bu hareketlilik son bulabilir, bir kaçımız ölebilir ama en azından tarihe ufak notlar düşmek adına en azından bir kağıt parçasıyla bir köşede sessizce yaşamak umuduyla ölümün kendisine karşı başlattığımız bir eylemdir bu çalışma.</p>
+        <!-- 02 — Tasarım -->
+        <div class="feature-block reverse">
+            <div class="feature-image framed">
+                <img src="https://github.com/yanalake/bilinmiyor/blob/main/klinik/gulus.png?raw=true" alt="Gülüş tasarımı için fotoğraf stüdyosu" loading="lazy">
+            </div>
+            <div class="feature-text">
+                <span class="eyebrow">Aşama 02 — Tasarım</span>
+                <h3><i class="fas fa-camera" aria-hidden="true"></i> Fotoğraf Stüdyosu ile Gülüş Tasarımı</h3>
+                <p>Gülüşünüz, size ait en benzersiz imzadır. Kliniğimiz bünyesinde yer alan özel donanımlı fotoğraf stüdyomuzda, tedavi öncesi yüksek çözünürlüklü kayıtlarınızı alıyoruz.</p>
+                <p>Alınan görsel veriler dijital ortama aktarılarak yüz hatlarınıza, ten renginize ve dudak yapınıza en uyumlu estetik gülüş formu bilgisayar üzerinde titizlikle planlanır. Tedavi sürecine başlamadan önce, yeni gülüşünüzün yüzünüzde nasıl duracağını net bir şekilde görebilmenizi sağlıyoruz.</p>
+            </div>
+        </div>
 
-        <p>Kelimelerden üretilen bir protesto gösterisi. YukarıBayır'dan hızla aşşağı doğru ilerleyen bir Mennan, çukurlarıyla meşhur ovanın tam ortasında aniden yok olan bir Mehmet ve çaldığı notalarda asılı kalan bir Rutkay'ın hikayesi sürdürülüp gidilecek bu fanzinde. Bir de en az Yakup kadar çağrılmamış nacizane benim sözlerim ilerleyecek kağıtların üzerinde. Yalnız konuşmayı bildiği için konuşanlardan olmamak temennisiyle.</p>
+        <!-- 03 — Ölçü -->
+        <div class="feature-block">
+            <div class="feature-image framed">
+                <img src="https://github.com/yanalake/bilinmiyor/blob/main/klinik/olcu.png?raw=true" alt="Ağız içi 3D dijital tarayıcı ile ölçü alımı" loading="lazy">
+            </div>
+            <div class="feature-text">
+                <span class="eyebrow">Aşama 03 — Ölçü</span>
+                <h3><i class="fas fa-microchip" aria-hidden="true"></i> Dijital Ölçü Teknolojisi</h3>
+                <p>Mide bulantısına neden olan geleneksel ölçü hamurlarına son veriyoruz. Ağız içi 3D tarayıcılarımızla saniyeler içinde dişlerinizin dijital haritasını oluşturuyoruz.</p>
+                <p>Hata payı sıfıra iner; zirkonyum, porselen veya şeffaf plaklarınız laboratuvarda milimetrik hassasiyetle üretilir.</p>
+            </div>
+        </div>
 
-        <p>Bu sizlere ne zaman ulaşacağını kestiremediğimiz yazı, yer kürenin yok oluş çanlarının çaldığı bir tarihte yazılıyor. Büyük bir patlamanın arefesinde. Biliyoruz ki dünyanın düzelme umutları günden güne suya düşüyor. Beraber geçemediğimiz yolların şerefine iyi okumalar ve iyi yolculuklar diliyorum hepinize. Her nereye gidiyorsanız kağıtlar üzerinde veya tabana kuvvet bütün zamanlar içerisinde zamansız kardeşliğimizi başlatıyoruz. Bütün yolcular, devasa makinelerin, betonların içinde ağlayanlar, sessizliği ses edinenlerde bu kardeşliğin bir parçası... O meşhur filmde dendiği gibi ''Günaydın ve olur da görüşemezsek iyi günler, iyi akşamlar ve iyi geceler.''...</p>
-      </div>
-      <footer class="story-footer">
-        <div class="story-signature">E42TT</div>
-        <div class="story-dedication">— TÜM DÜNYA TÜRKÜLERİNE ADANMIŞTIR —</div>
-      </footer>
-    </article>
-
-    <!-- Son yazılar (yazilar.json'dan otomatik çekilir) -->
-    <section class="son-yazilar" aria-label="Son yazılar">
-      <div class="son-yazilar-header">
-        <h2 class="son-yazilar-title">Son Yazılar</h2>
-        <a href="yazilar.html" class="son-yazilar-link">Tümünü gör</a>
-      </div>
-      <div class="son-yazilar-grid" id="sonYazilarGrid">
-        <!-- JS doldurur -->
-      </div>
+        <!-- 04 — Konfor -->
+        <div class="feature-block reverse">
+            <div class="feature-image framed">
+                <img src="https://github.com/yanalake/bilinmiyor/blob/main/klinik/dgi.png?raw=true" alt="Dijital iğne ile acısız anestezi uygulaması" loading="lazy">
+            </div>
+            <div class="feature-text">
+                <span class="eyebrow">Aşama 04 — Konfor</span>
+                <h3><i class="fas fa-magic" aria-hidden="true"></i> Dijital İğne ile Acısız Anestezi</h3>
+                <p>Diş koltuğu korkusunun temel nedeni olan iğne acısını dijital iğne teknolojimizle bitiriyoruz. Bilgisayar destekli sistem, anestezi basıncını otomatik ayarlayarak ağrı hissini engeller.</p>
+                <p>Bu sistem sayesinde <strong>çocuk hastalarımız için stressiz, tamamen çocuk odaklı</strong> bir tedavi süreci sağlıyoruz.</p>
+            </div>
+        </div>
     </section>
 
-  </main>
+    <!-- Hizmetler -->
+    <section class="section section-alt" aria-labelledby="hizmet-baslik">
+        <div class="section-header">
+            <span class="eyebrow">Hizmetler</span>
+            <h2 id="hizmet-baslik">Kapsamlı Poliklinik Hizmetleri</h2>
+            <p>Modern teknolojiyle donatılmış muayenehanelerimizde tüm ağız ve diş sağlığı ihtiyaçlarınıza profesyonel çözümler üretiyoruz.</p>
+        </div>
 
-  <nav class="zm-nav" aria-label="Ana navigasyon">
-    <a href="index.html" class="nav-item">BAŞLANGIÇ</a>
-    <a href="yazilar.html" class="nav-item">YAZILAR</a>
-    <a href="music.html" class="nav-item">FREKANS</a>
-   
-    <a href="makine.html" class="nav-item">MAKİNE</a>
-    <a href="sinema.html" class="nav-item">SİNEMA</a>
-    <a href="video.html" class="nav-item">KAYITLAR</a>
-  </nav>
+        <div class="gallery-grid">
+            <div class="gallery-item framed">
+                <img src="https://github.com/yanalake/bilinmiyor/blob/main/klinik/mhane1.png?raw=true" alt="Cerrahi ve implantoloji muayenehanesi" loading="lazy">
+                <div class="gallery-overlay">
+                    <h4>Cerrahi &amp; İmplantoloji</h4>
+                </div>
+            </div>
+            <div class="gallery-item framed">
+                <img src="https://github.com/yanalake/bilinmiyor/blob/main/klinik/mhane3.png?raw=true" alt="Estetik diş hekimliği muayenehanesi" loading="lazy">
+                <div class="gallery-overlay">
+                    <h4>Estetik Diş Hekimliği</h4>
+                </div>
+            </div>
+            <div class="gallery-item framed">
+                <img src="https://raw.githubusercontent.com/yanalake/bilinmiyor/refs/heads/main/klinik/muayene.png" alt="Ortodonti ve şeffaf plak bekleme alanı" loading="lazy">
+                <div class="gallery-overlay">
+                    <h4>Ortodonti &amp; Şeffaf Plak</h4>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- Replik havuzu + ortak script -->
-  <script src="replikler.js"></script>
-  <script src="script.js"></script>
+    <!-- İletişim ve Harita -->
+    <section class="contact-section" aria-labelledby="iletisim-baslik">
+        <div class="contact-container">
+            <div class="contact-info">
+                <span class="eyebrow" id="iletisim-baslik">İletişim</span>
+                <div class="info-box">
+                    <h4><i class="fas fa-map-marker-alt" aria-hidden="true" style="margin-right:8px;"></i> Adres</h4>
+                    <p>HacıHalil Mah. Cumhuriyet Cad.<br>No:14A Gebze / Kocaeli</p>
+                </div>
+                <div class="info-box">
+                    <h4><i class="fas fa-phone-alt" aria-hidden="true" style="margin-right:8px;"></i> Telefon</h4>
+                    <a href="https://wa.me/905469713561" target="_blank" rel="noopener">0 546 971 35 61</a>
+                </div>
+                <div class="info-box">
+                    <h4><i class="far fa-clock" aria-hidden="true" style="margin-right:8px;"></i> Çalışma Saatleri</h4>
+                    <p>Pazartesi - Cuma: 09:00 - 19:00<br>Cumartesi: 09:00 - 15:00<br>Pazar: Kapalı</p>
+                </div>
+            </div>
 
-  <!-- Son yazıları yükle (en yeni 3) -->
-  <script>
-    (async function () {
-      const grid = document.getElementById('sonYazilarGrid');
-      if (!grid) return;
-      try {
-        const res = await fetch('yazilar.json');
-        const data = await res.json();
-        const yazilar = (data.yazilar || [])
-          .sort((a, b) => b.tarih.localeCompare(a.tarih))
-          .slice(0, 3);
+            <div class="map-box framed">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3016.920556272365!2d29.4319409!3d40.8000574!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cad01584c55555%3A0x1111111111111111!2zSGFjxLFoYWxpbCwgQ3VtaHVyaXlldCBDZC4gTm86MTQsIDQxNDAwIEdlYnplL0tvY2FlbGk!5e0!3m2!1str!2str!4v1"
+                    title="Fora Diş Polikliniği konum haritası"
+                    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+    </main>
 
-        if (yazilar.length === 0) {
-          grid.innerHTML = '<p style="color: var(--ink-faint); font-style: italic; padding: 20px 0;">Henüz yazı yok. Yakında.</p>';
-          return;
-        }
+    <div class="floating-stack">
+        <a href="https://www.instagram.com/fora.dis.klinigi?igsh=MWgyNzFyc2M3cHBuNg==" class="floating-btn floating-ig" target="_blank" rel="noopener" aria-label="Instagram sayfamız">
+            <i class="fab fa-instagram" aria-hidden="true"></i>
+        </a>
+        <a href="https://wa.me/905469713561" class="floating-btn floating-wa" target="_blank" rel="noopener" aria-label="WhatsApp İletişim">
+            <i class="fab fa-whatsapp" aria-hidden="true"></i>
+        </a>
+    </div>
 
-        const aylar = ['Oca','Şub','Mar','Nis','May','Haz','Tem','Ağu','Eyl','Eki','Kas','Ara'];
-        grid.innerHTML = yazilar.map(y => {
-          const [yil, ay, gun] = y.tarih.split('-');
-          const tarih = `${parseInt(gun, 10)} ${aylar[parseInt(ay, 10) - 1]} ${yil}`;
-          return `
-            <a href="yazi.html?slug=${y.slug}" class="son-yazi-kart">
-              <span class="tarih">${tarih}</span>
-              <h3>${y.baslik}</h3>
-              <p>${y.ozet}</p>
-            </a>
-          `;
-        }).join('');
-      } catch (e) {
-        grid.innerHTML = '<p style="color: var(--ink-faint); font-style: italic; padding: 20px 0;">Yazılar şu an yüklenemiyor.</p>';
-      }
-    })();
-  </script>
+    <footer>
+        <p>&copy; 2026 Fora Diş Kliniği. Tüm Hakları Saklıdır.</p>
+    </footer>
 
-  <!-- Sayfa-özel: replik rotasyonu -->
-  <script>
-    (function () {
-      const content = document.getElementById('quote-content');
-      const replikler = window.ZM_REPLIKLER || [];
-      if (!replikler.length) return;
-
-      let sonIndis = -1;
-
-      function render(secilen) {
-        let html = `<p class="q-text">${secilen.metin}</p><div class="q-info">`;
-        let baslik = secilen.film || '';
-        if (secilen.yil) baslik += ` (${secilen.yil})`;
-        if (baslik) html += `<span class="q-meta">${baslik}</span>`;
-        if (secilen.yonetmen) html += `<span class="q-director">Yönetmen: ${secilen.yonetmen}</span>`;
-        if (secilen.ekBilgi) html += `<div class="q-extra">${secilen.ekBilgi}</div>`;
-        html += `</div>`;
-        content.innerHTML = html;
-      }
-
-      function next() {
-        let yeniIndis;
-        do {
-          yeniIndis = Math.floor(Math.random() * replikler.length);
-        } while (yeniIndis === sonIndis && replikler.length > 1);
-        sonIndis = yeniIndis;
-
-        content.classList.remove('visible');
-        setTimeout(() => {
-          render(replikler[yeniIndis]);
-          requestAnimationFrame(() => content.classList.add('visible'));
-        }, 700);
-      }
-
-      // İlk replik anında görünsün (boş bekleme yok)
-      render(replikler[Math.floor(Math.random() * replikler.length)]);
-      sonIndis = replikler.indexOf(replikler[0]);
-      requestAnimationFrame(() => content.classList.add('visible'));
-
-      setInterval(next, 9000);
-    })();
-  </script>
 </body>
 </html>
