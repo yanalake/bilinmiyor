@@ -93,7 +93,7 @@ header {
 }
 
 .logo img {
-  height: clamp(56px, 6vw, 92px);
+  height: clamp(112px, 6vw, 184px);
   width: auto;
   object-fit: contain;
   display: block;
