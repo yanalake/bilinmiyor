@@ -105,10 +105,10 @@ button:focus-visible {
 }
 
 .hero-logo {
-  height: clamp(64px, 9vw, 120px);
+  height: clamp(128px, 18vw, 240px);
   width: auto;
   object-fit: contain;
-  margin: 0 auto clamp(28px, 5vh, 48px);
+  margin: 0 auto clamp(48px, 10vh, 96px);
 }
 
 .hero-content h1 {
