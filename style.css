@@ -1,0 +1,179 @@
+:root {
+    --primary: #045c5a; /* Koyu zümrüt/teal - lüks hissi */
+    --primary-light: #0a8f8b;
+    --accent: #d4af37; /* Altın rengi vurgular */
+    --bg-light: #fcfcfc;
+    --bg-alt: #f4f6f6;
+    --text-dark: #111827;
+    --text-muted: #4b5563;
+    --radius: 12px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body { 
+    background-color: var(--bg-light); 
+    color: var(--text-dark); 
+    font-family: 'Montserrat', sans-serif; 
+    line-height: 1.7; 
+    overflow-x: hidden; 
+}
+
+h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; color: var(--text-dark); }
+a { text-decoration: none; }
+
+/* Header - Logo Büyütüldü */
+header { 
+    background: #ffffff;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    position: sticky; top: 0; z-index: 1000; 
+    display: flex; justify-content: space-between; align-items: center; 
+    padding: 15px 8%; box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+}
+
+.logo img { 
+    height: 120px; /* LOGO ÇOK DAHA BÜYÜK */
+    width: auto;
+    max-width: 400px;
+    object-fit: contain; 
+    display: block;
+}
+
+.nav-wa-btn { 
+    background: var(--text-dark); color: #fff; 
+    padding: 14px 32px; border-radius: 6px; font-weight: 500; 
+    letter-spacing: 1px; display: flex; align-items: center; gap: 10px; 
+    transition: all 0.3s ease; text-transform: uppercase; font-size: 0.85rem;
+}
+.nav-wa-btn:hover { background: var(--primary); }
+
+/* Hero Section */
+.hero { 
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: 80vh; background: var(--bg-alt);
+}
+.hero-content { 
+    display: flex; flex-direction: column; justify-content: center; 
+    padding: 8% 12%; 
+}
+.hero-content h1 { 
+    font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 600; 
+    line-height: 1.1; margin-bottom: 25px; 
+}
+.hero-content h1 span { color: var(--primary); font-style: italic; }
+.hero-content p { 
+    font-size: 1.1rem; color: var(--text-muted); 
+    margin-bottom: 40px; font-weight: 300;
+}
+
+/* Görsel Standartlaştırma - Hero */
+.hero-image { 
+    width: 100%; height: 100%; position: relative;
+}
+.hero-image img { 
+    width: 100%; height: 100%; object-fit: cover; object-position: center;
+}
+
+.btn-primary { 
+    background: var(--primary); color: #fff; padding: 18px 40px; 
+    border-radius: 6px; font-weight: 500; font-size: 1rem; 
+    display: inline-flex; align-items: center; gap: 12px; 
+    transition: 0.4s; width: max-content; letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.btn-primary:hover { background: var(--accent); color: var(--text-dark); }
+
+/* Ortak Bölümler */
+.section { padding: 100px 8%; }
+.section-alt { background: var(--bg-alt); }
+.section-header { text-align: center; margin-bottom: 80px; }
+.section-header h2 { font-size: 3.5rem; margin-bottom: 20px; }
+.section-header p { font-size: 1.1rem; color: var(--text-muted); max-width: 700px; margin: 0 auto; }
+
+/* Kusursuz Orantılı İçerik Blokları */
+.feature-block { 
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-bottom: 120px;
+}
+.feature-block:last-child { margin-bottom: 0; }
+.feature-block.reverse { direction: rtl; }
+.feature-block.reverse > * { direction: ltr; } /* Metni düzelt */
+
+/* GÖRSEL ORANTILARI SABİTLENDİ (CONTINUITY) */
+.feature-image { 
+    width: 100%; 
+    aspect-ratio: 4 / 3; /* Tüm görseller aynı en-boy oranında kırpılacak */
+    border-radius: var(--radius); 
+    overflow: hidden; 
+    box-shadow: 0 20px 40px rgba(0,0,0,0.06); 
+    position: relative;
+}
+.feature-image img { 
+    width: 100%; height: 100%; 
+    object-fit: cover; /* Sünmeyi engeller */
+    transition: transform 0.7s ease; 
+}
+.feature-image:hover img { transform: scale(1.05); }
+
+.feature-text h3 { font-size: 2.5rem; margin-bottom: 25px; display: flex; align-items: center; gap: 15px; }
+.feature-text h3 i { color: var(--accent); font-size: 2rem; }
+.feature-text p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 20px; font-weight: 300; line-height: 1.8; }
+
+/* Galeri Grid (Tam Kare Oranlar) */
+.gallery-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;
+}
+.gallery-item {
+    aspect-ratio: 1 / 1; /* Tam kare orantı */
+    border-radius: var(--radius); overflow: hidden; position: relative; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+}
+.gallery-item img {
+    width: 100%; height: 100%; object-fit: cover; transition: 0.7s;
+}
+.gallery-item:hover img { transform: scale(1.08); }
+.gallery-overlay {
+    position: absolute; inset: 0; background: linear-gradient(to top, rgba(4, 92, 90, 0.9), transparent);
+    display: flex; align-items: flex-end; padding: 40px; opacity: 0; transition: 0.4s;
+}
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+.gallery-overlay h4 { color: #fff; font-size: 1.8rem; font-family: 'Cormorant Garamond', serif; }
+
+/* İletişim ve Harita Bölümü */
+.contact-section { background: var(--text-dark); color: #fff; padding: 100px 8%; }
+.contact-container {
+    display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; max-width: 1400px; margin: 0 auto;
+}
+.contact-info { display: flex; flex-direction: column; gap: 40px; }
+.info-box h4 { font-family: 'Montserrat', sans-serif; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: 10px; }
+.info-box p { font-size: 1.1rem; color: #d1d5db; line-height: 1.6; }
+.info-box a { color: #fff; font-size: 1.4rem; font-weight: 500; }
+.info-box a:hover { color: var(--accent); }
+
+/* Harita Orantısı */
+.map-box { 
+    width: 100%; height: 100%; min-height: 400px; border-radius: var(--radius); overflow: hidden; 
+}
+.map-box iframe { width: 100%; height: 100%; border: none; filter: grayscale(20%) contrast(1.1); }
+
+/* WhatsApp */
+.floating-wa { 
+    position: fixed; bottom: 40px; right: 40px; background: #25D366; color: #fff; 
+    width: 70px; height: 70px; border-radius: 50%; display: flex; justify-content: center; align-items: center; 
+    font-size: 35px; box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4); z-index: 1000; transition: 0.3s; 
+}
+.floating-wa:hover { transform: scale(1.1); }
+
+footer { text-align: center; padding: 30px; background: #000; color: #6b7280; font-size: 0.9rem; }
+
+/* Mobil Uyum */
+@media(max-width: 1024px) {
+    .hero { grid-template-columns: 1fr; text-align: center; }
+    .hero-content { padding: 60px 5%; align-items: center; }
+    .hero-image { height: 50vh; }
+    .feature-block, .feature-block.reverse { grid-template-columns: 1fr; gap: 40px; margin-bottom: 80px; }
+    .feature-image { aspect-ratio: 16 / 9; }
+    .contact-container { grid-template-columns: 1fr; }
+    .map-box { min-height: 350px; }
+    header { flex-direction: column; gap: 20px; padding: 20px 5%; }
+    .logo img { height: 100px; } /* Mobilde taşıp bozmaması için sınır */
+}
